@@ -14,10 +14,11 @@ P1:
 	leaq 0(,%rax,4), %rdx
 	movq -24(%rbp), %rax
 	addq %rdx, %rax
-	movl $4, (%rax)
+	movl $1, (%rax)
 	addl $1, -4(%rbp)
 .L2:
-	cmpl $9, -4(%rbp) 
+	movl n(%rip), %eax
+	cmpl %eax, -4(%rbp) 
 	jle .L3
 	popq %rbp
 	ret

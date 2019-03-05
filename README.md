@@ -5,3 +5,5 @@ Perpetual Litmus tests
 Example: gcc -S test.c
 - Linking assembly and C to build executable:
 Example: gcc -o test test.c testAssembly.s 
+- When running with OpenMP library:
+gcc -o harness -pthread -fopenmp harnessNoAssembly.c 

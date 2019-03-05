@@ -6,8 +6,20 @@
 
 // Must compile with -lpthread
 // Will generate warnings
-extern void P1(int * address);
-extern void P2(int * address);
+void P1(int * address){
+	printf( "Hello world from thread %d of %d running on cpu %2d!\n",
+            omp_get_thread_num()+1,
+            omp_get_num_threads(),
+            sched_getcpu());
+	return;
+}
+void P2(int * address){
+	printf( "Hello world from thread %d of %d running on cpu %2d!\n",
+            omp_get_thread_num()+1,
+            omp_get_num_threads(),
+            sched_getcpu());
+	return;
+}
 int n=0;
 
 /*
@@ -41,6 +53,7 @@ int main(int argc,char *argv[]) {
     	for(i=0;i<n;i++){
 		printf("x: %d, y: %d\n", x[i],y[i]);
     	}
+	
 	free(x);
 	free(y);
     }

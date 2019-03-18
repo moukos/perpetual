@@ -1,5 +1,7 @@
 	.text
 	.globl P1
+	.globl x
+	.globl y
 	.type P1, @function
 
 P1:
@@ -14,7 +16,14 @@ P1:
 	leaq 0(,%rax,4), %rdx
 	movq -24(%rbp), %rax
 	addq %rdx, %rax
-	movl $1, (%rax)
+	# LB Thread 1
+	movl y, %ebx
+	#movl y(%rip), %ebx 
+	movl -4(%rbp), %ecx	
+#	movl %ecx, x(%rip) 
+	movl %ecx, x
+	movl %ebx, (%rax)
+	#movl %ecx, (%rax)
 	addl $1, -4(%rbp)
 .L2:
 	movl n(%rip), %eax

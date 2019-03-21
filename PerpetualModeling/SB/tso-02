@@ -1,0 +1,74 @@
+Test SB Allowed
+States 64
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=0; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=0; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=0; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=0; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=0; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=0; a=3; b=3; w=2; x=1; y=1; z=2;
+0:EAX=1; 0:EBX=2; 0:ECX=3; 1:EAX=1; 1:EBX=2; 1:ECX=3; a=3; b=3; w=2; x=1; y=1; z=2;
+Ok
+Witnesses
+Positive: 37 Negative: 27
+Condition exists (0:EAX=0 /\ 1:EAX=0 \/ 0:EBX=0 /\ 1:EBX=0 \/ 0:ECX=0 /\ 1:ECX=0)
+Observation SB Sometimes 37 27
+Time SB 0.13
+Hash=f78a2f98c8234ce0affed6bf193e4140
+

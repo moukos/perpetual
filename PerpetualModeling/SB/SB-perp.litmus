@@ -1,0 +1,13 @@
+X86 SB
+"Fre PodWR Fre PodWR"
+{ x=0; y=0; z=0; w=0; a=0; b=0; }
+ P0          | P1          ;
+ MOV [x],$1  | MOV [y],$1  ;
+ MOV EAX,[y] | MOV EAX,[x] ;
+ MOV [z],$2  | MOV [w],$2  ;
+ MOV EBX,[w] | MOV EBX,[z] ;
+ MOV [a],$3  | MOV [b],$3  ;
+ MOV ECX,[b] | MOV ECX,[a] ;
+
+locations [x;y;z;w;a;b]
+exists ((0:EAX=0 /\ 1:EAX=0) \/  (0:EBX=0 /\ 1:EBX=0) \/ (0:ECX=0 /\ 1:ECX=0))

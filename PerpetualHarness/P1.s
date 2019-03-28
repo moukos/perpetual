@@ -9,11 +9,10 @@ P1:
 	movq %rsp, %rbp
 	movq %rdi, -24(%rbp)
 	movl $0, -4(%rbp)
-	movq -24(%rbp), %rax # struct pointer
 #	movq 24(%rax), %rbx #number of iterations
-	movq $7, (%rax)
-	movq $9, 8(%rax)
-	movq $0, -4(%rbp)
+#	movq $7, (%rax)
+#	movq $9, 8(%rax)
+	movq $1, %r13
 #	movq 16(%rax), %rax # pointer to array
 #	movq $12, %rcx
 #	addq %rcx, %rax
@@ -21,23 +20,32 @@ P1:
 # 	movq $5, %rbx	
 	jmp .L2
 .L3:
+
+	# LB Thread 1
+	#movl -8(%rbp), %ecx	
+	#movslq %ecx, %rcx
 	movq -24(%rbp), %rax
+	movq %r13, (%rax)  #write x
+	movq 8(%rax), %rcx # read y
+	#movq -24(%rbp), %rax
+	# Manage writing into memory
+
 	movq 16(%rax), %rax
 	movl -4(%rbp), %edx
-	movslq %edx, %rdx
+	movslq %edx, %rdx 
 	salq $2, %rdx
 	addq %rdx, %rax
-	movl $13, (%rax)
+	#movq -8(%rbp), %rcx
+	movq %rcx, (%rax)
 
-/*	# LB Thread 1
-	movl y, %ebx
+	#movl y, %ebx
 	#movl y(%rip), %ebx 
-	movl -4(%rbp), %ecx	
+	#movl -4(%rbp), %ecx	
 #	movl %ecx, x(%rip) 
-	movl %ecx, x
-	movl %ebx, (%rax)
+	#movl %ecx, x
+	#movl %ebx, (%rax)
 	#movl %ecx, (%rax)
-*/
+	inc %r13
 	addl $1, -4(%rbp)
 .L2:
 	movq -24(%rbp), %rax

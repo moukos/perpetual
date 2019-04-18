@@ -1,0 +1,8 @@
+X86 mp-iwp2.1-amd1
+{
+}
+ P0          | P1          ;
+ MOV [x],$1  | MOV EAX,[y] ;
+ MOV [y],$1  | MOV EBX,[x] ;
+exists
+(1:EAX=1 /\ 1:EBX=0)

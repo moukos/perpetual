@@ -9,187 +9,187 @@ X86 SB
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;
 
  ADD ECX,EAX | ADD ECX,EAX ;
- SAL ECX,EDX | SAL ECX,EDX ;
+ SL  ECX,EDX | SL  ECX,EDX ;
 
  MOV [x],$1  | MOV [y],$1  ;
  MOV EAX,[y] | MOV EAX,[x] ;

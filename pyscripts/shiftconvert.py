@@ -126,7 +126,7 @@ for i in range(no_iters):
     
         # Shift counter left
         if (i != SIZEOFINT-1):
-            output_file.write(" SAL " + unused_regs[0][j] + "," + unused_regs[0][max_regs_used_by_thread] + " | SAL " + unused_regs[1][j] + "," + unused_regs[1][max_regs_used_by_thread] + " ;")
+            output_file.write(" SL  " + unused_regs[0][j] + "," + unused_regs[0][max_regs_used_by_thread] + " | SL  " + unused_regs[1][j] + "," + unused_regs[1][max_regs_used_by_thread] + " ;")
     output_file.write("\n\n")
 
 # Close file

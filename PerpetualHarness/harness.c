@@ -13,7 +13,7 @@ typedef struct {
 } args;
 
 
-// Must compile with -lpthread
+// Must compile with -lpthread and -fopenmp
 // Will generate warnings
 extern void P1(args * address);
 extern void P2(args * address);
@@ -78,8 +78,8 @@ int main(int argc,char *argv[]) {
     	pthread_t thread1;
     	pthread_t thread2;
 	printf("Global vars x: %d, y: %d, x:%d, y: %d ptr1 %d ptr2\n",arg_t1.x,arg_t1.y,arg_t2.x,arg_t2.y,ptr1,ptr2);
-    	pthread_create(&thread1, NULL, P1, &arg_t1);
-    	pthread_create(&thread2, NULL, P2, &arg_t2);
+    	pthread_create(&thread1, NULL, &P1, &arg_t1);
+    	pthread_create(&thread2, NULL, &P2, &arg_t2);
     	pthread_join(thread1, NULL);
     	pthread_join(thread2, NULL);
    	for(i=0;i<n;i++){

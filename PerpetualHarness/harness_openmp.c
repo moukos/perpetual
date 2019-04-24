@@ -21,7 +21,7 @@ extern void P2(void * address);
 int n=0;
 
 void* P1_wrap(void * address) {
-  printf("launched P1_wrap\n");
+//  printf("launched P1_wrap\n");
   fflush(stdout);
   #pragma omp barrier
   P1(address);
@@ -29,7 +29,7 @@ void* P1_wrap(void * address) {
 }
 
 void* P2_wrap(void * address) {
-  printf("launched P2_wrap\n");
+//  printf("launched P2_wrap\n");
   fflush(stdout);
   #pragma omp barrier
   P2(address);
@@ -66,7 +66,7 @@ int main(int argc,char *argv[]) {
     void* spacing2 = malloc(40000);
     arg_t2.buf = (volatile int*) calloc(n, sizeof(volatile int));
 
-    printf("Global vars\nThread1\t x: %d, y: %d\nThread2\t x: %d, y: %d\n\n",*arg_t1.x,*arg_t1.y,*arg_t2.x,*arg_t2.y);
+ //   printf("Global vars\nThread1\t x: %d, y: %d\nThread2\t x: %d, y: %d\n\n",*arg_t1.x,*arg_t1.y,*arg_t2.x,*arg_t2.y);
 
     omp_set_num_threads(2);
     #pragma omp parallel

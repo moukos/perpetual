@@ -1,0 +1,14 @@
+Iteration 0 	 Th1: 0 Th2: 10
+Iteration 1 	 Th1: 0 Th2: 10
+Iteration 2 	 Th1: 0 Th2: 10
+Iteration 3 	 Th1: 0 Th2: 10
+Iteration 4 	 Th1: 0 Th2: 10
+Iteration 5 	 Th1: 0 Th2: 10
+Iteration 6 	 Th1: 0 Th2: 10
+Iteration 7 	 Th1: 0 Th2: 10
+Iteration 8 	 Th1: 0 Th2: 10
+Iteration 9 	 Th1: 0 Th2: 10
+
+Global vars
+Thread1	 x: 10, y: 10
+Thread2	 x: 10, y: 10

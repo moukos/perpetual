@@ -1,5 +1,5 @@
 import sys
-import pysnooper
+#import pysnooper
 
 def checkReorderings(dict1, dict2):
     interleavingsCnt = 0

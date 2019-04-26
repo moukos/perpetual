@@ -18,7 +18,7 @@ def main():
         num_reps = int(reps)
         dictT1 = dict({})	
         dictT2 = dict({})
-        for i in range(1,num_reps):
+        for i in range(num_reps):
 	    line = f.readline()
             array = line.split(" ")
 	    clean = array[6].split("\n")

@@ -80,7 +80,7 @@ int main(int argc,char *argv[]) {
       printf("Iteration %d \t Th1: %d Th2: %d\n", i, arg_t1.buf[i], arg_t2.buf[i]);
       fflush(stdout);
     }
-    printf("\nGlobal vars\nThread1\t x: %d, y: %d\nThread2\t x: %d, y: %d\n",*arg_t1.x,*arg_t1.y,*arg_t2.x,*arg_t2.y);
+   // printf("\nGlobal vars\nThread1\t x: %d, y: %d\nThread2\t x: %d, y: %d\n",*arg_t1.x,*arg_t1.y,*arg_t2.x,*arg_t2.y);
   
     //free((void *)arg_t1.buf);
     //free((void *)arg_t2.buf);

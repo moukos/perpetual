@@ -2,12 +2,17 @@ import sys
 #import pysnooper
 
 def checkReorderings(dict1, dict2):
-    interleavingsCnt = 0
+    SBinterleavingsCnt = 0
+    LBinterleavingsCnt = 0
     for key, value in dict1.items():
-        if (dict2.get(value) == key):
-            interleavingsCnt += 1
-            print(key,value)
-    return interleavingsCnt
+	# SB check
+        if (dict2.get(value + 1) == key - 1):
+            SBinterleavingsCnt += 1
+            #print(key - 1, value)
+	if (dict2.get(value - 1) == key + 1):
+	    LBinterleavingsCnt += 1
+	    #print(key + 1, value)
+    return SBinterleavingsCnt,LBinterleavingsCnt
 
 #@pysnooper.snoop()
 def main():
@@ -27,8 +32,8 @@ def main():
 	    t2Val = int(clean[0])
 	    dictT1[i] = t1Val
             dictT2[i] = t2Val
-    weakOutcomeCnt = checkReorderings(dictT1, dictT2)
-    print(weakOutcomeCnt)
+    SBOutcomeCnt, LBOutcomeCnt = checkReorderings(dictT1, dictT2)
+    print(SBOutcomeCnt, LBOutcomeCnt)
 
 if __name__ == "__main__":
     main()

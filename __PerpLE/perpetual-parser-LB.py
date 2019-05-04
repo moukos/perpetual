@@ -23,10 +23,10 @@ def main():
         for i in range(num_reps):
 	    line = f.readline()
             array = line.split(" ")
-	    clean = array[5].split("\n")
+#	    clean = array[5].split("\n")
             linecounter = int(array[0])
-	    t1Val = int(array[3])
-	    t2Val = int(clean[0])
+	    t1Val = int(array[2])
+	    t2Val = int(array[4])
 	    dictT1[i] = t1Val
             dictT2[i] = t2Val
     SBOutcomeCnt, LBOutcomeCnt = checkReorderings(dictT1, dictT2)

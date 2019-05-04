@@ -110,6 +110,35 @@ def makeOutro(no_writevals):
     return retstr
 
 
+
+def makePostcondition(testname, no_thrs, conds):
+    retstr = ("def countCycles(t0b1, t0b2, t1b1, t1b2, t2b1, t2b2, t3b1, t3b2):\n"
+              "\tcycCnt = 0\n")
+
+    ### NOT GENERAL!!!
+    ### ONLY COVERS LB, SB, MP FOR NOW
+    ### SHOULD DETERMINE CONDITION BASED ON conds
+    if(testname == "SB"):
+        retstr += ("\tfor k,v in t0b1.items():\n"
+                   "\t\tif(t1b1.get(v + 1) == k - 1):\n"
+                   "\t\t\tcycCnt += 1\n")
+    elif(testname == "LB"):
+        retstr += ("\tfor k,v in t0b1.items():\n"
+                   "\t\tif(t1b1.get(v - 1) == k + 1):\n"
+                   "\t\t\tcycCnt += 1\n")
+    elif(testname == "MP"):
+        retstr += ("\tfor k,v in t1b1.items():\n"
+                   "\t\tif(t1b2.get(k) < v):\n"
+                   "\t\t\tcycCnt += 1\n")
+    else:
+        print("POSTCONDITION CONVERSION FAILED\n")
+    ###
+    ###
+
+    retstr += "\treturn cycCnt\n"
+    return retstr
+               
+
 def main():
     filename = sys.argv[1]
     testname = filename.split(".")[0]
@@ -161,9 +190,35 @@ def main():
             
         
         # Postcondition
-        out = open(str(testname) + "_postcondition.txt", "w")
-        out.write(fstr[3:])
+
+        fstr = fstr[fstr.index('#') + 1:]
+        conds = {}
+        
+        # For each expected thread..
+        for i in range(no_thrs):
+            # Extract it
+            th_start = fstr.index('~')
+            th_end = fstr[th_start + 1:].index('~') + th_start
+            thstr = fstr[th_start:th_end].splitlines()
+            thstr = thstr[1:] # skip line with tilde
+            fstr = fstr[th_end:]
+
+            # Do we not care about this thread?
+            if (thstr[0] == "none"):
+                continue
+
+            # We do, so let's store it
+            for j in range(len(thstr)):
+                thln = thstr[j].split()
+                conds[str(i) + "_" + thln[0]] = thln[2]
+
+        # Call function
+        out = open(str(testname) + "_cond.py", "w")
+        out.write(makePostcondition(testname, no_thrs, conds))
         out.close()
+        print("\n" + str(testname) + "_cond.py created successfully!")
+           
+        
             
     print("\n" + testname + " conversion complete\n")    
 

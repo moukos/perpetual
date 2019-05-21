@@ -86,5 +86,18 @@ research/Consistency/musli/master/tests/"
                 litmus_strings[j] += "write(" + locs[j][i] + ")\n"
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])
+    litmusSummary = open(str(litmusTestName) + ".musli", "w")
+    summaryStr = ""
+    for i in range (number_of_threads): 
+        summaryStr += "Thread " + str(i) + '\t'
+    summaryStr += '\n'
+    for j in range (number_of_threads):
+        for i in range (number_of_threads):
+            if(ops[i][j] == "read"):
+                summaryStr += "read(" + locs[i][j] + ")\t"
+            elif(ops[i][j] == "write"):
+                summaryStr += "write(" + locs[i][j] + ")\t"
+        summaryStr += "\n"
+    litmusSummary.write(summaryStr)
 if __name__ == '__main__':
     main()

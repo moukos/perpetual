@@ -1,10 +1,13 @@
 import sys
+import os
 import numpy as np
 import pysnooper
 
 @pysnooper.snoop()
 def main():
     f = open(sys.argv[1], "r")
+    temp = sys.argv[1].split('.')
+    litmusTestName = temp[0]
     # Extract the initialization information (line in curly brackets) into init
     string = f.read()
     init_start = string.index('{')
@@ -48,7 +51,7 @@ def main():
             for v in variables:
                 print(instrs[j][i])
                 if v in instrs[j][i]:
-                    locs[j][i] = variables.index(v)
+                    locs[j][i] = v #variables.index(v)
 
 # Classify operations. Supported: reads, writes, fences. 
 # ops has the same structure as instrs.
@@ -63,5 +66,25 @@ def main():
             else:
                 ops[j][i] = "read"
 
+    path = "/Users/themis/Documents/Princeton/\
+research/Consistency/musli/master/tests/"
+    access_rights = 0o755
+    pathname = path + litmusTestName
+    try:
+        os.mkdir(pathname, access_rights)
+        os.chdir(pathname)
+    except OSError:
+        print ("Creation of the directory %s failed" %pathname)
+    litmus_strings = [""]*number_of_threads
+    outputs = [None] * number_of_threads
+    for j in range (number_of_threads):
+        outputs[j] = open("client" + str(j) + ".litmus", "w")
+        for i in range (0,len(ops[j])):
+            if(ops[j][i] == "read"):
+                litmus_strings[j] += "read(" + locs[j][i] + ")\n"
+            elif(ops[j][i] == "write"):
+                litmus_strings[j] += "write(" + locs[j][i] + ")\n"
+    for j in range (number_of_threads):
+        outputs[j].write(litmus_strings[j])
 if __name__ == '__main__':
     main()

@@ -3,6 +3,8 @@ import os
 import numpy as np
 import pysnooper
 
+#TODO: abstract paths
+
 @pysnooper.snoop()
 def main():
     f = open(sys.argv[1], "r")
@@ -95,8 +97,10 @@ research/Consistency/musli/scripts/Converter/Cassandra.API"
         extract = line.split(':')
         if(extract[0] == "read"):
             readConversion = extract[1]
+            readConversion = readConversion.replace("\n", "")
         elif(extract[0] == "write"):
             writeConversion = extract[1]
+            writeConversion = writeConversion.replace("\n", "")
         line = APIfile.readline()
     for i in range (number_of_threads):
         for j in range (number_of_threads):
@@ -111,13 +115,16 @@ research/Consistency/musli/scripts/Converter/Cassandra.API"
 
     for j in range (number_of_threads):
         outputs[j] = open("client" + str(j) + ".litmus", "w")
+        litmus_strings[j] += str(j) + "\n"
         for i in range (0,len(ops[j])):
             if(ops[j][i] == "read"):
                 #litmus_strings[j] += "read(" + locs[j][i] + ")\n"
-                litmus_strings[j] += mods[j][i]
+                litmus_strings[j] += mods[j][i] + \
+                        "\t" + str(i) + "\t20\t" + str(j) + "\n"
             elif(ops[j][i] == "write"):
                 #litmus_strings[j] += "write(" + locs[j][i] + ")\n"
-                litmus_strings[j] += mods[j][i]
+                litmus_strings[j] += mods[j][i] + \
+                        "\t" + str(i) + "\t20\t" + str(j) + "\n"
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])
     litmusSummary = open(str(litmusTestName) + ".musli", "w")

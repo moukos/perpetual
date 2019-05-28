@@ -55,7 +55,9 @@ def main():
 
 # Classify operations. Supported: reads, writes, fences. 
 # ops has the same structure as instrs.
-
+# vals holds the values of the writes
+     
+    vals = [[None]*number_of_lines for _ in range(number_of_threads)]
     ops = [[None]*number_of_lines for _ in range(number_of_threads)]
     for i in range(number_of_lines):
         for j in range(number_of_threads):
@@ -63,9 +65,14 @@ def main():
                 ops[j][i] = "fence"
             elif(instrs[j][i].find('[') < instrs[j][i].find(',')):
                 ops[j][i] = "write"
+                string = instrs[j][i]
+                index = instrs[j][i].find('$')
+                vals[j][i] = string[index+1:index+2]
             else:
                 ops[j][i] = "read"
 
+# mods will hold the strings after API conversion
+    mods = [[None]*number_of_lines for _ in range(number_of_threads)]
     path = "/Users/themis/Documents/Princeton/\
 research/Consistency/musli/master/tests/"
     access_rights = 0o755
@@ -77,13 +84,40 @@ research/Consistency/musli/master/tests/"
         print ("Creation of the directory %s failed" %pathname)
     litmus_strings = [""]*number_of_threads
     outputs = [None] * number_of_threads
+   # Open KV-store conversion API
+    API = "/Users/themis/Documents/Princeton/\
+research/Consistency/musli/scripts/Converter/Cassandra.API"
+    APIfile = open(API, "r")
+    line = APIfile.readline()
+    readConversion = None
+    writeConversion = None
+    while line:
+        extract = line.split(':')
+        if(extract[0] == "read"):
+            readConversion = extract[1]
+        elif(extract[0] == "write"):
+            writeConversion = extract[1]
+        line = APIfile.readline()
+    for i in range (number_of_threads):
+        for j in range (number_of_threads):
+            if(ops[i][j] == "read"):
+                mods[i][j] = readConversion
+                mods[i][j] = mods[i][j].replace("obj",str(locs[i][j]))
+            elif(ops[i][j] == "write"):
+                mods[i][j] = writeConversion
+                mods[i][j] = mods[i][j].replace("val",str(vals[i][j]))
+                mods[i][j] = mods[i][j].replace("obj",str(locs[i][j]))
+            print(mods)
+
     for j in range (number_of_threads):
         outputs[j] = open("client" + str(j) + ".litmus", "w")
         for i in range (0,len(ops[j])):
             if(ops[j][i] == "read"):
-                litmus_strings[j] += "read(" + locs[j][i] + ")\n"
+                #litmus_strings[j] += "read(" + locs[j][i] + ")\n"
+                litmus_strings[j] += mods[j][i]
             elif(ops[j][i] == "write"):
-                litmus_strings[j] += "write(" + locs[j][i] + ")\n"
+                #litmus_strings[j] += "write(" + locs[j][i] + ")\n"
+                litmus_strings[j] += mods[j][i]
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])
     litmusSummary = open(str(litmusTestName) + ".musli", "w")
@@ -96,7 +130,7 @@ research/Consistency/musli/master/tests/"
             if(ops[i][j] == "read"):
                 summaryStr += "read(" + locs[i][j] + ")\t"
             elif(ops[i][j] == "write"):
-                summaryStr += "write(" + locs[i][j] + ")\t"
+                summaryStr += locs[i][j] + ".write(" + vals[i][j] + ")\t"
         summaryStr += "\n"
     litmusSummary.write(summaryStr)
 if __name__ == '__main__':

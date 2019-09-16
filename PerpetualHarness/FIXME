@@ -1,1 +1,0 @@
-Litmus test functionality correct, global memory locations introduce weird serialization. Impossible to access simultaneously, output is incorrect.

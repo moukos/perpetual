@@ -1,0 +1,2 @@
+write:movq val,obj
+read:movq obj,reg

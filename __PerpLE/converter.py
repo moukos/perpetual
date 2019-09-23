@@ -171,7 +171,7 @@ def main():
                 thln = thstr[j]
                 thstr_perp += convertLine(thln, th_writevals, memlocs, reglocs)
         
-        
+            print(th_writevals)    
         
             out = open(str(testname) + "_" + str(i) +".s", "w")
             out.write(makeIntro(testname, i, th_writevals))

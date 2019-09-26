@@ -102,8 +102,7 @@ int main(int argc,char *argv[]) {
 
     clock_t end_harness = clock();
     double time_harness = (double) (end_harness - begin_harness) / CLOCKS_PER_SEC;
-    printf("Harness time spent %f \n",  time_harness);
-
+    //printf("Harness time spent %f \n",  time_harness);
 
     
     int SBinterleavingsCnt = 0;
@@ -116,13 +115,13 @@ int main(int argc,char *argv[]) {
 
     clock_t end_base = clock();
     double time_base = (double) (end_base - begin_base) / CLOCKS_PER_SEC;
-    printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
-    printf("(Base) Checker time spent %f \n",  time_base);
-
+    //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
+    //printf("(Base) Checker time spent %f \n",  time_base);
+    printf("%d %d %f %f\n", n, SBinterleavingsCnt, time_harness, time_base);
     
     SBinterleavingsCnt = 0;
     //Checker - Multithreaded
-    clock_t begin_multi = clock();
+    /*    clock_t begin_multi = clock();
 
     int max_threads = omp_get_max_threads();
     int block_size = n / max_threads;
@@ -153,7 +152,7 @@ int main(int argc,char *argv[]) {
 
 
     
-    SBinterleavingsCnt = 0;
+    SBinterleavingsCnt = 0;*/
     // Checker - Hash table
     /*    clock_t begin_hash = clock();
     

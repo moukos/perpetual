@@ -1,0 +1,13 @@
+ARM CoRR1-1 ()
+"CoRR1, alternative version"
+{
+  P0:R5=x ; 0:R6=y;
+  P1:R5=x ; 1:R6=y ;
+}
+
+P0        | P1        ;
+mov R0,#1 | mov R0,#1 ;
+str R0,R5 | str R0,R6 ;
+ldr R1,R6 | ldr R1,R5 ;
+ldr R2,R6 | ldr R2,R5 ;
+exists (1:R1=1 /\ 1:R2=0 \/ 0:R1=1 /\ 0:R2=0)

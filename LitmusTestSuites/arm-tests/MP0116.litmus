@@ -1,0 +1,24 @@
+ARM MP0116
+"DMBdWW Rfe DpAddrdR PodRR DpCtrlIsbdR Fre"
+Cycle=Rfe DpAddrdR PodRR DpCtrlIsbdR Fre DMBdWW
+Relax=[Fre,DMBdWW,Rfe]
+Safe=PodRR DpAddrdR DpCtrlIsbdR
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DMBdWW Rfe DpAddrdR PodRR DpCtrlIsbdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %a1=a; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#1    | LDR R0,[%y1]    ;
+ STR R0,[%x0] | EOR R1,R0,R0    ;
+ DMB          | LDR R2,[R1,%z1] ;
+ MOV R1,#1    | LDR R3,[%a1]    ;
+ STR R1,[%y0] | CMP R3,R3       ;
+              | BNE LC00        ;
+              | LC00:           ;
+              | ISB             ;
+              | LDR R4,[%x1]    ;
+exists
+(1:R0=1 /\ 1:R4=0)

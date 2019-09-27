@@ -1,0 +1,13 @@
+PPC rich1 (PPCRichOne) "local sb example"
+(* Example sent by Richard G by mail, as far as I can understand it *)
+{
+0:r5=p ; 0:r6=y; 0:r1=1 ;
+1:r5=p ; 1:r6=y; 1:r7=x ;
+p=z ;
+}
+P0          |P1            ;
+std r6,0(r5)|lwz r2,0(r6)  ;
+ld  r8,0(r5)|sync          ;
+stw r1,0(r8)|std r7,0(r5)  ;
+locations [p*; x; y; 1:r2;]
+exists (1:r2=1 /\ p=y /\ x=0 /\ y=1)

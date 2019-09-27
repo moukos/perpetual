@@ -1,0 +1,18 @@
+ARM R+dmb.st+dsb
+"DMB.STdWW Wse DSBdWR Fre"
+Cycle=Fre DMB.STdWW Wse DSBdWR
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Ws Fr
+Orig=DMB.STdWW Wse DSBdWR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#1    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%y1] ;
+ DMB ST       | DSB          ;
+ MOV R1,#1    | LDR R1,[%x1] ;
+ STR R1,[%y0] |              ;
+exists
+(y=2 /\ 1:R1=0)

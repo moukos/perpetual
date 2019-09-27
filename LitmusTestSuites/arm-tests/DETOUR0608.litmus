@@ -1,0 +1,21 @@
+ARM DETOUR0608
+"DMBdWR Fre PosWR DpDatadW DetourW Fre"
+Cycle=Fre PosWR DpDatadW DetourW Fre DMBdWR
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=T
+Com=Fr Fr
+Orig=DMBdWR Fre PosWR DpDatadW DetourW Fre
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+%x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#3    | MOV R0,#1    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%y1] | STR R0,[%x2] ;
+ DMB          | LDR R1,[%y1] |              ;
+ LDR R1,[%y0] | EOR R2,R1,R1 |              ;
+              | ADD R2,R2,#1 |              ;
+              | STR R2,[%x1] |              ;
+              | LDR R3,[%x1] |              ;
+exists
+(0:R1=0 /\ x=3 /\ 1:R3=2)

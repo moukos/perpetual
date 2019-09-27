@@ -1,0 +1,9 @@
+X86 rwc-fenced
+{
+}
+ P0           | P1          | P2          ;
+ MOV [x],$1   | MOV EAX,[x] | MOV [y],$1  ;
+              | MOV EBX,[y] | MFENCE      ;
+              |             | MOV EAX,[x] ;
+exists
+(1:EAX=1 /\ 1:EBX=0 /\ 2:EAX=0)

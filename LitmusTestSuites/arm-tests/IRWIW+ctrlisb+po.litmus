@@ -1,0 +1,22 @@
+ARM IRWIW+ctrlisb+po
+"Rfe DpCtrlIsbdW Wse Rfe PodRW Wse"
+Cycle=Rfe PodRW Wse Rfe DpCtrlIsbdW Wse
+Prefetch=0:x=F,1:x=F,1:y=W,2:y=F,3:y=F,3:x=W
+Com=Rf Ws Rf Ws
+Orig=Rfe DpCtrlIsbdW Wse Rfe PodRW Wse
+{
+%x0=x;
+%x1=x; %y1=y;
+%y2=y;
+%y3=y; %x3=x;
+}
+ P0           | P1           | P2           | P3           ;
+ MOV R0,#2    | LDR R0,[%x1] | MOV R0,#2    | LDR R0,[%y3] ;
+ STR R0,[%x0] | CMP R0,R0    | STR R0,[%y2] | MOV R1,#1    ;
+              | BNE LC00     |              | STR R1,[%x3] ;
+              | LC00:        |              |              ;
+              | ISB          |              |              ;
+              | MOV R1,#1    |              |              ;
+              | STR R1,[%y1] |              |              ;
+exists
+(x=2 /\ y=2 /\ 1:R0=2 /\ 3:R0=2)

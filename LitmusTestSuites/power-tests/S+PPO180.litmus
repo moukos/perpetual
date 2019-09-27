@@ -1,0 +1,29 @@
+PPC S+PPO180
+"Wse LwSyncdWW Rfe PosRR DpAddrdR DpCtrldW PosWW PosWR DpAddrdW"
+Cycle=Rfe PosRR DpAddrdR DpCtrldW PosWW PosWR DpAddrdW Wse LwSyncdWW
+Relax=
+Safe=Rfe Wse PosWW PosWR PosRR LwSyncdWW DpAddrdW DpAddrdR DpCtrldW
+Prefetch=0:x=F,1:x=W
+Orig=Wse LwSyncdWW Rfe PosRR DpAddrdR DpCtrldW PosWW PosWR DpAddrdW
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r6=z; 1:r8=a; 1:r13=x;
+}
+ P0           | P1               ;
+ li r1,2      | lwz r1,0(r2)     ;
+ stw r1,0(r2) | lwz r3,0(r2)     ;
+ lwsync       | xor r4,r3,r3     ;
+ li r3,1      | lwzx r5,r4,r6    ;
+ stw r3,0(r4) | cmpw r5,r5       ;
+              | beq  LC00        ;
+              | LC00:            ;
+              | li r7,1          ;
+              | stw r7,0(r8)     ;
+              | li r9,2          ;
+              | stw r9,0(r8)     ;
+              | lwz r10,0(r8)    ;
+              | xor r11,r10,r10  ;
+              | li r12,1         ;
+              | stwx r12,r11,r13 ;
+exists
+(a=2 /\ x=2 /\ 1:r1=1)

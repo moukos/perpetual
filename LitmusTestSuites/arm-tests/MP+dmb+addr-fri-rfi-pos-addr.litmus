@@ -1,0 +1,22 @@
+ARM MP+dmb+addr-fri-rfi-pos-addr
+"DMBdWW Rfe DpAddrdR Fri Rfi PosRR DpAddrdR Fre"
+Cycle=Rfi PosRR DpAddrdR Fre DMBdWW Rfe DpAddrdR Fri
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DMBdWW Rfe DpAddrdR Fri Rfi PosRR DpAddrdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#1    | LDR R0,[%y1]    ;
+ STR R0,[%x0] | EOR R1,R0,R0    ;
+ DMB          | LDR R2,[R1,%z1] ;
+ MOV R1,#1    | MOV R3,#1       ;
+ STR R1,[%y0] | STR R3,[%z1]    ;
+              | LDR R4,[%z1]    ;
+              | LDR R5,[%z1]    ;
+              | EOR R6,R5,R5    ;
+              | LDR R7,[R6,%x1] ;
+exists
+(1:R0=1 /\ 1:R2=0 /\ 1:R4=1 /\ 1:R5=1 /\ 1:R7=0)

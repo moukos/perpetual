@@ -1,0 +1,25 @@
+PPC SB0011
+"SyncdWR Fre PodWR DpAddrdR DpCtrlIsyncdR Fre"
+Cycle=Fre PodWR DpAddrdR DpCtrlIsyncdR Fre SyncdWR
+Relax=[Fre,SyncdWR,Fre]
+Safe=PodWR DpAddrdR DpCtrlIsyncdR
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=T
+Com=Fr Fr
+Orig=SyncdWR Fre PodWR DpAddrdR DpCtrlIsyncdR Fre
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r4=z; 1:r7=a; 1:r9=x;
+}
+ P0           | P1            ;
+ li r1,1      | li r1,1       ;
+ stw r1,0(r2) | stw r1,0(r2)  ;
+ sync         | lwz r3,0(r4)  ;
+ lwz r3,0(r4) | xor r5,r3,r3  ;
+              | lwzx r6,r5,r7 ;
+              | cmpw r6,r6    ;
+              | beq  LC00     ;
+              | LC00:         ;
+              | isync         ;
+              | lwz r8,0(r9)  ;
+exists
+(0:r3=0 /\ 1:r8=0)

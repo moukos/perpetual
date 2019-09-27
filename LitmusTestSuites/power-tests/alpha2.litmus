@@ -1,0 +1,13 @@
+PPC alpha2 (AlphaTwo)
+"Alpha litmus tests"
+{
+  0:r5=x ;  0:r2=2 ;
+  1:r5=x ;  1:r3=3 ;
+  x=1 ;
+}
+
+P0           | P1           ;
+stw r2,0(r5) | stw r3,0(r5) ;
+             | lwz r1,0(r5) ;
+             | lwz r2,0(r5) ;
+exists (1:r1=2 /\ 1:r2=3)

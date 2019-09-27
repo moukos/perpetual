@@ -1,0 +1,20 @@
+ARM LB+data+RDWI+addr+RW
+"PodRW Rfe DpDatadW Rfe Fri Rfi DpAddrdR"
+Prefetch=
+Com=Rf Rf
+Orig=PodRW Rfe DpDatadW Rfe Fri Rfi DpAddrdR
+{
+%z0=z; %x0=x;
+%x1=x; %y1=y; %z1=z;
+}
+ P0           | P1              ;
+ LDR R0,[%z0] | LDR R0,[%x1]    ;
+ EOR R1,R0,R0 | MOV R1,#2       ;
+ ADD R1,R1,#1 | STR R1,[%x1]    ;
+ STR R1,[%x0] | LDR R2,[%x1]    ;
+              | EOR R3,R2,R2    ;
+              | LDR R4,[R3,%y1] ;
+              | MOV R5,#1       ;
+              | STR R5,[%z1]    ;
+exists
+(x=2 /\ 0:R0=1 /\ 1:R0=1 /\ 1:R2=2)

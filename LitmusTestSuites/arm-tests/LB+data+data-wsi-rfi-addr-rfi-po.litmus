@@ -1,0 +1,26 @@
+ARM LB+data+data-wsi-rfi-addr-rfi-po
+"DpDatadW Rfe DpDatadW Wsi Rfi DpAddrdW Rfi PodRW Rfe"
+Cycle=Rfi PodRW Rfe DpDatadW Rfe DpDatadW Wsi Rfi DpAddrdW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe DpDatadW Wsi Rfi DpAddrdW Rfi PodRW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %a1=a; %x1=x;
+}
+ P0           | P1              ;
+ LDR R0,[%x0] | LDR R0,[%y1]    ;
+ EOR R1,R0,R0 | EOR R1,R0,R0    ;
+ ADD R1,R1,#1 | ADD R1,R1,#1    ;
+ STR R1,[%y0] | STR R1,[%z1]    ;
+              | MOV R2,#2       ;
+              | STR R2,[%z1]    ;
+              | LDR R3,[%z1]    ;
+              | EOR R4,R3,R3    ;
+              | MOV R5,#1       ;
+              | STR R5,[R4,%a1] ;
+              | LDR R6,[%a1]    ;
+              | MOV R7,#1       ;
+              | STR R7,[%x1]    ;
+exists
+(z=2 /\ 0:R0=1 /\ 1:R0=1 /\ 1:R3=2 /\ 1:R6=1)

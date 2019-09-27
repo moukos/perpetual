@@ -1,0 +1,19 @@
+ARM MP+dmb+pos-ctrlisb
+"DMBdWW Rfe PosRR DpCtrlIsbdR Fre"
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DMBdWW Rfe PosRR DpCtrlIsbdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#1    | LDR R0,[%y1] ;
+ STR R0,[%x0] | LDR R1,[%y1] ;
+ DMB          | CMP R1,R1    ;
+ MOV R1,#1    | BNE LC00     ;
+ STR R1,[%y0] | LC00:        ;
+              | ISB          ;
+              | LDR R2,[%x1] ;
+exists
+(1:R0=1 /\ 1:R1=1 /\ 1:R2=0)

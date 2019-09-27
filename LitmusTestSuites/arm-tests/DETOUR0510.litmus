@@ -1,0 +1,20 @@
+ARM DETOUR0510
+"DMBdWR Fre PodWW Rfi DpAddrdR Fre"
+Cycle=Rfi DpAddrdR Fre DMBdWR Fre PodWW
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=T
+Com=Fr Fr
+Orig=DMBdWR Fre PodWW Rfi DpAddrdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#1    | MOV R0,#1       ;
+ STR R0,[%x0] | STR R0,[%y1]    ;
+ DMB          | MOV R1,#1       ;
+ LDR R1,[%y0] | STR R1,[%z1]    ;
+              | LDR R2,[%z1]    ;
+              | EOR R3,R2,R2    ;
+              | LDR R4,[R3,%x1] ;
+exists
+(0:R1=0 /\ 1:R2=1 /\ 1:R4=0)

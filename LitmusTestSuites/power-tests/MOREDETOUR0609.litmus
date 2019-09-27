@@ -1,0 +1,23 @@
+PPC MOREDETOUR0609
+"LwSyncdWW Wse DetourW DpAddrdR DpCtrldR Fre"
+Cycle=Fre LwSyncdWW Wse DetourW DpAddrdR DpCtrldR
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Ws Fr
+Orig=LwSyncdWW Wse DetourW DpAddrdR DpCtrldR Fre
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r6=z; 1:r8=x;
+2:r2=y;
+}
+ P0           | P1            | P2           ;
+ li r1,1      | li r1,2       | li r1,3      ;
+ stw r1,0(r2) | stw r1,0(r2)  | stw r1,0(r2) ;
+ lwsync       | lwz r3,0(r2)  |              ;
+ li r3,1      | xor r4,r3,r3  |              ;
+ stw r3,0(r4) | lwzx r5,r4,r6 |              ;
+ sync         | cmpw r5,r5    |              ;
+ lwz r5,0(r4) | beq  LC00     |              ;
+              | LC00:         |              ;
+              | lwz r7,0(r8)  |              ;
+exists
+(0:r5=2 /\ 1:r3=3 /\ 1:r7=0)

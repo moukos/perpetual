@@ -1,0 +1,21 @@
+ARM IRRWIW+ctrlisb+addr
+"Rfe DpCtrlIsbdR Fre Rfe DpAddrdW Wse"
+Cycle=Rfe DpAddrdW Wse Rfe DpCtrlIsbdR Fre
+Prefetch=0:x=F,1:x=F,1:y=T,2:y=T,3:y=F,3:x=W
+Com=Rf Fr Rf Ws
+Orig=Rfe DpCtrlIsbdR Fre Rfe DpAddrdW Wse
+{
+%x0=x;
+%x1=x; %y1=y;
+%y2=y;
+%y3=y; %x3=x;
+}
+ P0           | P1           | P2           | P3              ;
+ MOV R0,#2    | LDR R0,[%x1] | MOV R0,#1    | LDR R0,[%y3]    ;
+ STR R0,[%x0] | CMP R0,R0    | STR R0,[%y2] | EOR R1,R0,R0    ;
+              | BNE LC00     |              | MOV R2,#1       ;
+              | LC00:        |              | STR R2,[R1,%x3] ;
+              | ISB          |              |                 ;
+              | LDR R1,[%y1] |              |                 ;
+exists
+(x=2 /\ 1:R0=2 /\ 1:R1=0 /\ 3:R0=1)

@@ -1,0 +1,16 @@
+PPC ppo7 (PPCPPOSeven)
+"bc;isync idiom for building ppo, without isync"
+{
+0:r6=x; 0:r7=y;
+1:r6=x; 1:r7=y;
+}
+P0            |P1           ;
+lwz r1,0(r6)  |li r1,1      ;
+cmpw r1,r1    |stw r1,0(r7) ;
+bne L0        |sync         ;
+L0:           |li r2,2      ;
+lwz r2,0(r7)  |stw r2,0(r6) ;
+
+
+locations [0:r1; 0:r2;]
+exists (0:r1=2 /\ 0:r2=0)

@@ -1,0 +1,25 @@
+ARM LB0045
+"DpDatadW Rfe DpDatadW PosWR DpCtrldW Rfe"
+Cycle=Rfe DpDatadW Rfe DpDatadW PosWR DpCtrldW
+Relax=[Rfe,DpDatadW,Rfe]
+Safe=PosWR DpDatadW DpCtrldW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe DpDatadW PosWR DpCtrldW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1           ;
+ LDR R0,[%x0] | LDR R0,[%y1] ;
+ EOR R1,R0,R0 | EOR R1,R0,R0 ;
+ ADD R1,R1,#1 | ADD R1,R1,#1 ;
+ STR R1,[%y0] | STR R1,[%z1] ;
+              | LDR R2,[%z1] ;
+              | CMP R2,R2    ;
+              | BNE LC00     ;
+              | LC00:        ;
+              | MOV R3,#1    ;
+              | STR R3,[%x1] ;
+exists
+(0:R0=1 /\ 1:R0=1)

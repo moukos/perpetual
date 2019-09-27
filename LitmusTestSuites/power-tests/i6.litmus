@@ -1,0 +1,19 @@
+PPC i6 (ISix)
+"external rf"
+
+{0:r5=x; 0:r6=y;
+ 1:r5=x; 1:r6=y;
+ 2:r5=x; 2:r6=y;
+ x=0; y=0;}
+
+P0            | P1            | P2            ; 
+li r8,1       | lwz r1,0(r5)  | lwz r2,0(r6)  ; 
+stw r8,0(r5)  | xor r9,r1,r1  | xor r9,r2,r2  ;
+              | li r8,1       | lwzx r3,r9,r5 ;
+              | stwx r8,r9,r6 |               ;
+              |               |               ;
+              |               |               ;
+
+locations [1:r1;2:r2;2:r3]
+exists(1:r1=1 /\ 2:r2=1 /\ 2:r3=0)
+

@@ -1,0 +1,14 @@
+PPC k3 (KernelThree)
+"From Linux Kernel examples, load dependency barrier not needed for PPC"
+(* Simplified *)
+{
+  a=2 ; p = c ; c = 3 ; d=0 ;
+  0:r5=a ; 0:r6=p ;
+  1:r5=d ; 1:r6=p ;
+}
+        P0      |       P1    ;
+li r1,1         | ld  r1,0,r6 ;
+stw r1,0,r5     | lwz r2,0,r1 ;
+std r5,0,r6     | stw r2,0,r5 ;
+
+exists (d=2)

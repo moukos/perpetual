@@ -1,0 +1,16 @@
+PPC ppoc (PPCPPOTwelve)
+"Dependance chain, through memory"
+{
+0:r7=y; 0:r8=z; 0:r9=x;
+1:r7=y; 1:r8=z;
+}
+P0            |P1           ;
+lwz r1,0(r7)  |li r1,1      ;
+xor r11,r1,r1 |stw r1,0(r8) ;
+li r3,1       |sync         ;
+stwx r3,r11,r9|li r2,1      ;
+lwz r2,0(r9)  |stw r2,0(r7) ;
+xor r10,r2,r2 |             ;
+lwzx r4,r10,r8|             ;
+locations [0:r1; 0:r4;]
+exists (0:r1=1 /\ 0:r4=0)

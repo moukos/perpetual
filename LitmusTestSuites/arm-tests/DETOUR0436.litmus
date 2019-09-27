@@ -1,0 +1,25 @@
+ARM DETOUR0436
+"PodWW Wsi Rfi DpCtrldW Rfe DpDatadW Wse"
+Cycle=Rfi DpCtrldW Rfe DpDatadW Wse PodWW Wsi
+Prefetch=0:x=F,0:z=W,1:z=F,1:x=W
+Com=Rf Ws
+Orig=PodWW Wsi Rfi DpCtrldW Rfe DpDatadW Wse
+{
+%x0=x; %y0=y; %z0=z;
+%z1=z; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#2    | LDR R0,[%z1] ;
+ STR R0,[%x0] | EOR R1,R0,R0 ;
+ MOV R1,#1    | ADD R1,R1,#1 ;
+ STR R1,[%y0] | STR R1,[%x1] ;
+ MOV R2,#2    |              ;
+ STR R2,[%y0] |              ;
+ LDR R3,[%y0] |              ;
+ CMP R3,R3    |              ;
+ BNE LC00     |              ;
+ LC00:        |              ;
+ MOV R4,#1    |              ;
+ STR R4,[%z0] |              ;
+exists
+(0:R3=2 /\ x=2 /\ 1:R0=1)

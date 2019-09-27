@@ -1,0 +1,25 @@
+ARM PET+dmbs
+{
+0:R6=crit0; 1:R6=crit1;
+0:R7=f0; 0:R8=f1; 0:R9=vict; 1:R7=f0; 1:R8=f1; 1:R9=vict;
+}
+
+ P0           | P1          ;
+ MOV R1,#1    | MOV R1,#1   ;
+ STR R1,[R7]  | STR R1,[R8] ;
+ DMB          | DMB         ;
+ MOV R2,0     | MOV R2,1    ;
+ STR R2,[R9]  | STR R2,[R9] ;
+ DMB          | DMB         ;
+ LDR R3,[R8]  | LDR R3,[R7] ;
+ CMP R3,#1    | CMP R3,#1   ;
+ BNE L00      | BNE L10     ;
+ LDR R4,[R9]  | LDR R4,[R9] ;
+ CMP R4,#0    | CMP R4,#1   ;
+ BEQ L01      | BEQ L11     ;
+L00:          |L10:         ;
+ MOV R5,#1    | MOV R5,#1   ;
+ STR R1,[R6]  | STR R5,[R6] ;
+L01:          |L11:          ;
+locations [0:R3; 0:R4; 1:R3; 1:R4;]
+exists (crit0=1 /\ crit1=1)

@@ -1,0 +1,31 @@
+PPC ppc-cpp.rwc (PPCcppRWC)
+"read-to-write causality, boehm adve PLDI'08 (Fig 6.)"
+{
+P0:r0=1; P2:r0=1 ;
+P0:r1=x;
+P1:r1=x; P1:r2=y;
+P2:r1=x; P2:r2=y;
+}
+      P0  |       P1  |       P2         ;
+stw r0,0,r1 | lwz r5,0,r1 | stw r0,0,r2  ;
+            | sync        | sync         ;
+            | lwz r6,0,r2 | lwz r7,0,r1  ;
+
+final (P1:r5=1 /\ P1:r6=0 /\ P2:r7=0);
+with 
+armmem: ~exists;
+doko: exists;
+default: exists;
+(*
+Not validating would violate atomicity of writes according to Boehm/Adve
+*)
+<<
+genprog generated/ppc-cpp.rwc-prog.tex
+show 3
+essdump generated/ppc-cpp.rwc-ess.dot
+>>
+<<
+show 0 of ess 0
+show interesting true
+readfrom generated/ppc-cpp.rwc-rf.dot
+>>

@@ -1,0 +1,30 @@
+ARM MP+PPO769
+"Fre DMBdWW Rfe DpCtrldW PosWW PosWR PosRR DpCtrldW PosWR"
+Cycle=Rfe DpCtrldW PosWW PosWR PosRR DpCtrldW PosWR Fre DMBdWW
+Relax=
+Safe=Rfe Fre PosWW PosWR PosRR DMBdWW DpCtrldW
+Prefetch=1:x=T
+Orig=Fre DMBdWW Rfe DpCtrldW PosWW PosWR PosRR DpCtrldW PosWR
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0            | P1            ;
+ MOV R0, #2    | LDR R0, [%y1] ;
+ STR R0, [%x0] | CMP R0, R0    ;
+ DMB           | BNE LC00      ;
+ MOV R1, #1    | LC00:         ;
+ STR R1, [%y0] | MOV R1, #1    ;
+               | STR R1, [%z1] ;
+               | MOV R2, #2    ;
+               | STR R2, [%z1] ;
+               | LDR R3, [%z1] ;
+               | LDR R4, [%z1] ;
+               | CMP R4, R4    ;
+               | BNE LC01      ;
+               | LC01:         ;
+               | MOV R5, #1    ;
+               | STR R5, [%x1] ;
+               | LDR R6, [%x1] ;
+exists
+(x=2 /\ z=2 /\ 1:R0=1 /\ 1:R6=1)

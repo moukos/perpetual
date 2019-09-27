@@ -1,0 +1,20 @@
+ARM 3.LB+dsb+ctrl+po
+"DSBdRW Rfe DpCtrldW Rfe PodRW Rfe"
+Cycle=Rfe PodRW Rfe DSBdRW Rfe DpCtrldW
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=W
+Com=Rf Rf Rf
+Orig=DSBdRW Rfe DpCtrldW Rfe PodRW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ LDR R0,[%x0] | LDR R0,[%y1] | LDR R0,[%z2] ;
+ DSB          | CMP R0,R0    | MOV R1,#1    ;
+ MOV R1,#1    | BNE LC00     | STR R1,[%x2] ;
+ STR R1,[%y0] | LC00:        |              ;
+              | MOV R1,#1    |              ;
+              | STR R1,[%z1] |              ;
+exists
+(0:R0=1 /\ 1:R0=1 /\ 2:R0=1)

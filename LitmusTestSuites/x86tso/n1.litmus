@@ -1,0 +1,8 @@
+X86 n1
+{
+}
+ P0           | P1          | P2          ;
+ MOV [x],$2   | MOV [y],$1  | MOV EAX,[x] ;
+ MOV EAX,[y]  | MOV [x],$1  | MOV EBX,[x] ;
+exists
+(0:EAX=0 /\ 2:EAX=1 /\ 2:EBX=2)

@@ -1,0 +1,15 @@
+PPC m2s  (PPCMTwoSync)
+"plain iwir,  barriers"
+{
+P0:r4=x ; P0:r5=y ; P0:r1=1 ; P0:r2=2 ;
+P1:r4=x ; P1:r5=y ; P1:r1=1 ; P1:r2=2 ;
+P2:r4=x ; P3:r5=y ;
+P2:r1=1 ; P3:r2=2 ;
+}
+
+P0           |P1           |P2           |P3           ;
+stw r1,0(r4) |stw r1,0(r5) |lwz r1,0(r4) |lwz r1,0(r5) ;
+sync         |sync         |             |             ;
+stw r2,0(r5) |stw r2,0(r4) |             |             ;
+locations [2:r1; 3:r1; x; y;]
+exists (x=1 /\ y=1)

@@ -1,0 +1,29 @@
+PPC c6 (PPCBasicCSix)
+"just like c5 +  final state -> memory"
+{
+P0:r4=x ; P0:r5=y ; P0:r2=2 ; P0:r6=r1p0 ;
+P1:r4=x ; P1:r5=y ; P1:r1=1 ; P1:r6=r2p1 ;
+}
+
+P0           |P1           ;
+stw r2,0(r5) |stw r1,0(r4) ;
+lwz r2,0(r5) |             ;
+lwsync       |sync         ;
+lwz r1,0(r4) |lwz r2,0(r5) ;
+stw r1,0(r6) |stw r2,0(r6) ;
+(* additional gratious stores, to stress barrier semantics *)
+exists (r1p0=0 /\ r2p1=0)
+
+(* This test shows that on barrier proc condition
+   have ea < barrier < eb is too strict.
+
+   Indeed for P1 barrier not to rule out behavior
+   (load from Init for P0:lwz r1,0(r4)/P1lwz r2,0(r5))
+   P0 first store (to y) must occur after P1 store (to x)
+   in P0 vo, hence after P0:lwz r1,0(r4).
+
+   On the other hand considering lwsync on P0, we have
+   ea = ST y    [first store]
+   eb = ST r1p0 [second store]
+   And if ea is forced to be before lwsync, we reach a contradiction *)
+

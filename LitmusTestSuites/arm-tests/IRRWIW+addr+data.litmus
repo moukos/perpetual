@@ -1,0 +1,19 @@
+ARM IRRWIW+addr+data
+"Rfe DpAddrdR Fre Rfe DpDatadW Wse"
+Cycle=Rfe DpAddrdR Fre Rfe DpDatadW Wse
+Prefetch=0:x=F,1:x=F,1:y=T,2:y=T,3:y=F,3:x=W
+Com=Rf Fr Rf Ws
+Orig=Rfe DpAddrdR Fre Rfe DpDatadW Wse
+{
+%x0=x;
+%x1=x; %y1=y;
+%y2=y;
+%y3=y; %x3=x;
+}
+ P0           | P1              | P2           | P3           ;
+ MOV R0,#2    | LDR R0,[%x1]    | MOV R0,#1    | LDR R0,[%y3] ;
+ STR R0,[%x0] | EOR R1,R0,R0    | STR R0,[%y2] | EOR R1,R0,R0 ;
+              | LDR R2,[R1,%y1] |              | ADD R1,R1,#1 ;
+              |                 |              | STR R1,[%x3] ;
+exists
+(x=2 /\ 1:R0=2 /\ 1:R2=0 /\ 3:R0=1)

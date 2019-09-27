@@ -1,0 +1,23 @@
+PPC S0050
+"PodWR DpAddrdW PodWW Rfe DpDatadW Wse"
+Cycle=Rfe DpDatadW Wse PodWR DpAddrdW PodWW
+Relax=[Rfe,DpDatadW,Wse]
+Safe=PodWW PodWR DpAddrdW
+Prefetch=0:x=F,0:a=W,1:a=F,1:x=W
+Com=Rf Ws
+Orig=PodWR DpAddrdW PodWW Rfe DpDatadW Wse
+{
+0:r2=x; 0:r4=y; 0:r7=z; 0:r9=a;
+1:r2=a; 1:r4=x;
+}
+ P0            | P1           ;
+ li r1,2       | lwz r1,0(r2) ;
+ stw r1,0(r2)  | xor r3,r1,r1 ;
+ lwz r3,0(r4)  | addi r3,r3,1 ;
+ xor r5,r3,r3  | stw r3,0(r4) ;
+ li r6,1       |              ;
+ stwx r6,r5,r7 |              ;
+ li r8,1       |              ;
+ stw r8,0(r9)  |              ;
+exists
+(x=2 /\ 1:r1=1)

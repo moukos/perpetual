@@ -1,0 +1,23 @@
+ARM MOREDETOUR0688
+"PodWR DpCtrldR DetourRW Wse DMBdWR Fre"
+Cycle=Fre PodWR DpCtrldR DetourRW Wse DMBdWR
+Prefetch=0:x=F,0:z=W,1:z=F,1:x=T
+Com=Ws Fr
+Orig=PodWR DpCtrldR DetourRW Wse DMBdWR Fre
+{
+%x0=x; %y0=y; %z0=z;
+%z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#1    | MOV R0,#1    | MOV R0,#3    ;
+ STR R0,[%x0] | STR R0,[%z1] | STR R0,[%z2] ;
+ LDR R1,[%y0] | DMB          | DMB          ;
+ CMP R1,R1    | LDR R1,[%z1] | LDR R1,[%x2] ;
+ BNE LC00     |              |              ;
+ LC00:        |              |              ;
+ LDR R2,[%z0] |              |              ;
+ MOV R3,#2    |              |              ;
+ STR R3,[%z0] |              |              ;
+exists
+(z=3 /\ 0:R2=0 /\ 1:R1=2 /\ 2:R1=0)

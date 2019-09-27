@@ -1,0 +1,30 @@
+PPC MP+PPO380
+"Fre LwSyncdWW Rfe PosRW PosWR DpAddrdW PosWW PosWR DpCtrlIsyncdR"
+Cycle=Rfe PosRW PosWR DpAddrdW PosWW PosWR DpCtrlIsyncdR Fre LwSyncdWW
+Relax=
+Safe=Rfe Fre PosWW PosWR PosRW LwSyncdWW DpAddrdW DpCtrlIsyncdR
+Prefetch=1:x=T
+Com=Rf Fr
+Orig=Fre LwSyncdWW Rfe PosRW PosWR DpAddrdW PosWW PosWR DpCtrlIsyncdR
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r7=z; 1:r11=x;
+}
+ P0           | P1             ;
+ li r1,1      | lwz r1,0(r2)   ;
+ stw r1,0(r2) | li r3,2        ;
+ lwsync       | stw r3,0(r2)   ;
+ li r3,1      | lwz r4,0(r2)   ;
+ stw r3,0(r4) | xor r5,r4,r4   ;
+              | li r6,1        ;
+              | stwx r6,r5,r7  ;
+              | li r8,2        ;
+              | stw r8,0(r7)   ;
+              | lwz r9,0(r7)   ;
+              | cmpw r9,r9     ;
+              | beq  LC00      ;
+              | LC00:          ;
+              | isync          ;
+              | lwz r10,0(r11) ;
+exists
+(y=2 /\ z=2 /\ 1:r1=1 /\ 1:r10=0)

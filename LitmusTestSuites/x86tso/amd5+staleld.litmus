@@ -1,0 +1,10 @@
+X86 amd5+staleld
+{
+}
+ P0           | P1           ;
+              | MOV EAX,[x]  ;
+ MOV [x],$1   | MOV [y],$1   ;
+ MFENCE       | MFENCE       ;
+ MOV EBX,[y]  | MOV EBX,[x]  ;
+exists
+(0:EBX=0 /\ 1:EBX=0)

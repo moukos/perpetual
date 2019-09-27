@@ -1,0 +1,25 @@
+ARM R0015
+"DMBdWW Wse PodWW PodWR DpCtrlIsbdR Fre"
+Cycle=Fre DMBdWW Wse PodWW PodWR DpCtrlIsbdR
+Relax=[Fre,DMBdWW,Wse]
+Safe=PodWW PodWR DpCtrlIsbdR
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Ws Fr
+Orig=DMBdWW Wse PodWW PodWR DpCtrlIsbdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %a1=a; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#1    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%y1] ;
+ DMB          | MOV R1,#1    ;
+ MOV R1,#1    | STR R1,[%z1] ;
+ STR R1,[%y0] | LDR R2,[%a1] ;
+              | CMP R2,R2    ;
+              | BNE LC00     ;
+              | LC00:        ;
+              | ISB          ;
+              | LDR R3,[%x1] ;
+exists
+(y=2 /\ 1:R3=0)

@@ -1,0 +1,13 @@
+ARM CoRR3
+"CoRR from C++ paper"
+{
+  P0:R5=x ;
+  P1:R5=x ; 
+}
+
+P0        | P1        ;
+mov R1,#1 | ldr R1,R5 ;
+str R1,R5 | ldr R2,R5 ;
+mov R2,#2 |           ;
+str R2,R5 |           ;
+exists (1:R1=2 /\ (1:R2=1 \/ 1:R2=0) \/ 1:R1=1 /\ 1:R2=0)

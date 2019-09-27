@@ -1,0 +1,19 @@
+ARM S+dsb.st+ctrl
+"DSB.STdWW Rfe DpCtrldW Wse"
+Cycle=Rfe DpCtrldW Wse DSB.STdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Ws
+Orig=DSB.STdWW Rfe DpCtrldW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#2    | LDR R0,[%y1] ;
+ STR R0,[%x0] | CMP R0,R0    ;
+ DSB ST       | BNE LC00     ;
+ MOV R1,#1    | LC00:        ;
+ STR R1,[%y0] | MOV R1,#1    ;
+              | STR R1,[%x1] ;
+exists
+(x=2 /\ 1:R0=1)

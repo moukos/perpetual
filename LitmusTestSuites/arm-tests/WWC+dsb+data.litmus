@@ -1,0 +1,18 @@
+ARM WWC+dsb+data
+"Rfe DSBdRW Rfe DpDatadW Wse"
+Cycle=Rfe DSBdRW Rfe DpDatadW Wse
+Prefetch=0:x=F,1:x=F,1:y=W,2:y=F,2:x=W
+Com=Rf Rf Ws
+Orig=Rfe DSBdRW Rfe DpDatadW Wse
+{
+%x0=x;
+%x1=x; %y1=y;
+%y2=y; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#2    | LDR R0,[%x1] | LDR R0,[%y2] ;
+ STR R0,[%x0] | DSB          | EOR R1,R0,R0 ;
+              | MOV R1,#1    | ADD R1,R1,#1 ;
+              | STR R1,[%y1] | STR R1,[%x2] ;
+exists
+(x=2 /\ 1:R0=2 /\ 2:R0=1)

@@ -1,0 +1,22 @@
+ARM R0091
+"PosWR DpAddrdR PosRW Wse DMBdWR Fre"
+Cycle=Fre PosWR DpAddrdR PosRW Wse DMBdWR
+Relax=[Wse,DMBdWR,Fre]
+Safe=PosWR PosRW DpAddrdR
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Ws Fr
+Orig=PosWR DpAddrdR PosRW Wse DMBdWR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0              | P1           ;
+ MOV R0,#1       | MOV R0,#2    ;
+ STR R0,[%x0]    | STR R0,[%y1] ;
+ LDR R1,[%x0]    | DMB          ;
+ EOR R2,R1,R1    | LDR R1,[%x1] ;
+ LDR R3,[R2,%y0] |              ;
+ MOV R4,#1       |              ;
+ STR R4,[%y0]    |              ;
+exists
+(y=2 /\ 1:R1=0)

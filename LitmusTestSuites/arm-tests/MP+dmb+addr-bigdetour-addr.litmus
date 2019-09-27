@@ -1,0 +1,17 @@
+ARM MP+dmbc+addr-bigdetour-addr
+"Another try at full detour idiom"
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+{
+%x0=x; %y0=y;
+%x1=x; %y1=y; %z1=z; %w1=w;
+%z2=z; %w2=w;
+}
+ P0           | P1              | P2           ;
+ MOV R1,#1    | LDR R1,[%y1]    | MOV R1,#1    ;
+ STR R1,[%x0] | EOR R3,R1,R1    | STR R1,[%z2] ;
+ DMB          | LDR R4,[R3,%z1] | DMB          ;
+ MOV R3,#1    | LDR R6,[%w1]    | MOV R2,#1    ;
+ STR R3,[%y0] | EOR R8,R6,R6    | STR R2,[%w2] ;
+              | LDR R9,[R8,%x1] |              ;
+exists
+(1:R1=1 /\ 1:R9=0 /\ 1:R4=0 /\ 1:R6=1)

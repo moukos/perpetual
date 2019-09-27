@@ -1,0 +1,10 @@
+X86 amd10
+{
+}
+ P0           | P1           ;
+ MOV [x],$1   | MOV [y],$1   ;
+ MFENCE       | MFENCE       ;
+ MOV EAX,[x]  | MOV EAX,[y]  ;
+ MOV EBX,[y]  | MOV EBX,[x]  ;
+exists
+(0:EBX=0 /\ 1:EBX=0)

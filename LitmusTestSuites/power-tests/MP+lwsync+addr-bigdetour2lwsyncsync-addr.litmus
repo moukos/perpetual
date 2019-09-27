@@ -1,0 +1,18 @@
+PPC MP+lwsync+addr-bigdetour2lwsyncsync-addr
+"Another try at full detour idiom"
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+{
+%x0=x; %y0=y;
+%x1=x; %y1=y; %z1=z; %w1=w;
+%z2=z; %v2=v;
+%v3=v; %w3=w;
+}
+ P0            | P1             | P2            | P3            ;
+ li r1,1       | lwz r1,0(%y1)  | li r1,1       | li r1,2       ;
+ stw r1,0(%x0) | xor r3,r1,r1   | stw r1,0(%z2) | stw r1,0(%v3) ;
+ lwsync        | lwzx r4,r3,%z1 | lwsync        | sync          ;
+ li r3,1       | lwz r6,0(%w1)  | li r2,1       | li r2,1       ;
+ stw r3,0(%y0) | xor r8,r6,r6   | stw r2,0(%v2) | stw r2,0(%w3) ;
+               | lwzx r9,r8,%x1 |               |               ;
+exists
+(1:r1=1 /\ 1:r9=0 /\ 1:r4=0 /\ 1:r6=1 /\ v=2)

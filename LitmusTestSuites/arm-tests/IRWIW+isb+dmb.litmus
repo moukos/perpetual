@@ -1,0 +1,19 @@
+ARM IRWIW+isb+dmb
+"Rfe ISBdRW Wse Rfe DMBdRW Wse"
+Cycle=Rfe ISBdRW Wse Rfe DMBdRW Wse
+Prefetch=0:x=F,1:x=F,1:y=W,2:y=F,3:y=F,3:x=W
+Com=Rf Ws Rf Ws
+Orig=Rfe ISBdRW Wse Rfe DMBdRW Wse
+{
+%x0=x;
+%x1=x; %y1=y;
+%y2=y;
+%y3=y; %x3=x;
+}
+ P0           | P1           | P2           | P3           ;
+ MOV R0,#2    | LDR R0,[%x1] | MOV R0,#2    | LDR R0,[%y3] ;
+ STR R0,[%x0] | ISB          | STR R0,[%y2] | DMB          ;
+              | MOV R1,#1    |              | MOV R1,#1    ;
+              | STR R1,[%y1] |              | STR R1,[%x3] ;
+exists
+(x=2 /\ y=2 /\ 1:R0=2 /\ 3:R0=2)

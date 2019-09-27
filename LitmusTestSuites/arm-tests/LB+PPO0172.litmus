@@ -1,0 +1,29 @@
+ARM LB+PPO0172
+"PodWW Rfe DpDatadW Rfe DpAddrdW PosWR DpDatadW PosWR DpDatadW"
+Cycle=Rfe DpAddrdW PosWR DpDatadW PosWR DpDatadW PodWW Rfe DpDatadW
+Relax=
+Safe=Rfe PosWR Pod*W DpAddrdW DpDatadW
+Prefetch=
+Com=Rf Rf
+Orig=PodWW Rfe DpDatadW Rfe DpAddrdW PosWR DpDatadW PosWR DpDatadW
+{
+%b0=b; %x0=x;
+%x1=x; %y1=y; %z1=z; %a1=a; %b1=b;
+}
+ P0           | P1              ;
+ LDR R0,[%b0] | LDR R0,[%x1]    ;
+ EOR R1,R0,R0 | EOR R1,R0,R0    ;
+ ADD R1,R1,#1 | MOV R2,#1       ;
+ STR R1,[%x0] | STR R2,[R1,%y1] ;
+              | LDR R3,[%y1]    ;
+              | EOR R4,R3,R3    ;
+              | ADD R4,R4,#1    ;
+              | STR R4,[%z1]    ;
+              | LDR R5,[%z1]    ;
+              | EOR R6,R5,R5    ;
+              | ADD R6,R6,#1    ;
+              | STR R6,[%a1]    ;
+              | MOV R7,#1       ;
+              | STR R7,[%b1]    ;
+exists
+(0:R0=1 /\ 1:R0=1)

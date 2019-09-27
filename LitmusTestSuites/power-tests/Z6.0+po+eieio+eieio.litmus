@@ -1,0 +1,18 @@
+PPC Z6.0+po+eieio+eieio
+"PodWW Rfe EieiodRW Wse EieiodWR Fre"
+Cycle=Rfe EieiodRW Wse EieiodWR Fre PodWW
+Prefetch=1:z=W,2:z=F,2:x=T
+Com=Rf Ws Fr
+Orig=PodWW Rfe EieiodRW Wse EieiodWR Fre
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r4=z;
+2:r2=z; 2:r4=x;
+}
+ P0           | P1           | P2           ;
+ li r1,1      | lwz r1,0(r2) | li r1,2      ;
+ stw r1,0(r2) | eieio        | stw r1,0(r2) ;
+ li r3,1      | li r3,1      | eieio        ;
+ stw r3,0(r4) | stw r3,0(r4) | lwz r3,0(r4) ;
+exists
+(z=2 /\ 1:r1=1 /\ 2:r3=0)

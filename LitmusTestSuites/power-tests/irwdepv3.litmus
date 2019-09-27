@@ -1,0 +1,16 @@
+PPC irwdepv3 (PPCIrwdepTHree)
+"irw, one writer dependancies"
+{
+P0:r4=x ;
+          P1:r5=y ;
+P2:r4=x ; P2:r5=y ;
+x=z ; y=z ; z=z ;
+}
+
+P0           |P1           |P2           ;
+ld  r5,0(r4) |ld  r4,0(r5) |std r5,0(r4) ;
+sync         |sync         |             ;
+ld  r1,0(r5) |ld  r1,0(r4) |std r4,0(r5) ;
+
+locations [0:r5*; 0:r1*; 1:r4*; 1:r1*;]
+exists (true)

@@ -1,0 +1,8 @@
+X86 iwp2.5/amd8
+{
+}
+ P0          | P1          | P2          ;
+ MOV [x],$1  | MOV EAX,[x] | MOV EAX,[y] ;
+             | MOV [y],$1  | MOV EBX,[x] ;
+exists
+(1:EAX=1 /\ 2:EAX=1 /\ 2:EBX=0)

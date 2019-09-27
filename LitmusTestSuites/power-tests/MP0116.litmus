@@ -1,0 +1,24 @@
+PPC MP0116
+"LwSyncdWW Rfe DpAddrdR PodRR DpCtrlIsyncdR Fre"
+Cycle=Rfe DpAddrdR PodRR DpCtrlIsyncdR Fre LwSyncdWW
+Relax=[Fre,LwSyncdWW,Rfe]
+Safe=PodRR DpAddrdR DpCtrlIsyncdR
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=LwSyncdWW Rfe DpAddrdR PodRR DpCtrlIsyncdR Fre
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r5=z; 1:r7=a; 1:r9=x;
+}
+ P0           | P1            ;
+ li r1,1      | lwz r1,0(r2)  ;
+ stw r1,0(r2) | xor r3,r1,r1  ;
+ lwsync       | lwzx r4,r3,r5 ;
+ li r3,1      | lwz r6,0(r7)  ;
+ stw r3,0(r4) | cmpw r6,r6    ;
+              | beq  LC00     ;
+              | LC00:         ;
+              | isync         ;
+              | lwz r8,0(r9)  ;
+exists
+(1:r1=1 /\ 1:r8=0)

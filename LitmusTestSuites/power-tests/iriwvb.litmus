@@ -1,0 +1,14 @@
+PPC iriwvb (PPCIriwEleven)
+"iriw, dependencies + one barrier, on stores"
+{
+P0:r4=x ;
+          P1:r5=y ;
+P2:r4=x ; P2:r5=y ;
+x=z ; y=z ; z = z ;
+}
+
+P0          |P1          |P2           ;
+ld r5,0(r4) |ld r4,0(r5) |std r5,0(r4) ;
+            |            |lwsync       ;
+ld r1,0(r5) |ld r1,0(r4) |std r4,0(r5) ;
+exists (0:r5=y /\ 0:r1=z /\ 1:r4=x /\ 1:r1=z)

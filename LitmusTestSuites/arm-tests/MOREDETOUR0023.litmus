@@ -1,0 +1,26 @@
+ARM MOREDETOUR0023
+"DetourWW Wsi Rfi DpCtrldW Rfe DpAddrdR Fre"
+Cycle=Rfi DpCtrldW Rfe DpAddrdR Fre DetourWW Wsi
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DetourWW Wsi Rfi DpCtrldW Rfe DpAddrdR Fre
+{
+%x0=x; %y0=y;
+%x1=x;
+%y2=y; %x2=x;
+}
+ P0           | P1           | P2              ;
+ MOV R0,#1    | LDR R0,[%x1] | LDR R0,[%y2]    ;
+ STR R0,[%x0] | MOV R1,#2    | EOR R1,R0,R0    ;
+ MOV R1,#3    | STR R1,[%x1] | LDR R2,[R1,%x2] ;
+ STR R1,[%x0] | DMB          |                 ;
+ MOV R2,#4    | LDR R2,[%x1] |                 ;
+ STR R2,[%x0] |              |                 ;
+ LDR R3,[%x0] |              |                 ;
+ CMP R3,R3    |              |                 ;
+ BNE LC00     |              |                 ;
+ LC00:        |              |                 ;
+ MOV R4,#1    |              |                 ;
+ STR R4,[%y0] |              |                 ;
+exists
+(0:R3=4 /\ 1:R2=3 /\ 1:R0=1 /\ 2:R0=1 /\ 2:R2=0)

@@ -1,0 +1,27 @@
+PPC ppc-cookbook6.5.1-cpp.iriw (PPCcookbookSixFiveOne) "Independent Reads of Independent Writes"
+{
+  P0:r1=x; P2:r1=x; P3:r1=x;
+  P1:r2=y; P2:r2=y; P3:r2=y;
+  P0:r8=1; P1:r8=1;
+  x=0; y=0;
+}
+ P0           | P1           | P2           | P3            ;
+ stw r8,0,r1  | stw r8,0,r2  | lwz r5,0,r1  | lwz r5,0,r2   ;
+              |              | sync         | sync          ;
+              |              | lwz r6,0,r2  | lwz r6,0,r1   ;
+
+final (P2:r5=1 /\ P2:r6=0 /\ P3:r5 = 1 /\ P3:r6 = 0);
+with 
+armmem: ~exists;
+doko: exists;
+default: ~exists;
+
+<<
+genprog generated/ppc-cookbook6.5.1-cpp.iriw-prog.tex
+show 5
+essdump generated/ppc-cookbook6.5.1-cpp.iriw-ess.dot
+>>
+<<
+show 0 of ess 0
+readfrom generated/ppc-cookbook6.5.1-cpp.iriw-rf.dot
+>>

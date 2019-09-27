@@ -1,0 +1,25 @@
+ARM MP+PPO770
+"Fre DMBdWW Rfe PosRW PosWR PosRR DpCtrldW PosWR"
+Cycle=Rfe PosRW PosWR PosRR DpCtrldW PosWR Fre DMBdWW
+Relax=
+Safe=Rfe Fre PosWR PosRW PosRR DMBdWW DpCtrldW
+Prefetch=1:x=T
+Orig=Fre DMBdWW Rfe PosRW PosWR PosRR DpCtrldW PosWR
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0            | P1            ;
+ MOV R0, #2    | LDR R0, [%y1] ;
+ STR R0, [%x0] | MOV R1, #2    ;
+ DMB           | STR R1, [%y1] ;
+ MOV R1, #1    | LDR R2, [%y1] ;
+ STR R1, [%y0] | LDR R3, [%y1] ;
+               | CMP R3, R3    ;
+               | BNE LC00      ;
+               | LC00:         ;
+               | MOV R4, #1    ;
+               | STR R4, [%x1] ;
+               | LDR R5, [%x1] ;
+exists
+(x=2 /\ y=2 /\ 1:R0=1 /\ 1:R5=1)

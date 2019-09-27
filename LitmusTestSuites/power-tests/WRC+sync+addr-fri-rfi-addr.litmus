@@ -1,0 +1,21 @@
+PPC WRC+sync+addr-fri-rfi-addr
+"Rfe SyncdRW Rfe DpAddrdR Fri Rfi DpAddrdR Fre"
+Prefetch=0:x=T,2:x=T
+Com=Rf Rf Fr
+Orig=Rfe SyncdRW Rfe DpAddrdR Fri Rfi DpAddrdR Fre
+{
+0:r2=x;
+1:r2=x; 1:r4=y;
+2:r2=y; 2:r5=z; 2:r10=x;
+}
+ P0           | P1           | P2             ;
+ li r1,1      | lwz r1,0(r2) | lwz r1,0(r2)   ;
+ stw r1,0(r2) | sync         | xor r3,r1,r1   ;
+              | li r3,1      | lwzx r4,r3,r5  ;
+              | stw r3,0(r4) | li r6,1        ;
+              |              | stw r6,0(r5)   ;
+              |              | lwz r7,0(r5)   ;
+              |              | xor r8,r7,r7   ;
+              |              | lwzx r9,r8,r10 ;
+exists
+(1:r1=1 /\ 2:r1=1 /\ 2:r4=0 /\ 2:r7=1 /\ 2:r9=0)

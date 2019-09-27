@@ -1,0 +1,21 @@
+PPC ppc-iwp2.6 (PPCiwpTwoSix)
+"Checks write serialization"
+{
+ P0:r5 = 55; P1:r6 = 66; x = 0;
+ P0:r1 = x; P1:r1 = x; P2:r1 = x; P3:r1 = x
+};
+
+    P0      |    P1       |    P2       |      P3     ;
+stw r5,0,r1 | stw r6,0,r1 | lwz r5,0,r1 | lwz r5,0,r1 ;
+            |             | lwz r6,0,r1 | lwz r6,0,r1 ;
+
+exists (2:r5=55 /\ 2:r6=66 /\ 3:r5=66 /\ 3:r6=55)
+<<
+genprog generated/ppc-iwp2.6-prog.tex
+show 0
+essdump generated/ppc-iwp2.6-ess.dot
+>>
+<<
+show 0 of ess 0
+readfrom generated/ppc-iwp2.6-rf.dot
+>>

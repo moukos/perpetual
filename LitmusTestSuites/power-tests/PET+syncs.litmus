@@ -1,0 +1,25 @@
+PPC PET+syncs
+{
+0:r6=crit0; 1:r6=crit1;
+0:r7=f0; 0:r8=f1; 0:r9=vict; 1:r7=f0; 1:r8=f1; 1:r9=vict;
+}
+
+ P0           | P1           ;
+ li r1,1      | li r1,1      ;
+ stw r1,0(r7) | stw r1,0(r8) ;
+ sync         | sync         ;
+ li r2,0      | li r2,1      ;
+ stw r2,0(r9) | stw r2,0(r9) ;
+ sync         | sync         ;
+ lwz r3,0(r8) | lwz r3,0(r7) ;
+ cmpwi r3,1   | cmpwi r3,1   ;
+ bne L00      | bne L10      ;
+ lwz r4,0(r9) | lwz r4,0(r9) ;
+ cmpwi r4,0   | cmpwi r4,1   ;
+ beq L01      | beq L11      ;
+L00:          |L10:          ;
+ li r5,1      | li r5,1      ;
+ stw r1,0(r6) | stw r5,0(r6) ;
+L01:          |L11:          ;
+locations [0:r3; 0:r4; 1:r3; 1:r4;]
+exists (crit0=1 /\ crit1=1)

@@ -1,0 +1,22 @@
+PPC LB0030
+"DpDatadW Rfe DpAddrdR PosRR DpDatadW Rfe"
+Cycle=Rfe DpAddrdR PosRR DpDatadW Rfe DpDatadW
+Relax=[Rfe,DpDatadW,Rfe]
+Safe=PosRR DpAddrdR DpDatadW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe DpAddrdR PosRR DpDatadW Rfe
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r5=z; 1:r8=x;
+}
+ P0           | P1            ;
+ lwz r1,0(r2) | lwz r1,0(r2)  ;
+ xor r3,r1,r1 | xor r3,r1,r1  ;
+ addi r3,r3,1 | lwzx r4,r3,r5 ;
+ stw r3,0(r4) | lwz r6,0(r5)  ;
+              | xor r7,r6,r6  ;
+              | addi r7,r7,1  ;
+              | stw r7,0(r8)  ;
+exists
+(0:r1=1 /\ 1:r1=1)

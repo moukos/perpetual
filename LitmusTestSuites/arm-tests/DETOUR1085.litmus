@@ -1,0 +1,25 @@
+ARM DETOUR1085
+"DMBdWW Rfe DpCtrldW Wsi Rfi DpAddrdW Wse"
+Cycle=Rfi DpAddrdW Wse DMBdWW Rfe DpCtrldW Wsi
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Ws
+Orig=DMBdWW Rfe DpCtrldW Wsi Rfi DpAddrdW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#2    | LDR R0,[%y1]    ;
+ STR R0,[%x0] | CMP R0,R0       ;
+ DMB          | BNE LC00        ;
+ MOV R1,#1    | LC00:           ;
+ STR R1,[%y0] | MOV R1,#1       ;
+              | STR R1,[%z1]    ;
+              | MOV R2,#2       ;
+              | STR R2,[%z1]    ;
+              | LDR R3,[%z1]    ;
+              | EOR R4,R3,R3    ;
+              | MOV R5,#1       ;
+              | STR R5,[R4,%x1] ;
+exists
+(x=2 /\ 1:R0=1 /\ 1:R3=2)

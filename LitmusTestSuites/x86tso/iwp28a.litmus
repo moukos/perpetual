@@ -1,0 +1,9 @@
+X86 iwp2.8.a
+{
+}
+ P0           | P1           ;
+ MOV EAX,$1   | MOV EAX,$1   ;
+ XCHG [x],EAX | XCHG [y],EAX ;
+ MOV EBX,[y]  | MOV EBX,[x]  ;
+exists
+(0:EBX=0 /\ 1:EBX=0)

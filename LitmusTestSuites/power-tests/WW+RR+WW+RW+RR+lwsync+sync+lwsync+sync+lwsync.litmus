@@ -1,0 +1,23 @@
+PPC WW+RR+WW+RW+RR+lwsync+sync+lwsync+sync+lwsync
+"LwSyncdWW Rfe SyncdRR Fre LwSyncdWW Rfe SyncdRW Rfe LwSyncdRR Fre"
+Cycle=Rfe SyncdRW Rfe LwSyncdRR Fre LwSyncdWW Rfe SyncdRR Fre LwSyncdWW
+Relax=LwSyncdWW LwSyncdRR
+Safe=Rfe Fre SyncdRW SyncdRR
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=T,2:z=F,2:a=W,3:a=F,3:b=W,4:b=F,4:x=T
+Com=Rf Fr Rf Rf Fr
+Orig=LwSyncdWW Rfe SyncdRR Fre LwSyncdWW Rfe SyncdRW Rfe LwSyncdRR Fre
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r4=z;
+2:r2=z; 2:r4=a;
+3:r2=a; 3:r4=b;
+4:r2=b; 4:r4=x;
+}
+ P0           | P1           | P2           | P3           | P4           ;
+ li r1,1      | lwz r1,0(r2) | li r1,1      | lwz r1,0(r2) | lwz r1,0(r2) ;
+ stw r1,0(r2) | sync         | stw r1,0(r2) | sync         | lwsync       ;
+ lwsync       | lwz r3,0(r4) | lwsync       | li r3,1      | lwz r3,0(r4) ;
+ li r3,1      |              | li r3,1      | stw r3,0(r4) |              ;
+ stw r3,0(r4) |              | stw r3,0(r4) |              |              ;
+exists
+(1:r1=1 /\ 1:r3=0 /\ 3:r1=1 /\ 4:r1=1 /\ 4:r3=0)

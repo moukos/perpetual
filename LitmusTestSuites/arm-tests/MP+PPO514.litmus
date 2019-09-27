@@ -1,0 +1,22 @@
+ARM MP+PPO514
+"Fre DMBdWW Rfe PosRR DpAddrdR DpAddrdW PosWR"
+Cycle=Rfe PosRR DpAddrdR DpAddrdW PosWR Fre DMBdWW
+Relax=
+Safe=Rfe Fre PosWR PosRR DMBdWW DpAddrdW DpAddrdR
+Prefetch=1:x=T
+Orig=Fre DMBdWW Rfe PosRR DpAddrdR DpAddrdW PosWR
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0            | P1               ;
+ MOV R0, #2    | LDR R0, [%y1]    ;
+ STR R0, [%x0] | LDR R1, [%y1]    ;
+ DMB           | EOR R2,R1,R1     ;
+ MOV R1, #1    | LDR R3, [R2,%z1] ;
+ STR R1, [%y0] | EOR R4,R3,R3     ;
+               | MOV R5, #1       ;
+               | STR R5, [R4,%x1] ;
+               | LDR R6, [%x1]    ;
+exists
+(x=2 /\ 1:R0=1 /\ 1:R6=1)

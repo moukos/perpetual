@@ -1,0 +1,26 @@
+PPC j3
+"Reduction of the token ring example"
+{
+%x0=x; %y0=y;
+%x1=x; %y1=y;
+%x2=x; %y2=y;
+}
+ P0            | P1            | P2             ;
+ li r1,1       | lwz r1,0(%x1) | lwz r1,0(%y2)  ;
+ stw r1,0(%x0) | li r2,2       | xor r2,r1,r1   ;
+ lwz r2,0(%x0) | stw r2,0(%y1) | lwzx r3,r2,%x2 ;
+ xor r3,r2,r2  | lwsync        |                ;
+ lwzx r4,r3,%y0| li r3,2       |                ;
+ li r5,3       | stw r3,0(%x1) |                ;
+ stw r5,0(%y0) |               |                ;
+
+exists
+ (0:r2=2 /\ 0:r4=2 /\ 
+  1:r1=1 /\
+  2:r1=3 /\ 2:r3 = 0 /\
+  x = 2 /\ y = 3)
+
+(*
+locations [0:r2;0:r4;1:r1;]
+exists   (2:r1=3 /\ 2:r3 = 0)
+*)

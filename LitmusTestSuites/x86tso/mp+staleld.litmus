@@ -1,0 +1,9 @@
+X86 mp+staleld
+{
+}
+ P0          | P1          ;
+ MOV [x],$1  | MOV EAX,[x] ;
+ MOV [y],$1  | MOV EBX,[y] ;
+             | MOV ECX,[x] ;
+exists
+(1:EAX=0 /\ 1:EBX=1 /\ 1:ECX=0)

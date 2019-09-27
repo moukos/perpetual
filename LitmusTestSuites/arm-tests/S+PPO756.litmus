@@ -1,0 +1,23 @@
+ARM S+PPO756
+"Wse DMBdWW Rfe PosRW PosWR DpCtrldW"
+Cycle=Rfe PosRW PosWR DpCtrldW Wse DMBdWW
+Relax=
+Safe=Rfe Wse PosWR PosRW DMBdWW DpCtrldW
+Prefetch=0:x=F,1:x=W
+Orig=Wse DMBdWW Rfe PosRW PosWR DpCtrldW
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0            | P1            ;
+ MOV R0, #2    | LDR R0, [%y1] ;
+ STR R0, [%x0] | MOV R1, #2    ;
+ DMB           | STR R1, [%y1] ;
+ MOV R1, #1    | LDR R2, [%y1] ;
+ STR R1, [%y0] | CMP R2, R2    ;
+               | BNE LC00      ;
+               | LC00:         ;
+               | MOV R3, #1    ;
+               | STR R3, [%x1] ;
+exists
+(x=2 /\ y=2 /\ 1:R0=1)

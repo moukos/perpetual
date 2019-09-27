@@ -1,0 +1,15 @@
+ARM MP+dmb+data-rfi-variant
+"Variant of MP+dmb+data-rfi, ie DMBdWW Rfe DpDatadW PodWR Fre
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x; %z1=z
+}
+ P0           | P1           ;
+ MOV R0,#2    | LDR R0,[%y1] ;
+ STR R0,[%x0] | EOR R1,R0,R0 ;
+ DMB          | ADD R1,R1,#1 ;
+ MOV R1,#1    | STR R1,[%z1] ;
+ STR R1,[%y0] | LDR R2,[%x1] ;
+exists
+(1:R0=1 /\ 1:R2=0)

@@ -1,0 +1,19 @@
+PPC isa2v7 (PPCIsaTwoSeven)
+"example 2, ISA p 415"
+(* Variation lwsync/*/* *)
+{
+x=0;y=0;
+0:r4=x;          2:r4=x;
+0:r5=y; 1:r5=y ;
+        1:r6=z ; 2:r6=z;
+0:r1=1 ; 0:r2=2 ;
+1:r3=3 ;
+}
+   P0        |  P1           |   P2         ;
+stw r1,0(r4) | lwz r2,0(r5)  | lwz r3,0(r6) ;
+lwsync       |               |              ;
+stw r2,0(r5) | stwx r3,r0,r6 | lwzx r1,r0,r4;
+
+locations [1:r2; 2:r3; 2:r1; ]
+exists
+  (1:r2=2 /\ 2:r3=3 /\ 2:r1=0)

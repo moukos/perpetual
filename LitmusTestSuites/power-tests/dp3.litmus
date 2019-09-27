@@ -1,0 +1,14 @@
+PPC dp3 (PPCDPThree)
+"examples of ppo;rf cycles (addr dep)"
+{
+0:r5=x; 0:r6=y;
+1:r5=x; 1:r6=y;
+x=0; y=0;
+
+}
+P0            |    P1       ;
+lwz r1,0(r5)  |lwz r1,0(r6) ;
+xor r9,r1,r1  |xor r9,r1,r1 ;
+li r2,1       |li r2,1      ;
+stwx r2,r9,r6 |stwx r2,r9,r5;
+exists (not (0:r1=0 \/ 1:r1=0))

@@ -1,0 +1,22 @@
+ARM MOREDETOUR0271
+"DpDatadW Rfe DpAddrdR DetourRW DetourWW Rfe"
+Cycle=Rfe DpAddrdR DetourRW DetourWW Rfe DpDatadW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe DpAddrdR DetourRW DetourWW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+%x2=x;
+%x3=x;
+}
+ P0           | P1              | P2           | P3           ;
+ LDR R0,[%x0] | LDR R0,[%y1]    | MOV R0,#1    | LDR R0,[%x3] ;
+ EOR R1,R0,R0 | EOR R1,R0,R0    | STR R0,[%x2] | MOV R1,#3    ;
+ ADD R1,R1,#1 | LDR R2,[R1,%x1] | DMB          | STR R1,[%x3] ;
+ STR R1,[%y0] | MOV R3,#2       | LDR R1,[%x2] |              ;
+              | STR R3,[%x1]    |              |              ;
+              | MOV R4,#4       |              |              ;
+              | STR R4,[%x1]    |              |              ;
+exists
+(0:R0=4 /\ 1:R0=1 /\ 1:R2=0 /\ 2:R1=2 /\ x=4 /\ 3:R0=2)

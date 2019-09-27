@@ -1,0 +1,9 @@
+X86 testandset+earlyld
+{
+}
+ P0           | P1           ;
+ MOV EAX,[x]  | MOV EAX,[x]  ;
+ MOV EBX,$1   | MOV EBX,$1   ;
+ XCHG [x],EBX | XCHG [x],EBX ;
+exists
+(0:EAX=0 /\ 0:EBX=0 /\ 1:EAX=0 /\ 1:EBX=0)

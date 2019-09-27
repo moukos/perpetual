@@ -1,0 +1,24 @@
+ARM DETOUR0683
+"DMBdWW Rfe DpDatadW DetourW DpCtrlIsbdR Fre"
+Cycle=Rfe DpDatadW DetourW DpCtrlIsbdR Fre DMBdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DMBdWW Rfe DpDatadW DetourW DpCtrlIsbdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+%z2=z;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#1    | LDR R0,[%y1] | MOV R0,#2    ;
+ STR R0,[%x0] | EOR R1,R0,R0 | STR R0,[%z2] ;
+ DMB          | ADD R1,R1,#1 |              ;
+ MOV R1,#1    | STR R1,[%z1] |              ;
+ STR R1,[%y0] | LDR R2,[%z1] |              ;
+              | CMP R2,R2    |              ;
+              | BNE LC00     |              ;
+              | LC00:        |              ;
+              | ISB          |              ;
+              | LDR R3,[%x1] |              ;
+exists
+(1:R0=1 /\ 1:R2=2 /\ 1:R3=0)

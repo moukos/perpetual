@@ -1,0 +1,28 @@
+ARM MP+PPO481
+"Fre DMBdWW Rfe PosRR DpAddrdW PosWW PosWR PosRR DpCtrlIsbdR"
+Cycle=Rfe PosRR DpAddrdW PosWW PosWR PosRR DpCtrlIsbdR Fre DMBdWW
+Relax=
+Safe=Rfe Fre PosWW PosWR PosRR DMBdWW DpAddrdW DpCtrlIsbdR
+Prefetch=1:x=T
+Orig=Fre DMBdWW Rfe PosRR DpAddrdW PosWW PosWR PosRR DpCtrlIsbdR
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0            | P1               ;
+ MOV R0, #1    | LDR R0, [%y1]    ;
+ STR R0, [%x0] | LDR R1, [%y1]    ;
+ DMB           | EOR R2,R1,R1     ;
+ MOV R1, #1    | MOV R3, #1       ;
+ STR R1, [%y0] | STR R3, [R2,%z1] ;
+               | MOV R4, #2       ;
+               | STR R4, [%z1]    ;
+               | LDR R5, [%z1]    ;
+               | LDR R6, [%z1]    ;
+               | CMP R6, R6       ;
+               | BNE LC00         ;
+               | LC00:            ;
+               | ISB              ;
+               | LDR R7, [%x1]    ;
+exists
+(z=2 /\ 1:R0=1 /\ 1:R7=0)

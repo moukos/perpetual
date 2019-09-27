@@ -1,0 +1,20 @@
+PPC DETOUR0066
+"Rfi PosRR DpDatadW Rfe DpAddrdR Fre"
+Cycle=Rfi PosRR DpDatadW Rfe DpAddrdR Fre
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=Rfi PosRR DpDatadW Rfe DpAddrdR Fre
+{
+0:r2=x; 0:r6=y;
+1:r2=y; 1:r5=x;
+}
+ P0           | P1            ;
+ li r1,1      | lwz r1,0(r2)  ;
+ stw r1,0(r2) | xor r3,r1,r1  ;
+ lwz r3,0(r2) | lwzx r4,r3,r5 ;
+ lwz r4,0(r2) |               ;
+ xor r5,r4,r4 |               ;
+ addi r5,r5,1 |               ;
+ stw r5,0(r6) |               ;
+exists
+(0:r3=1 /\ 1:r1=1 /\ 1:r4=0)

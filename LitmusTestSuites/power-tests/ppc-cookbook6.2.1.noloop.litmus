@@ -1,0 +1,27 @@
+PPC ppc-cookbook6.2.1.noloop (PPCcookbookSixTwoOneNoLoop)
+{
+ P0:r9=1;
+ P0:r1=x; P1:r1=x;
+ P0:r5=55; P1:r5=0;
+ P0:r2=y; P1:r2=y;
+ x = 0; y = 0;
+}
+
+    P0       |      P1     ;
+             |             ;
+stw r5,0,r1  | lwz r12,0,r2  ;
+stw r9,0,r2  | cmpwi r12, 0  ;
+             | beq L1      ;
+             | lwz r5,0,r1 ;
+             | L1: ;
+exists (P1:r12 = 1 /\ P1:r5=0);
+<<
+show 1
+genprog generated/ppc-cookbook6.2.1.noloop-prog.tex
+essdump generated/ppc-cookbook6.2.1.noloop-ess.dot
+>>
+<<
+show 0
+show interesting true
+readfrom generated/ppc-cookbook6.2.1.noloop-rf.dot
+>>

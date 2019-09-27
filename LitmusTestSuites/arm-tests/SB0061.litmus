@@ -1,0 +1,20 @@
+ARM SB0061
+"DMBdWR Fre PosWR PosRR PodRR Fre"
+Cycle=Fre PosWR PosRR PodRR Fre DMBdWR
+Relax=[Fre,DMBdWR,Fre]
+Safe=PosWR PosRR PodRR
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=T
+Com=Fr Fr
+Orig=DMBdWR Fre PosWR PosRR PodRR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#1    | MOV R0,#1    ;
+ STR R0,[%x0] | STR R0,[%y1] ;
+ DMB          | LDR R1,[%y1] ;
+ LDR R1,[%y0] | LDR R2,[%y1] ;
+              | LDR R3,[%x1] ;
+exists
+(0:R1=0 /\ 1:R3=0)

@@ -1,0 +1,26 @@
+ARM S+dmb+detrw-detw-ctrl
+"DMBdWW Rfe DetourRW DetourW DpCtrldW Wse"
+Cycle=Rfe DetourRW DetourW DpCtrldW Wse DMBdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Ws
+Orig=DMBdWW Rfe DetourRW DetourW DpCtrldW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+%y2=y;
+%y3=y;
+}
+ P0           | P1           | P2           | P3           ;
+ MOV R0,#2    | LDR R0,[%y1] | LDR R0,[%y2] | MOV R0,#4    ;
+ STR R0,[%x0] | MOV R1,#3    | MOV R1,#2    | STR R0,[%y3] ;
+ DMB          | STR R1,[%y1] | STR R1,[%y2] |              ;
+ MOV R1,#1    | LDR R2,[%y1] | DMB          |              ;
+ STR R1,[%y0] | CMP R2,R2    | LDR R2,[%y2] |              ;
+              | BNE LC00     |              |              ;
+              | LC00:        |              |              ;
+              | MOV R3,#1    |              |              ;
+              | STR R3,[%x1] |              |              ;
+              | DMB          |              |              ;
+              | LDR R4,[%x1] |              |              ;
+exists
+(x=2 /\ y=4 /\ 1:R4=2 /\ 1:R0=1 /\ 1:R2=4 /\ 2:R2=3 /\ 2:R0=1)

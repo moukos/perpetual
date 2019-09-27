@@ -1,0 +1,19 @@
+ARM MP+PPO145
+"Fre DMBdWW Rfe PosRR DpAddrdR"
+Cycle=Rfe PosRR DpAddrdR Fre DMBdWW
+Relax=
+Safe=Rfe Fre PosRR DMBdWW DpAddrdR
+Prefetch=1:x=T
+Orig=Fre DMBdWW Rfe PosRR DpAddrdR
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0            | P1               ;
+ MOV R0, #1    | LDR R0, [%y1]    ;
+ STR R0, [%x0] | LDR R1, [%y1]    ;
+ DMB           | EOR R2,R1,R1     ;
+ MOV R1, #1    | LDR R3, [R2,%x1] ;
+ STR R1, [%y0] |                  ;
+exists
+(1:R0=1 /\ 1:R3=0)

@@ -1,0 +1,24 @@
+PPC ppc-iwp2.1/amd1 (PPCiwpTwoOne)
+{
+ P0:r1=x; P0:r2=y;
+ P1:r1=x;  P1:r2=y;
+ P0:r5=55; P0:r6=66;
+ x = 0; y = 0;
+}
+
+    P0     |      P1       ;
+           |               ;
+stw r5,0,r1  | lwz r7,0,r2 ;
+stw r6,0,r2  | lwz r8,0,r1 ;
+
+exists (P1:r7=66 /\ P1:r8=0);
+<<
+show 1
+genprog generated/ppc-iwp2.1-amd1-prog.tex
+essdump generated/ppc-iwp2.1-amd1-ess.dot
+>>
+<<
+show 0
+show interesting true
+readfrom generated/ppc-iwp2.1-amd1-rf.dot
+>>

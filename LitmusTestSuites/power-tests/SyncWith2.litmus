@@ -1,0 +1,15 @@
+PPC SyncWith2
+"Synchornize with, 2 procs"
+{
+0:r2=x; 0:r4=y; 0:r5=z ;
+1:r2=y; 1:r4=x; 1:r5=z ;
+}
+ P0           | P1           ;
+ li r1,1      | lwz r6,0(r5) ;
+ stw r1,0(r2) | cmpw r6,r6   ;
+ stw r1,0(r4) | bne L1       ;
+ lwsync       |L1:           ;
+ stw r1,0(r5) | isync        ;
+              | lwz r1,0(r2) ;
+              | lwz r3,0(r4) ;
+exists (1:r6=1 /\ 1:r1=1 /\ 1:r3=0)

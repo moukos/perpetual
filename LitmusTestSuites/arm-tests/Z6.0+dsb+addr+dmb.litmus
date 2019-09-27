@@ -1,0 +1,19 @@
+ARM Z6.0+dsb+addr+dmb
+"DSBdWW Rfe DpAddrdW Wse DMBdWR Fre"
+Cycle=Rfe DpAddrdW Wse DMBdWR Fre DSBdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=T
+Com=Rf Ws Fr
+Orig=DSBdWW Rfe DpAddrdW Wse DMBdWR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1              | P2           ;
+ MOV R0,#1    | LDR R0,[%y1]    | MOV R0,#2    ;
+ STR R0,[%x0] | EOR R1,R0,R0    | STR R0,[%z2] ;
+ DSB          | MOV R2,#1       | DMB          ;
+ MOV R1,#1    | STR R2,[R1,%z1] | LDR R1,[%x2] ;
+ STR R1,[%y0] |                 |              ;
+exists
+(z=2 /\ 1:R0=1 /\ 2:R1=0)

@@ -1,0 +1,25 @@
+ARM DETOUR1273
+"DMBdWW Wse DetourW Fri Rfi DpCtrldW Wse"
+Cycle=Rfi DpCtrldW Wse DMBdWW Wse DetourW Fri
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Ws Ws
+Orig=DMBdWW Wse DetourW Fri Rfi DpCtrldW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+%y2=y;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#2    | MOV R0,#2    | MOV R0,#3    ;
+ STR R0,[%x0] | STR R0,[%y1] | STR R0,[%y2] ;
+ DMB          | LDR R1,[%y1] |              ;
+ MOV R1,#1    | MOV R2,#4    |              ;
+ STR R1,[%y0] | STR R2,[%y1] |              ;
+ DMB          | LDR R3,[%y1] |              ;
+ LDR R2,[%y0] | CMP R3,R3    |              ;
+              | BNE LC00     |              ;
+              | LC00:        |              ;
+              | MOV R4,#1    |              ;
+              | STR R4,[%x1] |              ;
+exists
+(0:R2=2 /\ x=2 /\ 1:R1=3 /\ 1:R3=4)

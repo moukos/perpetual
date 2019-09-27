@@ -1,0 +1,18 @@
+ARM 3.SB+dmb.st+dmb.st+dsb.st
+"DMB.STdWR Fre DMB.STdWR Fre DSB.STdWR Fre"
+Cycle=Fre DMB.STdWR Fre DMB.STdWR Fre DSB.STdWR
+Prefetch=0:x=F,0:y=T,1:y=F,1:z=T,2:z=F,2:x=T
+Com=Fr Fr Fr
+Orig=DMB.STdWR Fre DMB.STdWR Fre DSB.STdWR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#1    | MOV R0,#1    | MOV R0,#1    ;
+ STR R0,[%x0] | STR R0,[%y1] | STR R0,[%z2] ;
+ DMB ST       | DMB ST       | DSB ST       ;
+ LDR R1,[%y0] | LDR R1,[%z1] | LDR R1,[%x2] ;
+exists
+(0:R1=0 /\ 1:R1=0 /\ 2:R1=0)

@@ -1,0 +1,27 @@
+PPC S0123
+"LwSyncdWW Rfe DpCtrldW PodWR DpCtrldW Wse"
+Cycle=Rfe DpCtrldW PodWR DpCtrldW Wse LwSyncdWW
+Relax=[Wse,LwSyncdWW,Rfe]
+Safe=PodWR DpCtrldW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Ws
+Orig=LwSyncdWW Rfe DpCtrldW PodWR DpCtrldW Wse
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r4=z; 1:r6=a; 1:r8=x;
+}
+ P0           | P1           ;
+ li r1,2      | lwz r1,0(r2) ;
+ stw r1,0(r2) | cmpw r1,r1   ;
+ lwsync       | beq  LC00    ;
+ li r3,1      | LC00:        ;
+ stw r3,0(r4) | li r3,1      ;
+              | stw r3,0(r4) ;
+              | lwz r5,0(r6) ;
+              | cmpw r5,r5   ;
+              | beq  LC01    ;
+              | LC01:        ;
+              | li r7,1      ;
+              | stw r7,0(r8) ;
+exists
+(x=2 /\ 1:r1=1)

@@ -1,0 +1,21 @@
+ARM DETOUR0255
+"DpDatadW Rfe PosRW DetourW DpDatadW Rfe"
+Cycle=Rfe PosRW DetourW DpDatadW Rfe DpDatadW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe PosRW DetourW DpDatadW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+%y2=y;
+}
+ P0           | P1           | P2           ;
+ LDR R0,[%x0] | LDR R0,[%y1] | MOV R0,#3    ;
+ EOR R1,R0,R0 | MOV R1,#2    | STR R0,[%y2] ;
+ ADD R1,R1,#1 | STR R1,[%y1] |              ;
+ STR R1,[%y0] | LDR R2,[%y1] |              ;
+              | EOR R3,R2,R2 |              ;
+              | ADD R3,R3,#1 |              ;
+              | STR R3,[%x1] |              ;
+exists
+(0:R0=1 /\ 1:R0=1 /\ 1:R2=3)

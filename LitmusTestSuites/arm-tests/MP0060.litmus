@@ -1,0 +1,23 @@
+ARM MP0060
+"PodWR DpDatadW PodWW Rfe DpAddrdR Fre"
+Cycle=Rfe DpAddrdR Fre PodWR DpDatadW PodWW
+Relax=[Rfe,DpAddrdR,Fre]
+Safe=PodWW PodWR DpDatadW
+Prefetch=0:x=F,0:a=W,1:a=F,1:x=T
+Com=Rf Fr
+Orig=PodWR DpDatadW PodWW Rfe DpAddrdR Fre
+{
+%x0=x; %y0=y; %z0=z; %a0=a;
+%a1=a; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#1    | LDR R0,[%a1]    ;
+ STR R0,[%x0] | EOR R1,R0,R0    ;
+ LDR R1,[%y0] | LDR R2,[R1,%x1] ;
+ EOR R2,R1,R1 |                 ;
+ ADD R2,R2,#1 |                 ;
+ STR R2,[%z0] |                 ;
+ MOV R3,#1    |                 ;
+ STR R3,[%a0] |                 ;
+exists
+(1:R0=1 /\ 1:R2=0)

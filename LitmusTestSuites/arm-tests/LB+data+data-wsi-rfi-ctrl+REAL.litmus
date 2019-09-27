@@ -1,0 +1,23 @@
+ARM LB+data+data-wsi-rfi-ctrl+REAL
+"DpDatadW Rfe DpDatadW Wsi Rfi DpCtrldW Rfe"
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe DpDatadW Wsi Rfi DpCtrldW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1              ;
+ LDR R0,[%x0] | LDR R0,[%y1]    ;
+ ADD R1,R0,#1 | STR R0,[%z1]    ;
+ STR R1,[%y0] | MOV R2,#3       ; 
+              | STR R2,[%z1]    ;
+              | LDR R3,[%z1]    ;
+              | CMP R3,#3       ;
+              | BNE LC00        ;
+              | MOV R5,#1       ;
+              | STR R5,[%x1]    ;
+              | LC00:           ;
+
+exists
+(z=3 /\ y=2 /\ x=1 /\ 0:R0=1 /\ 1:R0=2 /\ 1:R3=3)

@@ -1,0 +1,19 @@
+ARM Z6.5+dsb.st+po+dsb
+"DSB.STdWW Wse PodWW Wse DSBdWR Fre"
+Cycle=Fre DSB.STdWW Wse PodWW Wse DSBdWR
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=T
+Com=Ws Ws Fr
+Orig=DSB.STdWW Wse PodWW Wse DSBdWR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#1    | MOV R0,#2    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%y1] | STR R0,[%z2] ;
+ DSB ST       | MOV R1,#1    | DSB          ;
+ MOV R1,#1    | STR R1,[%z1] | LDR R1,[%x2] ;
+ STR R1,[%y0] |              |              ;
+exists
+(y=2 /\ z=2 /\ 2:R1=0)

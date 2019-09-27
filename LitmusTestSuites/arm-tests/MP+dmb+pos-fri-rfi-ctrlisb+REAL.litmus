@@ -1,0 +1,22 @@
+ARM MP+dmb+pos-fri-rfi-ctrlisb+REAL
+"DMBdWW Rfe PosRR Fri Rfi DpCtrlIsbdR Fre"
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DMBdWW Rfe PosRR Fri Rfi DpCtrlIsbdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x; 1:R4=-1;
+}
+ P0           | P1           ;
+ MOV R0,#1    | LDR R0,[%y1] ;
+ STR R0,[%x0] | LDR R1,[%y1] ;
+ DMB          | MOV R2,#2    ;
+ MOV R1,#1    | STR R2,[%y1] ;
+ STR R1,[%y0] | LDR R3,[%y1] ;
+              | CMP R3,#2    ;
+              | BNE LC00     ;
+              | ISB          ;
+              | LDR R4,[%x1] ;
+              | LC00:        ;
+exists
+(y=2 /\ 1:R0=1 /\ 1:R1=1 /\ 1:R3=2 /\ 1:R4=0)

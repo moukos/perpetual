@@ -1,0 +1,24 @@
+PPC ppc-adir8 (PPCAdirEight)
+{
+ P0:r10=1; P1:r10=1; P2:r11=2;
+ P0:r5=x; P1:r5=x; P2:r5=x;
+ P0:r6=y; P1:r6=y; 
+ x = 0; y = 0;
+}
+
+    P0       |      P1    |      P2        ;
+stw r10,0,r5 | stw r10,0,r6 | stw r11,0,r5 ;
+sync         | sync         |              ;
+lwz r1,0,r6  | lwz r2,0,r5  |              ;
+
+exists (x=1 /\ y=1 /\ 0:r1=0 /\ 1:r2=2)
+<<
+genprog generated/ppc-adir8-prog.tex
+show 0
+essdump generated/ppc-adir8-ess.dot
+>>
+<<
+show 0 of ess 0
+show interesting true
+readfrom generated/ppc-adir8-rf.dot
+>>

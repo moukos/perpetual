@@ -1,0 +1,17 @@
+PPC isa1v9 (PPCIsaOneNine)
+"example 1, ISA p 415"
+(* A variation with no barriers *)
+{
+x=0;y=0;
+0:r4=x; 1:r4=x ; 2:r4=x;
+        1:r5=y ; 2:r5=y;
+
+0:r1=1 ; 1:r2=2 ;
+}
+   P0        |  P1           |   P2         ;
+stw r1,0(r4) | lwz r1,0(r4)  | lwz r1,0(r5) ;
+             |               | xor r9,r1,r1 ;
+             | stw r2,0(r5)  | lwzx r2,r9,r4 ;
+locations [1:r1 ; 2:r1 ; 2:r2; ]
+exists
+  (1:r1=1 /\ 2:r1=2 /\ 2:r2=0)

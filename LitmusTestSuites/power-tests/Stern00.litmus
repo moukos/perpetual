@@ -1,0 +1,31 @@
+PPC  Stern00
+"Overlapping Group-B sets version 4"
+(* Example by Alan Stern *)
+(* When the Group-B sets from two different barriers involve instructions in
+   the same thread, within that thread one B set must contain the other.
+
+        P0      P1      P2
+        Rx=1    Wy=1    Wz=2
+        dep.    lwsync  lwsync
+        Ry=0    Wz=1    Wx=1
+        Rz=1
+
+        at the end, z=2
+
+   Forbidden by PLDI, allowed by Herding Cats.
+*)
+{
+0:r1=x; 0:r2=y; 0:r3=z;
+1:r1=x; 1:r2=y; 1:r3=z; 1:r4=1;
+2:r1=x; 2:r2=y; 2:r3=z; 2:r4=1; 2:r5=2;
+}
+ P0             | P1            | P2            ;
+ lwz r6,0(r1)   | stw r4,0(r2)  | stw r5,0(r3)  ;
+ xor r7,r6,r6   | lwsync        | lwsync        ;
+ lwzx r7,r7,r2  | stw r4,0(r3)  | stw r4,0(r1)  ;
+ lwz r8,0(r3)   |               |               ;
+
+exists
+(z=2 /\ 0:r6=1 /\ 0:r7=0 /\ 0:r8=1)
+
+(* Notice: conditions with 0:r8=1 replaced by 0:r8=0 or 0:r8=2 are observed *)

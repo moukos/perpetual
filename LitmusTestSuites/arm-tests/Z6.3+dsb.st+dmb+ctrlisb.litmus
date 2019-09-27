@@ -1,0 +1,20 @@
+ARM Z6.3+dsb.st+dmb+ctrlisb
+"DSB.STdWW Wse DMBdWW Rfe DpCtrlIsbdR Fre"
+Cycle=Rfe DpCtrlIsbdR Fre DSB.STdWW Wse DMBdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=T
+Com=Ws Rf Fr
+Orig=DSB.STdWW Wse DMBdWW Rfe DpCtrlIsbdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#1    | MOV R0,#2    | LDR R0,[%z2] ;
+ STR R0,[%x0] | STR R0,[%y1] | CMP R0,R0    ;
+ DSB ST       | DMB          | BNE LC00     ;
+ MOV R1,#1    | MOV R1,#1    | LC00:        ;
+ STR R1,[%y0] | STR R1,[%z1] | ISB          ;
+              |              | LDR R1,[%x2] ;
+exists
+(y=2 /\ 2:R0=1 /\ 2:R1=0)

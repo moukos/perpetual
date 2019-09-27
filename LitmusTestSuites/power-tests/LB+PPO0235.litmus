@@ -1,0 +1,26 @@
+PPC LB+PPO0235
+"PodWW Rfe DpDatadW Rfe PosRR DpAddrdR DpCtrldW"
+Cycle=Rfe PosRR DpAddrdR DpCtrldW PodWW Rfe DpDatadW
+Relax=
+Safe=Rfe PosRR Pod*W DpAddrdR DpDatadW DpCtrldW
+Prefetch=
+Com=Rf Rf
+Orig=PodWW Rfe DpDatadW Rfe PosRR DpAddrdR DpCtrldW
+{
+0:r2=a; 0:r4=x;
+1:r2=x; 1:r6=y; 1:r8=z; 1:r10=a;
+}
+ P0           | P1            ;
+ lwz r1,0(r2) | lwz r1,0(r2)  ;
+ xor r3,r1,r1 | lwz r3,0(r2)  ;
+ addi r3,r3,1 | xor r4,r3,r3  ;
+ stw r3,0(r4) | lwzx r5,r4,r6 ;
+              | cmpw r5,r5    ;
+              | beq  LC00     ;
+              | LC00:         ;
+              | li r7,1       ;
+              | stw r7,0(r8)  ;
+              | li r9,1       ;
+              | stw r9,0(r10) ;
+exists
+(0:r1=1 /\ 1:r1=1)

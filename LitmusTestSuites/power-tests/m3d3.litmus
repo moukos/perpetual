@@ -1,0 +1,15 @@
+PPC m3d3 (PPCMThreeDepThree)
+"write-to_read causality, boehm adve PLDI'08 (Fig 5.)"
+{
+P0:r5=x; P0:r7=z ;
+P1:r7=z; P1:r8=t;
+P2:r5=x; P2:r6=y;
+P0:r1=1; P0:r2=2; P1:r1=1; P3:r3=3 ;
+P3:r8=t; P3:r6=y;
+} 
+      P0    |       P1    |   P2         | P3         ;
+stw r1,0,r5 | lwz r2,0,r7 | lwz r2,0,r6  |lwz r2,0,r8 ;
+sync        | xor r9,r2,r2| xor r9,r2,r2 |xor r9,r2,r2;
+stw r2,0,r7 |stwx r1,r9,r8| lwzx r1,r9,r5|stwx r3,r9,r6;
+
+exists (1:r2=2 /\ 3:r2=1 /\ 2:r2=3 /\ 2:r1=0)

@@ -1,0 +1,21 @@
+ARM DETOUR0357
+"PodWR DpAddrdW Wsi Rfe DpDatadW Wse"
+Cycle=Rfe DpDatadW Wse PodWR DpAddrdW Wsi
+Prefetch=0:x=F,0:z=W,1:z=F,1:x=W
+Com=Rf Ws
+Orig=PodWR DpAddrdW Wsi Rfe DpDatadW Wse
+{
+%x0=x; %y0=y; %z0=z;
+%z1=z; %x1=x;
+}
+ P0              | P1           ;
+ MOV R0,#2       | LDR R0,[%z1] ;
+ STR R0,[%x0]    | EOR R1,R0,R0 ;
+ LDR R1,[%y0]    | ADD R1,R1,#1 ;
+ EOR R2,R1,R1    | STR R1,[%x1] ;
+ MOV R3,#1       |              ;
+ STR R3,[R2,%z0] |              ;
+ MOV R4,#2       |              ;
+ STR R4,[%z0]    |              ;
+exists
+(x=2 /\ 1:R0=2)

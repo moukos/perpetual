@@ -1,0 +1,20 @@
+ARM MP+dmb+addr-bigdetour3-addr
+"DMBdWW Rfe DpAddrdR Leave Fre DMBdWW Rfe DpDatadW Back Rfe DpAddrdR Fre"
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T,2:z=F,2:a=W,3:a=F,3:b=W
+Com=Rf Fr Rf Rf
+Orig=DMBdWW Rfe DpAddrdR Leave Fre DMBdWW Rfe DpDatadW Back Rfe DpAddrdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %b1=b; %x1=x;
+%z2=z; %a2=a;
+%a3=a; %b3=b;
+}
+ P0           | P1              | P2           | P3           ;
+ MOV R0,#1    | LDR R0,[%y1]    | MOV R0,#1    | LDR R0,[%a3] ;
+ STR R0,[%x0] | EOR R1,R0,R0    | STR R0,[%z2] | EOR R1,R0,R0 ;
+ DMB          | LDR R2,[R1,%z1] | DMB          | ADD R1,R1,#1 ;
+ MOV R1,#1    | LDR R3,[%b1]    | MOV R1,#1    | STR R1,[%b3] ;
+ STR R1,[%y0] | EOR R4,R3,R3    | STR R1,[%a2] |              ;
+              | LDR R5,[R4,%x1] |              |              ;
+exists
+(1:R0=1 /\ 1:R2=0 /\ 1:R3=1 /\ 1:R5=0 /\ 3:R0=1)

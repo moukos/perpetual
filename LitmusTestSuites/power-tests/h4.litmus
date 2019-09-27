@@ -1,0 +1,15 @@
+PPC h4 (BasicHFour)
+{
+x=0 ; y=0;
+0:r4=x ; 0:r5=y;
+1:r4=x ; 1:r5=y;
+0:r1=1 ; 0:r2=2 ; 1:r1=1;
+}
+
+P0           |     P1       ;
+stw r2,0(r4) | lwz r2,0(r5) ;
+lwsync       | xor r9,r2,r2 ;
+stw r1,0(r5) | stwx r1,r9,r4 ;
+
+locations [1:r2; x;]
+exists (1:r2=1 /\ x=2)

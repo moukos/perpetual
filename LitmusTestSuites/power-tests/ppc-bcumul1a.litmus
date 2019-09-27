@@ -1,0 +1,14 @@
+PPC ppc-bcumul1a (PPCBCumulOneA) "Pfui"
+{
+P0:r1=1 ; P0:r5=x ; P0:r6=y ; 
+P1:r1=1 ; P1:r6=y ; P1:r7=z ;
+P2:r5=x ; P2:r7=z ;
+x=0 ; y=0 ; z=0 ;
+}
+
+P0          | P1            | P2            ;
+stw r1,0,r5 | lwz r2,0,r6   | lwz r2,0,r7   ;
+lwsync      | xor r10,r2,r2 | xor r10,r2,r2 ;
+stw r1,0,r6 | stwx r1,r10,r7| lwzx r3,r10,r5;
+
+exists (1:r2=1 /\ 2:r2=1 /\ 2:r3=0)

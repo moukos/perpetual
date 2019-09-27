@@ -1,0 +1,10 @@
+ARM CoRW1
+"ARM uniproc, basic reject (rf)"
+{
+0:R5=x;
+}
+P0           ;
+LDR R2,R5    ;
+MOV R1,#1    ;
+STR R1,R5    ;
+exists (0:R2=1)

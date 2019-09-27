@@ -1,0 +1,22 @@
+PPC ppc-cookbook6.5-amd6-cpp.iriw.nofence (PPCcookbookSixFive) 
+{
+  P0:r1=x; P2:r1=x; P3:r1=x;
+  P1:r2=y; P2:r2=y; P3:r2=y;
+  P0:r8=1; P1:r8=1;
+  x=0; y=0;
+}
+   P0       |     P1       |      P2     |  P3         ;
+stw r8,0,r1 | stw  r8,0,r2 | lwz r5,0,r1 | lwz r5,0,r2 ;
+            |              | lwz r6,0,r2 | lwz r6,0,r1 ;
+
+exists (P2:r5=1 /\ P2:r6=0 /\ P3:r5 = 1 /\ P3:r6 = 0)
+
+<<
+genprog generated/ppc-cookbook6.5-amd6-cpp.iriw.nofence-prog.tex
+show 0
+essdump generated/ppc-cookbook6.5-amd6-cpp.iriw.nofence-ess.dot
+>>
+<<
+show 0
+readfrom generated/ppc-amd6-cpp.iriwnofence-rf.dot
+>>

@@ -1,0 +1,29 @@
+PPC ppc/nathan1v1 (PPCNathanOneOne)
+{
+ P1:r1=1; P2:r1=1; P3:r1=1;
+ P0:r5=x; P1:r5=x; P2:r5=x; P3:r5=x;
+ P0:r6=y; P1:r6=y; P2:r6=y; P3:r6=y;
+ P0:r7=z; P1:r7=z; P2:r7=z; P3:r7=z;
+ x = 0; y = 0; z=0;
+}
+
+    P0          |      P1         |    P2        |    P3        ;
+                |                 |              |              ;
+lwz r8,0(r5)    | stw r1,0(r6)    | stw r1,0(r7) | lwz r8,0(r7) ;
+mr r12,r8       | lwz r8,0(r6)    |              |              ;
+xor r12,r12,r12 | mr r12,r8       |              | stw r1,0(r5) ;
+lwzx r9,r12,r6  | xor r12,r12,r12 |              |              ;
+                | lwzx r9,r12,r7  |              |              ;
+
+exists (P0:r8=1 /\ P0:r9 = 0 /\ P1:r8=1 /\ P1:r9=0 /\ P3:r8 = 1);
+
+<<
+show 0
+genprog generated/ppc-nathan1v1-prog.tex
+essdump generated/ppc-nathan1v1-ess.dot
+>>
+<<
+show 0
+show interesting true
+readfrom generated/ppc-nathan1v1-rf.dot
+>>

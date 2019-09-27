@@ -1,0 +1,25 @@
+ARM MP+PPO819
+"Fre DMBdWW Rfe PosRW PosWR DpDatadW PosWR DpAddrdR PosRR"
+Cycle=Rfe PosRW PosWR DpDatadW PosWR DpAddrdR PosRR Fre DMBdWW
+Relax=
+Safe=Rfe Fre PosWR PosRW PosRR DMBdWW DpAddrdR DpDatadW
+Prefetch=1:x=T
+Orig=Fre DMBdWW Rfe PosRW PosWR DpDatadW PosWR DpAddrdR PosRR
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0            | P1               ;
+ MOV R0, #1    | LDR R0, [%y1]    ;
+ STR R0, [%x0] | MOV R1, #2       ;
+ DMB           | STR R1, [%y1]    ;
+ MOV R1, #1    | LDR R2, [%y1]    ;
+ STR R1, [%y0] | EOR R3,R2,R2     ;
+               | ADD R3, R3, #1   ;
+               | STR R3, [%z1]    ;
+               | LDR R4, [%z1]    ;
+               | EOR R5,R4,R4     ;
+               | LDR R6, [R5,%x1] ;
+               | LDR R7, [%x1]    ;
+exists
+(y=2 /\ 1:R0=1 /\ 1:R7=0)

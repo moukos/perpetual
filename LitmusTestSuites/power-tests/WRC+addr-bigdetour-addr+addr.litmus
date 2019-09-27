@@ -1,0 +1,22 @@
+PPC WRC+addr-bigdetour-addr+addr
+(*
+T1: Wx1
+T2: Wy1;lwsync; Wz1;
+T3: Rx1;<dep>;Ry0;Rz1;<dep>;Ww1
+*)
+
+{
+%x0=x;
+%y1=y; %z1=z;
+%x2=x; %y2=y; %z2=z; %w2=w;
+%w3=w; %x3=x;
+}
+ P0           | P1            | P2             | P3             ;
+li r1,1       | li r1, 1      | lwz r1,0(%x2)  | lwz r1,0(%w3)  ;
+stw r1,0(%x0) | stw r1,0(%y1) | xor r2,r1,r1   | xor r2,r1,r1   ;
+              | lwsync        | lwzx r3,r2,%y2 | lwzx r3,r2,%x3 ;
+              | li r2,1       | lwz r4,0(%z2)  |                ;
+              | stw r2,0(%z1) | xor r5,r4,r4   |                ;
+              |               | addi r5,r5,1   |                ;
+              |               | stw r5,0(%w2)  |                ;
+exists (2:r1=1 /\ 2:r3=0 /\ 2:r4=1 /\ 3:r1=1 /\ 3:r3=0)

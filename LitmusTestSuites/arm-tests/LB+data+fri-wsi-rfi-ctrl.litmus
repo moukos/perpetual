@@ -1,0 +1,24 @@
+ARM LB+data+fri-wsi-rfi-ctrl
+"DpDatadW Rfe Fri Wsi Rfi DpCtrldW Rfe"
+Cycle=Rfi DpCtrldW Rfe DpDatadW Rfe Fri Wsi
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe Fri Wsi Rfi DpCtrldW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0           | P1           ;
+ LDR R0,[%x0] | LDR R0,[%y1] ;
+ EOR R1,R0,R0 | MOV R1,#2    ;
+ ADD R1,R1,#1 | STR R1,[%y1] ;
+ STR R1,[%y0] | MOV R2,#3    ;
+              | STR R2,[%y1] ;
+              | LDR R3,[%y1] ;
+              | CMP R3,R3    ;
+              | BNE LC00     ;
+              | LC00:        ;
+              | MOV R4,#1    ;
+              | STR R4,[%x1] ;
+exists
+(y=3 /\ 0:R0=1 /\ 1:R0=1 /\ 1:R3=3)

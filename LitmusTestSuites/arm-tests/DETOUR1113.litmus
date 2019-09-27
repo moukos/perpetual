@@ -1,0 +1,22 @@
+ARM DETOUR1113
+"DMBdWW Rfe PodRW Wsi Rfi DpDatadW Wse"
+Cycle=Rfi DpDatadW Wse DMBdWW Rfe PodRW Wsi
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Ws
+Orig=DMBdWW Rfe PodRW Wsi Rfi DpDatadW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#2    | LDR R0,[%y1] ;
+ STR R0,[%x0] | MOV R1,#1    ;
+ DMB          | STR R1,[%z1] ;
+ MOV R1,#1    | MOV R2,#2    ;
+ STR R1,[%y0] | STR R2,[%z1] ;
+              | LDR R3,[%z1] ;
+              | EOR R4,R3,R3 ;
+              | ADD R4,R4,#1 ;
+              | STR R4,[%x1] ;
+exists
+(x=2 /\ 1:R0=1 /\ 1:R3=2)

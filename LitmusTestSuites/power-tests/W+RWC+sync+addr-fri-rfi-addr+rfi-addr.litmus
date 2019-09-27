@@ -1,0 +1,21 @@
+PPC W+RWC+sync+addr-fri-rfi-addr+rfi-addr
+"SyncdWW Rfe DpAddrdR Fri Rfi DpAddrdR Fre Rfi DpAddrdR Fre"
+Prefetch=1:a=T,2:x=T
+Com=Rf Fr Fr
+Orig=SyncdWW Rfe DpAddrdR Fri Rfi DpAddrdR Fre Rfi DpAddrdR Fre
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r5=z; 1:r10=a;
+2:r2=a; 2:r6=x;
+}
+ P0           | P1             | P2            ;
+ li r1,1      | lwz r1,0(r2)   | li r1,1       ;
+ stw r1,0(r2) | xor r3,r1,r1   | stw r1,0(r2)  ;
+ sync         | lwzx r4,r3,r5  | lwz r3,0(r2)  ;
+ li r3,1      | li r6,1        | xor r4,r3,r3  ;
+ stw r3,0(r4) | stw r6,0(r5)   | lwzx r5,r4,r6 ;
+              | lwz r7,0(r5)   |               ;
+              | xor r8,r7,r7   |               ;
+              | lwzx r9,r8,r10 |               ;
+exists
+(1:r1=1 /\ 1:r4=0 /\ 1:r7=1 /\ 1:r9=0 /\ 2:r3=1 /\ 2:r5=0)

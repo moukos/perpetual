@@ -1,0 +1,26 @@
+PPC ppc-adir1v4 (PPCAdirOneFour)
+{
+ P0:r1=1; P0:r2=1;
+ P0:r5=x; P1:r5=x;
+ P0:r6=y; P1:r6=y;
+ P1:r7=z;
+ x = 0; y = 0; z=0;
+}
+
+    P0       |      P1   ;
+             |           ;
+stw r1,0,r5  | lwz r3,0,r6 ;
+sync         | stw r3,0,r7 ;
+stw r2,0,r6  | lwz r3,0,r5 ;
+
+exists (P1:r3=0 /\ z = 1);
+<<
+show 1
+genprog generated/ppc-adir1v4-prog.tex
+essdump generated/ppc-adir1v4-ess.dot
+>>
+<<
+show 0
+show interesting true
+readfrom generated/ppc-adir1v4-rf.dot
+>>

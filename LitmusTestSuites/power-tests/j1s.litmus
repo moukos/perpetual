@@ -1,0 +1,18 @@
+PPC j1s (JOneSync)
+"Global rf?"
+{
+0:r4=x ; 0:r5=y ; 0:r2=1 ; 0:r6=z ; 0:r3=3 ;
+1:r4=x ; 1:r1=1 ; 1:r2=2 ;
+2:r4=x ; 2:r6=z ;
+}
+P0           | P1           | P2           ;
+lwz r1,0(r4) | stw r1,0(r4) | lwz r1,0(r6) ;
+xor r9,r1,r1 |              | xor r9,r1,r1 ;
+stwx r3,r9,r6|              | lwzx r2,r9,r4 ;
+sync         |              |              ;
+stw r3,0(r5) |              |              ;
+exists (0:r1=1 /\  2:r1=3 /\  2:r2=0)
+(* locations [0:r1 ; 2:r1 ; 2:r2 ; z]*)
+
+(* The existence shows that rf before sync should not be
+   made global *)

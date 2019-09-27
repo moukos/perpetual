@@ -1,0 +1,21 @@
+ARM DETOUR1056
+"DetourW PodRW PodWW Wse DMBdWR Fre"
+Cycle=Fre DetourW PodRW PodWW Wse DMBdWR
+Prefetch=0:x=F,0:z=W,1:z=F,1:x=T
+Com=Ws Fr
+Orig=DetourW PodRW PodWW Wse DMBdWR Fre
+{
+%x0=x; %y0=y; %z0=z;
+%x1=x;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#1    | MOV R0,#2    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%x1] | STR R0,[%z2] ;
+ LDR R1,[%x0] |              | DMB          ;
+ MOV R2,#1    |              | LDR R1,[%x2] ;
+ STR R2,[%y0] |              |              ;
+ MOV R3,#1    |              |              ;
+ STR R3,[%z0] |              |              ;
+exists
+(z=2 /\ 0:R1=2 /\ 2:R1=0)

@@ -1,0 +1,25 @@
+ARM 2+2W0027
+"DMBdWW Wse PodWW PodWR DpCtrldW Wse"
+Cycle=Wse PodWW PodWR DpCtrldW Wse DMBdWW
+Relax=[Wse,DMBdWW,Wse]
+Safe=PodWW PodWR DpCtrldW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Ws Ws
+Orig=DMBdWW Wse PodWW PodWR DpCtrldW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %a1=a; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#2    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%y1] ;
+ DMB          | MOV R1,#1    ;
+ MOV R1,#1    | STR R1,[%z1] ;
+ STR R1,[%y0] | LDR R2,[%a1] ;
+              | CMP R2,R2    ;
+              | BNE LC00     ;
+              | LC00:        ;
+              | MOV R3,#1    ;
+              | STR R3,[%x1] ;
+exists
+(x=2 /\ y=2)

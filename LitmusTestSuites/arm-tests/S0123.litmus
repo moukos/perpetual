@@ -1,0 +1,27 @@
+ARM S0123
+"DMBdWW Rfe DpCtrldW PodWR DpCtrldW Wse"
+Cycle=Rfe DpCtrldW PodWR DpCtrldW Wse DMBdWW
+Relax=[Wse,DMBdWW,Rfe]
+Safe=PodWR DpCtrldW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Ws
+Orig=DMBdWW Rfe DpCtrldW PodWR DpCtrldW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %a1=a; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#2    | LDR R0,[%y1] ;
+ STR R0,[%x0] | CMP R0,R0    ;
+ DMB          | BNE LC00     ;
+ MOV R1,#1    | LC00:        ;
+ STR R1,[%y0] | MOV R1,#1    ;
+              | STR R1,[%z1] ;
+              | LDR R2,[%a1] ;
+              | CMP R2,R2    ;
+              | BNE LC01     ;
+              | LC01:        ;
+              | MOV R3,#1    ;
+              | STR R3,[%x1] ;
+exists
+(x=2 /\ 1:R0=1)

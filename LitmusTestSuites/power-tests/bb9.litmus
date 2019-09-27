@@ -1,0 +1,17 @@
+PPC bb9 (BBNine)
+"3 proc, st/st ld/ld, isync/sync barriers simplification of ppc/ccv3 test"
+{
+0:r5=x ;
+1:r5=x ; 1:r6=y;
+2:r5=x ; 2:r6=y;
+}
+P0           |P1          |P2           ;
+li r1,1      |lwz r1,0(r5)|li r1,1      ;
+stw r1,0(r5) |isync       |stw r1,0(r6) ;
+             |lwz r2,0(r6)|lwsync       ;
+             |            |li r2,2      ;
+             |            |stw r2,0(r5) ;
+locations [x;]
+exists (1:r1=1 /\ P1:r2=0 /\ x=1)
+
+

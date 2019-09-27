@@ -1,0 +1,8 @@
+X86 lb-iwp2.2-amd2
+{
+}
+ P0          | P1          ;
+ MOV EAX,[x] | MOV EAX,[y] ;
+ MOV [y],$1  | MOV [x],$1  ;
+exists
+(0:EAX=1 /\ 1:EAX=1)

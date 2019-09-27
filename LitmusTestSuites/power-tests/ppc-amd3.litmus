@@ -1,0 +1,23 @@
+PPC ppc-amd3 (PPCamdThree)
+{
+ P0:r1 = x; P1:r1 = x;
+ P0:r2 = y; P1:r2 = y;
+ P0:r5 = 55; P1:r5 = 55;
+ P0:r6 = 66; P1:r6 = 66;
+ x = 0; y = 0;
+}
+     P0   |      P1       ;
+stw r5,0,r1 | stw r5,0,r2 ;
+stw r6,0,r1 | stw r6,0,r2 ;
+lwz r7,0,r2 | lwz r7,0,r1 ;
+
+exists (P0:r7=55 /\ P1:r7 = 55)
+<<
+genprog generated/ppc-amd3-prog.tex
+show 0
+essdump generated/ppc-amd3-ess.dot
+>>
+<<
+show 0
+readfrom generated/ppc-amd3-rf.dot
+>>

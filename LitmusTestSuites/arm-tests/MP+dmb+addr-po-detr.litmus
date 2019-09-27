@@ -1,0 +1,19 @@
+ARM MP+dmb+addr-po-detr
+"DMBdWW Rfe DpAddrdR PodRR DetourR Fre"
+Cycle=Rfe DpAddrdR PodRR DetourR Fre DMBdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DMBdWW Rfe DpAddrdR PodRR DetourR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+%x2=x;
+}
+ P0           | P1              | P2           ;
+ MOV R0,#2    | LDR R0,[%y1]    | MOV R0,#1    ;
+ STR R0,[%x0] | EOR R1,R0,R0    | STR R0,[%x2] ;
+ DMB          | LDR R2,[R1,%z1] |              ;
+ MOV R1,#1    | LDR R3,[%x1]    |              ;
+ STR R1,[%y0] | LDR R4,[%x1]    |              ;
+exists
+(x=2 /\ 1:R0=1 /\ 1:R3=0 /\ 1:R4=1)

@@ -1,0 +1,23 @@
+PPC R0056
+"PodWR DpAddrdR DpAddrdW Wse SyncdWR Fre"
+Cycle=Fre PodWR DpAddrdR DpAddrdW Wse SyncdWR
+Relax=[Wse,SyncdWR,Fre]
+Safe=PodWR DpAddrdW DpAddrdR
+Prefetch=0:x=F,0:a=W,1:a=F,1:x=T
+Com=Ws Fr
+Orig=PodWR DpAddrdR DpAddrdW Wse SyncdWR Fre
+{
+0:r2=x; 0:r4=y; 0:r7=z; 0:r10=a;
+1:r2=a; 1:r4=x;
+}
+ P0             | P1           ;
+ li r1,1        | li r1,2      ;
+ stw r1,0(r2)   | stw r1,0(r2) ;
+ lwz r3,0(r4)   | sync         ;
+ xor r5,r3,r3   | lwz r3,0(r4) ;
+ lwzx r6,r5,r7  |              ;
+ xor r8,r6,r6   |              ;
+ li r9,1        |              ;
+ stwx r9,r8,r10 |              ;
+exists
+(a=2 /\ 1:r3=0)

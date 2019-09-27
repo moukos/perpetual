@@ -1,0 +1,24 @@
+ARM DETOUR1007
+"PosWR Fri Rfi DpCtrldW Wse DMBdWR Fre"
+Cycle=Rfi DpCtrldW Wse DMBdWR Fre PosWR Fri
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Ws Fr
+Orig=PosWR Fri Rfi DpCtrldW Wse DMBdWR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0           | P1           ;
+ MOV R0,#1    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%y1] ;
+ LDR R1,[%x0] | DMB          ;
+ MOV R2,#2    | LDR R1,[%x1] ;
+ STR R2,[%x0] |              ;
+ LDR R3,[%x0] |              ;
+ CMP R3,R3    |              ;
+ BNE LC00     |              ;
+ LC00:        |              ;
+ MOV R4,#1    |              ;
+ STR R4,[%y0] |              ;
+exists
+(y=2 /\ 0:R1=1 /\ 0:R3=2 /\ 1:R1=0)

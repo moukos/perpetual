@@ -1,0 +1,26 @@
+ARM MP+dmb+fri-rfi-addr-pos-ctrl-rfi
+"DMBdWW Rfe Fri Rfi DpAddrdR PosRR DpCtrldW Rfi Fre"
+Cycle=Rfi Fre DMBdWW Rfe Fri Rfi DpAddrdR PosRR DpCtrldW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=T
+Com=Rf Fr
+Orig=DMBdWW Rfe Fri Rfi DpAddrdR PosRR DpCtrldW Rfi Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#2    | LDR R0,[%y1]    ;
+ STR R0,[%x0] | MOV R1,#2       ;
+ DMB          | STR R1,[%y1]    ;
+ MOV R1,#1    | LDR R2,[%y1]    ;
+ STR R1,[%y0] | EOR R3,R2,R2    ;
+              | LDR R4,[R3,%z1] ;
+              | LDR R5,[%z1]    ;
+              | CMP R5,R5       ;
+              | BNE LC00        ;
+              | LC00:           ;
+              | MOV R6,#1       ;
+              | STR R6,[%x1]    ;
+              | LDR R7,[%x1]    ;
+exists
+(x=2 /\ y=2 /\ 1:R0=1 /\ 1:R2=2 /\ 1:R7=1)

@@ -1,0 +1,12 @@
+ARM CoRR3I
+"CoRR3 Interbnal, Coherence tests, load/load hazard"
+{
+  P0:R5=x ; P0:R2=2 ; x=0 ;
+  P1:R5=x ; P1:R0=1 ;
+}
+
+P0        | P1        ;
+str R2,R5 | str R0,R5 ;
+          | ldr R1,R5 ;
+          | ldr R2,R5 ;
+exists (1:R1=2 /\ 1:R2=1)

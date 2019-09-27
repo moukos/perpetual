@@ -1,0 +1,19 @@
+PPC Z6.5+sync+eieio+po
+"SyncdWW Wse EieiodWW Wse PodWR Fre"
+Cycle=Fre SyncdWW Wse EieiodWW Wse PodWR
+Prefetch=0:y=W,1:y=F,1:z=W,2:z=F,2:x=T
+Com=Ws Ws Fr
+Orig=SyncdWW Wse EieiodWW Wse PodWR Fre
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r4=z;
+2:r2=z; 2:r4=x;
+}
+ P0           | P1           | P2           ;
+ li r1,1      | li r1,2      | li r1,2      ;
+ stw r1,0(r2) | stw r1,0(r2) | stw r1,0(r2) ;
+ sync         | eieio        | lwz r3,0(r4) ;
+ li r3,1      | li r3,1      |              ;
+ stw r3,0(r4) | stw r3,0(r4) |              ;
+exists
+(y=2 /\ z=2 /\ 2:r3=0)

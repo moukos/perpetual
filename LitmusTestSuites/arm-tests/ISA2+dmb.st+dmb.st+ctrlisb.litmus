@@ -1,0 +1,20 @@
+ARM ISA2+dmb.st+dmb.st+ctrlisb
+"DMB.STdWW Rfe DMB.STdRW Rfe DpCtrlIsbdR Fre"
+Cycle=Rfe DMB.STdRW Rfe DpCtrlIsbdR Fre DMB.STdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=T
+Com=Rf Rf Fr
+Orig=DMB.STdWW Rfe DMB.STdRW Rfe DpCtrlIsbdR Fre
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#1    | LDR R0,[%y1] | LDR R0,[%z2] ;
+ STR R0,[%x0] | DMB ST       | CMP R0,R0    ;
+ DMB ST       | MOV R1,#1    | BNE LC00     ;
+ MOV R1,#1    | STR R1,[%z1] | LC00:        ;
+ STR R1,[%y0] |              | ISB          ;
+              |              | LDR R1,[%x2] ;
+exists
+(1:R0=1 /\ 2:R0=1 /\ 2:R1=0)

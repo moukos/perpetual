@@ -1,0 +1,24 @@
+ARM S+dmb+fri-wsi-rfi-addr
+"DMBdWW Rfe Fri Wsi Rfi DpAddrdW Wse"
+Cycle=Rfi DpAddrdW Wse DMBdWW Rfe Fri Wsi
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Ws
+Orig=DMBdWW Rfe Fri Wsi Rfi DpAddrdW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#2    | LDR R0,[%y1]    ;
+ STR R0,[%x0] | MOV R1,#2       ;
+ DMB          | STR R1,[%y1]    ;
+ MOV R1,#1    | MOV R2,#3       ;
+ STR R1,[%y0] | STR R2,[%y1]    ;
+              | LDR R3,[%y1]    ;
+              | EOR R4,R3,R3    ;
+              | MOV R5,#1       ;
+              | STR R5,[R4,%x1] ;
+              | DMB             ;
+              | LDR R6,[%x1]    ;
+exists
+(x=2 /\ y=3 /\ 1:R6=2 /\ 1:R0=1 /\ 1:R3=3)

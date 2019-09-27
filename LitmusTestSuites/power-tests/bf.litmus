@@ -1,0 +1,14 @@
+PPC bf
+(* Test for reg arch duplicates that can be observed on hardware *)
+{
+0:r5=x ; 0:r6=y;
+1:r5=x ; 1:r6=y;
+}
+P0           |  P1          ;
+li r1,1      | lwz r2,0(r5) ;
+stw r1,0(r6) | mr r1,r2     ;
+sync         | lwz r2,0(r6) ;
+li r2,1      |              ;
+stw r2,0(r5) |              ;
+
+exists (1:r1=0 /\ 1:r2 = 1)

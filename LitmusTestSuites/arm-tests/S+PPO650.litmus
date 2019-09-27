@@ -1,0 +1,30 @@
+ARM S+PPO650
+"Wse DMBdWW Rfe DpCtrldW PosWR DpAddrdW PosWR DpCtrldW"
+Cycle=Rfe DpCtrldW PosWR DpAddrdW PosWR DpCtrldW Wse DMBdWW
+Relax=
+Safe=Rfe Wse PosWR DMBdWW DpAddrdW DpCtrldW
+Prefetch=0:x=F,1:x=W
+Orig=Wse DMBdWW Rfe DpCtrldW PosWR DpAddrdW PosWR DpCtrldW
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %a1=a; %x1=x;
+}
+ P0            | P1               ;
+ MOV R0, #2    | LDR R0, [%y1]    ;
+ STR R0, [%x0] | CMP R0, R0       ;
+ DMB           | BNE LC00         ;
+ MOV R1, #1    | LC00:            ;
+ STR R1, [%y0] | MOV R1, #1       ;
+               | STR R1, [%z1]    ;
+               | LDR R2, [%z1]    ;
+               | EOR R3,R2,R2     ;
+               | MOV R4, #1       ;
+               | STR R4, [R3,%a1] ;
+               | LDR R5, [%a1]    ;
+               | CMP R5, R5       ;
+               | BNE LC01         ;
+               | LC01:            ;
+               | MOV R6, #1       ;
+               | STR R6, [%x1]    ;
+exists
+(x=2 /\ 1:R0=1)

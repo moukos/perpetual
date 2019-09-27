@@ -1,0 +1,19 @@
+PPC dp2 (PPCDPTwo)
+"examples of ppo;rf cycles"
+{
+0:r5=x; 0:r6=y;
+1:r6=y; 1:r7=z;
+2:r7=z; 2:r5=x;
+x=0; y=0;
+
+}
+P0           |    P1       |  P2         ;
+lwz r1,0(r5) |lwz r1,0(r6) |lwz r1,0(r7) ;
+cmpwi r1,0   |xor r9,r1,r1 |xor r9,r1,r1 ;
+bne L0       |addi r2,r9,1 |li r2,1      ;
+li r2,1      |stw r2,0(r7) |stwx r2,r9,r5;
+stw r2,0(r6) |             |             ;
+L0:          |             |             ;
+
+locations [0:r1; 1:r1; 2:r1;]
+exists (0:r1=1 /\ 1:r1=1)

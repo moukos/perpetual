@@ -1,0 +1,21 @@
+PPC MOREDETOUR0243
+"DpDatadW Rfe PodRR DpDatadW DetourWW Rfe"
+Cycle=Rfe PodRR DpDatadW DetourWW Rfe DpDatadW
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Rf Rf
+Orig=DpDatadW Rfe PodRR DpDatadW DetourWW Rfe
+{
+0:r2=x; 0:r4=y;
+1:r2=y; 1:r4=z; 1:r6=x;
+2:r2=x;
+}
+ P0           | P1           | P2           ;
+ lwz r1,0(r2) | lwz r1,0(r2) | lwz r1,0(r2) ;
+ xor r3,r1,r1 | lwz r3,0(r4) | li r3,2      ;
+ addi r3,r3,1 | xor r5,r3,r3 | stw r3,0(r2) ;
+ stw r3,0(r4) | addi r5,r5,1 |              ;
+              | stw r5,0(r6) |              ;
+              | li r7,3      |              ;
+              | stw r7,0(r6) |              ;
+exists
+(0:r1=3 /\ 1:r1=1 /\ x=3 /\ 2:r1=1)

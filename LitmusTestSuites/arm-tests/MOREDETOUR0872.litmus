@@ -1,0 +1,23 @@
+ARM MOREDETOUR0872
+"DMBdWW Wse Rfi DpCtrldR DpAddrdW Wse"
+Cycle=Rfi DpCtrldR DpAddrdW Wse DMBdWW Wse
+Prefetch=0:x=F,0:y=W,1:y=F,1:x=W
+Com=Ws Ws
+Orig=DMBdWW Wse Rfi DpCtrldR DpAddrdW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0           | P1              ;
+ MOV R0,#2    | MOV R0,#2       ;
+ STR R0,[%x0] | STR R0,[%y1]    ;
+ DMB          | LDR R1,[%y1]    ;
+ MOV R1,#1    | CMP R1,R1       ;
+ STR R1,[%y0] | BNE LC00        ;
+              | LC00:           ;
+              | LDR R2,[%z1]    ;
+              | EOR R3,R2,R2    ;
+              | MOV R4,#1       ;
+              | STR R4,[R3,%x1] ;
+exists
+(y=2 /\ x=2 /\ 1:R1=2)

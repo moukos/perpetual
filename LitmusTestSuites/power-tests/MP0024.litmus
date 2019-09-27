@@ -1,0 +1,25 @@
+PPC MP0024
+"PosWR DpAddrdR DpCtrldW Rfe DpAddrdR Fre"
+Cycle=Rfe DpAddrdR Fre PosWR DpAddrdR DpCtrldW
+Relax=[Rfe,DpAddrdR,Fre]
+Safe=PosWR DpAddrdR DpCtrldW
+Prefetch=0:x=F,0:z=W,1:z=F,1:x=T
+Com=Rf Fr
+Orig=PosWR DpAddrdR DpCtrldW Rfe DpAddrdR Fre
+{
+0:r2=x; 0:r6=y; 0:r8=z;
+1:r2=z; 1:r5=x;
+}
+ P0            | P1            ;
+ li r1,1       | lwz r1,0(r2)  ;
+ stw r1,0(r2)  | xor r3,r1,r1  ;
+ lwz r3,0(r2)  | lwzx r4,r3,r5 ;
+ xor r4,r3,r3  |               ;
+ lwzx r5,r4,r6 |               ;
+ cmpw r5,r5    |               ;
+ beq  LC00     |               ;
+ LC00:         |               ;
+ li r7,1       |               ;
+ stw r7,0(r8)  |               ;
+exists
+(1:r1=1 /\ 1:r4=0)

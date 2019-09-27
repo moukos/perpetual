@@ -1,0 +1,21 @@
+PPC ppc-iwp2.4.wDep (PPCiwpTwoFourDep)
+{
+ P0:r1 = x; P1:r1 = x;
+ P0:r2 = y; P1:r2 = y;
+ x = z; y = z; z=z ;
+}
+     P0     |      P1       ;
+std r2,0,r1 | std r1,0,r2 ;
+ld r6,0,r1  | ld  r6,0,r2 ;
+ld r7,0,r6  | ld  r7,0,r6 ;
+
+exists (P0:r6=y /\ P1:r6 = x /\ P0:r7=z /\ P1:r7 = z)
+<<
+genprog generated/ppc-iwp2.4.dep-prog.tex
+essdump generated/ppc-iwp2.4.dep-ess.dot
+show 0
+>>
+<<
+show 0
+readfrom generated/ppc-iwp2.4.dep-rf.dot
+>>

@@ -1,0 +1,14 @@
+PPC m1d  (PPCMOneDep)
+"plain iriw, deps"
+{
+P0:r4=x ; P0:r5=y ;
+P1:r4=x ; P1:r5=y ;
+P2:r4=x ; P3:r5=y ;
+P2:r1=1 ; P3:r2=2 ;
+}
+
+P0           |P1           |P2           |P3           ;
+lwz r1,0(r4) |lwz r2,0(r5) |stw r1,0(r4) |stw r2,0(r5) ;
+xor r9,r1,r1 |xor r9,r2,r2 |             |             ;
+lwzx r2,r9,r5|lwzx r1,r9,r4|             |             ;
+exists(0:r1=1 /\ 0:r2=0 /\ 1:r1=0 /\ 1:r2=2)

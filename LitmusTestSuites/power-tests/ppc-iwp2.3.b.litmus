@@ -1,0 +1,22 @@
+PPC ppc-iwp2.3.b (PPCiwpTwoThreeb)
+"What does this illustrate ?"
+{
+ P0:r5=55; P1:r6=66; P0:r1=x; P1:r1=x; 
+ P0:r2=y; P1:r2=y; x=0; y=0;
+};
+    P0             |   P1          ;
+  stw r5,0,r1      | stw r6,0,r2   ;
+  lwz r6,0,r1      | lwz r5,0,r2   ;
+
+exists (not (0:r6=55 /\ 1:r5=66))
+<<
+genprog generated/ppc-iwp2.3.b-prog.tex
+essdump generated/ppc-iwp2.3.b-ess.dot
+show 0
+>>
+<<
+show 0
+show interesting true
+readfrom generated/ppc-iwp2.3.b-rf.dot
+>>
+

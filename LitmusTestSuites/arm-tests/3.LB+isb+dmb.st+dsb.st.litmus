@@ -1,0 +1,18 @@
+ARM 3.LB+isb+dmb.st+dsb.st
+"ISBdRW Rfe DMB.STdRW Rfe DSB.STdRW Rfe"
+Cycle=Rfe ISBdRW Rfe DMB.STdRW Rfe DSB.STdRW
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=W
+Com=Rf Rf Rf
+Orig=ISBdRW Rfe DMB.STdRW Rfe DSB.STdRW Rfe
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ LDR R0,[%x0] | LDR R0,[%y1] | LDR R0,[%z2] ;
+ ISB          | DMB ST       | DSB ST       ;
+ MOV R1,#1    | MOV R1,#1    | MOV R1,#1    ;
+ STR R1,[%y0] | STR R1,[%z1] | STR R1,[%x2] ;
+exists
+(0:R0=1 /\ 1:R0=1 /\ 2:R0=1)

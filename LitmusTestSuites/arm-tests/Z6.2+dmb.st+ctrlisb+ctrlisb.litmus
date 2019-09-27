@@ -1,0 +1,21 @@
+ARM Z6.2+dmb.st+ctrlisb+ctrlisb
+"DMB.STdWW Rfe DpCtrlIsbdW Rfe DpCtrlIsbdW Wse"
+Cycle=Rfe DpCtrlIsbdW Rfe DpCtrlIsbdW Wse DMB.STdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=W
+Com=Rf Rf Ws
+Orig=DMB.STdWW Rfe DpCtrlIsbdW Rfe DpCtrlIsbdW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#2    | LDR R0,[%y1] | LDR R0,[%z2] ;
+ STR R0,[%x0] | CMP R0,R0    | CMP R0,R0    ;
+ DMB ST       | BNE LC00     | BNE LC01     ;
+ MOV R1,#1    | LC00:        | LC01:        ;
+ STR R1,[%y0] | ISB          | ISB          ;
+              | MOV R1,#1    | MOV R1,#1    ;
+              | STR R1,[%z1] | STR R1,[%x2] ;
+exists
+(x=2 /\ 1:R0=1 /\ 2:R0=1)

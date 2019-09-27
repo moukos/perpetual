@@ -1,0 +1,21 @@
+PPC ppc-cpp.iriw.dep (PPCcppIRIWDep) "Independent reads of Independent Writes"
+{
+  P0:r1=x; P1:r1=x; P2:r1=x; P3:r1=x;
+  P0:r2=y; P1:r2=y; P2:r2=y; P3:r2=y;
+  x=z; y=z; z=z ;
+}
+   P0       |     P1       |      P2    |        P3       ;
+std r2,0,r1 | std r1,0,r2  | ld r5,0,r1 | ld r5,0,r2 ;
+            |              | ld r6,0,r5 | ld r6,0,r5 ;
+
+exists (P2:r5=y /\ P2:r6=z /\ P3:r5 = x /\ P3:r6 = z)
+
+<<
+genprog generated/ppc-cpp.iriw.dep-prog.tex
+show 4
+essdump generated/ppc-cpp.iriw.dep-ess.dot
+>>
+<<
+show 0
+readfrom generated/ppc-cpp.iriw.dep-rf.dot
+>>

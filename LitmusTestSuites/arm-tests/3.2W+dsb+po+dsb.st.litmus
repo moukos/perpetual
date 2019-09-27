@@ -1,0 +1,19 @@
+ARM 3.2W+dsb+po+dsb.st
+"DSBdWW Wse PodWW Wse DSB.STdWW Wse"
+Cycle=Wse PodWW Wse DSB.STdWW Wse DSBdWW
+Prefetch=0:x=F,0:y=W,1:y=F,1:z=W,2:z=F,2:x=W
+Com=Ws Ws Ws
+Orig=DSBdWW Wse PodWW Wse DSB.STdWW Wse
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z;
+%z2=z; %x2=x;
+}
+ P0           | P1           | P2           ;
+ MOV R0,#2    | MOV R0,#2    | MOV R0,#2    ;
+ STR R0,[%x0] | STR R0,[%y1] | STR R0,[%z2] ;
+ DSB          | MOV R1,#1    | DSB ST       ;
+ MOV R1,#1    | STR R1,[%z1] | MOV R1,#1    ;
+ STR R1,[%y0] |              | STR R1,[%x2] ;
+exists
+(x=2 /\ y=2 /\ z=2)

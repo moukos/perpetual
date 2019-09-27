@@ -1,0 +1,20 @@
+ARM S+PPO284
+"Wse DMBdWW Rfe DpAddrdR DpDatadW"
+Cycle=Rfe DpAddrdR DpDatadW Wse DMBdWW
+Relax=
+Safe=Rfe Wse DMBdWW DpAddrdR DpDatadW
+Prefetch=0:x=F,1:x=W
+Orig=Wse DMBdWW Rfe DpAddrdR DpDatadW
+{
+%x0=x; %y0=y;
+%y1=y; %z1=z; %x1=x;
+}
+ P0            | P1               ;
+ MOV R0, #2    | LDR R0, [%y1]    ;
+ STR R0, [%x0] | EOR R1,R0,R0     ;
+ DMB           | LDR R2, [R1,%z1] ;
+ MOV R1, #1    | EOR R3,R2,R2     ;
+ STR R1, [%y0] | ADD R3, R3, #1   ;
+               | STR R3, [%x1]    ;
+exists
+(x=2 /\ 1:R0=1)

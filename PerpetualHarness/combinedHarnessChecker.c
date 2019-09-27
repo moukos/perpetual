@@ -107,9 +107,9 @@ int main(int argc,char *argv[]) {
     int ptr1=0;
     int spacing1[10000];
     int ptr2=0;
-    int spacing2[10000];
+    int spacing6[10000];
     int ptr3=0;
-    int spacing3[10000];
+    int spacing5[10000];
     int ptr4=0;
     args arg_t1;
     args arg_t2;

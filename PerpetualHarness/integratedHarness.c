@@ -23,9 +23,13 @@ typedef struct {
 // Must compile with -lpthread and -fopenmp
 extern void P1(void * address);
 extern void P2(void * address);
+extern void P3(void * address);
+extern void P4(void * address);
 int n=0;
 struct my_struct *item1 = NULL;
 struct my_struct *item2 = NULL;
+struct my_struct *item3 = NULL;
+struct my_struct *item4 = NULL;
 
 void* P1_wrap(void * address) {
 //  printf("launched P1_wrap\n");
@@ -40,6 +44,20 @@ void* P2_wrap(void * address) {
   fflush(stdout);
   #pragma omp barrier
   P2(address);
+}
+
+void* P3_wrap(void * address) {
+//  printf("launched P3_wrap\n");
+  fflush(stdout);
+  #pragma omp barrier
+  P3(address);
+}
+
+void* P4_wrap(void * address) {
+//  printf("launched P4_wrap\n");
+  fflush(stdout);
+  #pragma omp barrier
+  P4(address);
 }
 
 void add_kv1( int key, int value) {
@@ -60,7 +78,23 @@ void add_kv2( int key, int value) {
 	HASH_ADD_INT( item2, id, s);
 }
 
+void add_kv3( int key, int value) {
+	struct my_struct *s;
+	
+	s = malloc(sizeof(struct my_struct));
+	s->id = key;
+	s->value = value;
+	HASH_ADD_INT( item3, id, s);
+}
 
+void add_kv4( int key, int value) {
+	struct my_struct *s;
+	
+	s = malloc(sizeof(struct my_struct));
+	s->id = key;
+	s->value = value;
+	HASH_ADD_INT( item4, id, s);
+}
 
 int main(int argc,char *argv[]) {
     // Setup
@@ -73,31 +107,51 @@ int main(int argc,char *argv[]) {
     int ptr1=0;
     int spacing1[10000];
     int ptr2=0;
+    int spacing6[10000];
+    int ptr3=0;
+    int spacing5[10000];
+    int ptr4=0;
     args arg_t1;
     args arg_t2;
+    args arg_t3;
+    args arg_t4;
     int input = atoi(argv[1]);
     n = input;
     arg_t1.x = &ptr1;
     arg_t1.y = &ptr2;
     arg_t1.num_iterations = input; 
-    arg_t1.num_threads = 2;
+    arg_t1.num_threads = 4;
     arg_t2.x = &ptr1;
     arg_t2.y = &ptr2;
-    arg_t2.num_iterations = input; 
-    arg_t2.num_threads = 2;
+    arg_t2.num_iterations = input;
+    arg_t2.num_threads = 4;
+    arg_t3.x = arg_t2.x;
+    arg_t3.y = arg_t2.y;
+    arg_t3.num_iterations = input;
+    arg_t3.num_threads = 4;
+    arg_t4.x = arg_t2.x;
+    arg_t4.y = arg_t2.y;
+    arg_t4.num_iterations = input;
+    arg_t4.num_threads = 4;
 
     arg_t1.buf = (volatile int*) calloc(n, sizeof(volatile int));
     void* spacing2 = malloc(40000);
     arg_t2.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    void* spacing3 = malloc(40000);
+    arg_t3.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    void* spacing4 = malloc(40000);
+    arg_t4.buf = (volatile int*) calloc(n, sizeof(volatile int));
 
     // Harness
     clock_t begin_harness = clock();
 
-    omp_set_num_threads(2);
+    omp_set_num_threads(4);
     #pragma omp parallel
     {
       if(omp_get_thread_num()==0) P1_wrap((void*)&arg_t1);
       else if (omp_get_thread_num() ==1) P2_wrap((void*)&arg_t2);
+      else if (omp_get_thread_num() ==2) P3_wrap((void*)&arg_t3);
+      else if (omp_get_thread_num() ==3) P4_wrap((void*)&arg_t4); 
     }
 
     clock_t end_harness = clock();

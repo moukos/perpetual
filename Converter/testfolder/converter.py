@@ -9,7 +9,7 @@ import itertools
 
 @pysnooper.snoop()
 
-def makeIntro(testname, i, th_writevals):
+def makeIntro(testname, i, mods, num_lines, vals):
     retstr = ""
     
     retstr += "\t.section \".text\"\n"
@@ -34,12 +34,12 @@ def makeIntro(testname, i, th_writevals):
     retstr += "\tmovq (%rdi), %rdi\t# ptr to x\n"
     retstr += "\tmovq $0, %r12\t\t# loop index\n"
 # Make conversion and insertion here. map x: r8, etc
-    for key, value in th_writevals.iteritems():
-        if value == "%r8, ":
-            retstr += "\tmovq " + key + ", %r8\t\t# writeval 1\n"
-        if value == "%r9, ":
-            retstr += "\tmovq " + key + ", %r9\t\t# writeval 2\n"
-    
+    for n in range(num_lines[i]):
+        if "%r8" in mods[i][n]:
+            retstr += "\tmovq $" + vals[i][n] + ", %r8\t\t# writeval 1\n"
+        if "%r9" in mods[i][n]:
+            retstr += "\tmovq $" + vals[i][n] + ", %r9\t\t# writeval 2\n"
+
     retstr += "\tjmp .LOOPEND\n"
     retstr += "\n"
     retstr += ".LOOPSTART:\n"
@@ -122,7 +122,10 @@ def makeOutro(no_writevals):
 
 def main():
     f = open(sys.argv[1], "r")
-    temp = sys.argv[1].split('.')
+    temp = sys.argv[1].split("/")
+    fileSize = len(temp)
+    litmusTestPath = temp[fileSize-1]
+    temp = litmusTestPath.split(".")
     litmusTestName = temp[0]
     # Extract the initialization information (line in curly brackets) into init
     string = f.read()
@@ -149,6 +152,8 @@ def main():
     code_start = string[init_end:].index(';')+init_end+2
     number_of_threads = string[init_end+2:code_start].count('|') + 1
     number_of_lines = [0 for _ in range(number_of_threads)]
+    number_of_writes = [0 for _ in range(number_of_threads)]
+
     #number_of_lines = string[code_start:].count('|')
     ltcore = []
     lines = string.split('\n')
@@ -242,6 +247,7 @@ def main():
             elif(instrs[j][i].find('[') < instrs[j][i].find(',')):
                 ops[j][i] = "write"
                 writes += 1
+                number_of_writes[j] += 1
                 string = instrs[j][i]
                 index = instrs[j][i].find('$')
                 vals[j][i] = string[index+1:index+2]
@@ -303,7 +309,9 @@ research/Consistency/perpetual/Converter/testfolder/TSO.API"
                 # mods[j][i] = mods[j][i].replace("obj",str(locs[j][i]))
         
     print(mods)
+    register_reset = 0
     for j in range (number_of_threads):
+        register_reset = 0
         for i in range (number_of_lines[j]):
             if(ops[j][i] == "read"):
                 mods[j][i] = mods[j][i].replace("obj",str(locs[j][i]))
@@ -315,7 +323,14 @@ research/Consistency/perpetual/Converter/testfolder/TSO.API"
                         mods[j][i] = mods[j][i].replace("reg",reglocs[r])
 
             elif(ops[j][i] == "write"):
-                mods[j][i] = mods[j][i].replace("val",str(vals[j][i]))
+                if(register_reset):
+                    mods[j][i] = mods[j][i].replace("val","%r9")
+                else:
+                    #Put val in %r8, replace "val" with %r8
+                    mods[j][i] = mods[j][i].replace("val","%r8")
+                    register_reset = 1
+                    #mods[j][i] = mods[j][i].replace("val",str(vals[j][i]))
+
                 mods[j][i] = mods[j][i].replace("obj",str(locs[j][i]))
                 for x in memlocs:
                     if x in mods[j][i]:
@@ -324,27 +339,30 @@ research/Consistency/perpetual/Converter/testfolder/TSO.API"
                     if r in instrs[j][i]:
                         mods[j][i] = mods[j][i].replace('reg',reglocs[r])
     print(mods)
+    #TODO: %r8 initial immediate value is written here. every next is written to
+    # %r9. Write initial values to writevals structure to pass into Init
+    # function. 
+
    #print(combos)
     # Create all musli clients
     for j in range (number_of_threads):
-        outputs[j] = open(outpath + litmusTestName + "/" + "thread" + str(j) + \
-".s", "w")
-        #outputs[j].write(makeIntro(litmusTestName, j, number_of_threads))
+        outputs[j] = open(outpath + litmusTestName + "/" + litmusTestName + \
+                "_thread_" + str(j+1) + ".s", "w")
+        outputs[j].write(makeIntro(litmusTestName, j, mods, \
+number_of_lines, vals))
         
     for j in range (number_of_threads):
-        litmus_strings[j] += str(j) + "\n"
+       # litmus_strings[j] += str(j) + "\n"
         for i in range (0,len(ops[j])):
             if(ops[j][i] == "read"):
                 #litmus_strings[j] += "read(" + locs[j][i] + ")\n"
-                litmus_strings[j] += mods[j][i] + \
-                        "\t" + str(i) + "\t20\t" + str(j) + "\n"
+                litmus_strings[j] += mods[j][i] + "\n"
             elif(ops[j][i] == "write"):
                 #litmus_strings[j] += "write(" + locs[j][i] + ")\n"
-                litmus_strings[j] += mods[j][i] + \
-                        "\t" + str(i) + "\t20\t" + str(j) + "\n"
+                litmus_strings[j] += mods[j][i] + "\n"
     # Create musli main file
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])
-        #outputs[j].write(makeOutro(writes))
+        outputs[j].write(makeOutro(number_of_writes[j]))
 if __name__ == '__main__':
       main()

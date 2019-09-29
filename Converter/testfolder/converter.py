@@ -7,7 +7,7 @@ import itertools
 #TODO: abstract paths
 
 
-@pysnooper.snoop()
+#@pysnooper.snoop()
 
 def makeIntro(testname, i, mods, num_lines, vals):
     retstr = ""
@@ -34,7 +34,7 @@ def makeIntro(testname, i, mods, num_lines, vals):
     retstr += "\tmovq (%rdi), %rdi\t# ptr to x\n"
     retstr += "\tmovq $0, %r12\t\t# loop index\n"
 # Make conversion and insertion here. map x: r8, etc
-    for n in range(num_lines[i]):
+    for n in range(num_lines):
         if "%r8" in mods[i][n]:
             retstr += "\tmovq $" + vals[i][n] + ", %r8\t\t# writeval 1\n"
         if "%r9" in mods[i][n]:
@@ -57,43 +57,7 @@ def makeEmpty(i):
     retstr += "P" + str(i) + ":\n"
     retstr += "\tret\n"
     return retstr
-
-def convertLine(thln, th_writevals, memlocs, reglocs):
-    retstr = "\t"
-    toks = thln.split()
-    
-    # Is it a fence?
-    if (toks[0] == "fence"):
-        retstr += "MFENCE \t# fence\n"
-        return retstr
-    
-    # So it's a move
-    retstr += "movq "
-    
-    # first part (source)
-    if(toks[0][0] == "$"):
-        if(toks[0] in th_writevals):
-            retstr += th_writevals.get(toks[0])
-        elif (len(th_writevals) == 0):
-            retstr += "%r8, "
-            th_writevals[toks[0]] = "%r8, "
-        else: 
-            retstr += "%r9, "
-            th_writevals[toks[0]] = "%r9, "
-    elif(toks[0][0] == "%"):
-        retstr += reglocs.get(toks[0]) + ", "
-    else:
-        retstr += memlocs.get(toks[0]) + ", "
-        
-    # second part (destination)
-    if(toks[2][0] == "%"):
-        retstr += reglocs.get(toks[2])
-    else:
-        retstr += memlocs.get(toks[2])
-    
-    return retstr + "\n"
-    
-    
+   
 def makeOutro(no_writevals):
     retstr = "\n"
     
@@ -127,29 +91,12 @@ def main():
     litmusTestPath = temp[fileSize-1]
     temp = litmusTestPath.split(".")
     litmusTestName = temp[0]
-    # Extract the initialization information (line in curly brackets) into init
+    # Extract the initialization information
     string = f.read()
-    init_start = string.index('{')
     init_end = string.index('}')
-    init = string[init_start+1:init_end]
-    init_array = init.split(';')
-    if(" " in init_array):
-        init_array.remove(' ')
-    num_locs = len(init_array)
+    code_start = string[init_end:].index(';')+init_end+2
     variables = []
     cnt = 0
-    for x in init_array:
-        varname = x.split('=')
-        if " " in varname[0]:
-            varnameClean = varname[0].split(' ')
-            if len(varnameClean[0]) > len(varnameClean[1]):
-                varnameClean = varnameClean[0]
-            else:
-                varnameClean = varnameClean[1]
-        else:
-            varnameClean = varname[0]
-        variables.append(varnameClean)
-    code_start = string[init_end:].index(';')+init_end+2
     number_of_threads = string[init_end+2:code_start].count('|') + 1
     number_of_lines = [0 for _ in range(number_of_threads)]
     number_of_writes = [0 for _ in range(number_of_threads)]
@@ -211,6 +158,18 @@ def main():
     #cond_end = string[code_end:].index(')') + code_end
     #cond = string[cond_start:cond_end+1]
 
+# Find all the memory locations read/written in Litmus test
+# store in variables array
+    for i in range(number_of_threads):
+        for j in range(number_of_lines[i]):
+            instruction = instrs[i][j]
+            instrStart = instruction.index('[')
+            instrEnd = instruction.index(']')
+            variable = instruction[instrStart+1:instrEnd]
+            if variable not in variables:
+                variables.append(variable)
+    print(variables)
+
 # Classify operations according to which memory location they modify
 # locs has the same structure as instrs.
 
@@ -254,7 +213,7 @@ def main():
             else:
                 ops[j][i] = "read"
                 reads += 1
-
+    print(vals)
 # Mods unused with x86 conversion    
 # mods will hold the strings after API conversion
     mods = []
@@ -338,6 +297,8 @@ research/Consistency/perpetual/Converter/testfolder/TSO.API"
                 for r in reglocs:
                     if r in instrs[j][i]:
                         mods[j][i] = mods[j][i].replace('reg',reglocs[r])
+            #elif(ops[j][i] == "fence"):
+            #    mods[j][i] = "MFENCE"
     print(mods)
     #TODO: %r8 initial immediate value is written here. every next is written to
     # %r9. Write initial values to writevals structure to pass into Init
@@ -349,7 +310,7 @@ research/Consistency/perpetual/Converter/testfolder/TSO.API"
         outputs[j] = open(outpath + litmusTestName + "/" + litmusTestName + \
                 "_thread_" + str(j+1) + ".s", "w")
         outputs[j].write(makeIntro(litmusTestName, j, mods, \
-number_of_lines, vals))
+number_of_lines[j], vals))
         
     for j in range (number_of_threads):
        # litmus_strings[j] += str(j) + "\n"
@@ -360,6 +321,8 @@ number_of_lines, vals))
             elif(ops[j][i] == "write"):
                 #litmus_strings[j] += "write(" + locs[j][i] + ")\n"
                 litmus_strings[j] += mods[j][i] + "\n"
+     #       elif(ops[j][i] == "fence"):
+     #           litmus_strings[j] += mods[j][i] + "\n"
     # Create musli main file
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])

@@ -163,11 +163,12 @@ def main():
     for i in range(number_of_threads):
         for j in range(number_of_lines[i]):
             instruction = instrs[i][j]
-            instrStart = instruction.index('[')
-            instrEnd = instruction.index(']')
-            variable = instruction[instrStart+1:instrEnd]
-            if variable not in variables:
-                variables.append(variable)
+            if '[' in instruction:
+                instrStart = instruction.index('[')
+                instrEnd = instruction.index(']')
+                variable = instruction[instrStart+1:instrEnd]
+                if variable not in variables:
+                    variables.append(variable)
     print(variables)
 
 # Classify operations according to which memory location they modify
@@ -280,7 +281,9 @@ research/Consistency/perpetual/Converter/testfolder/TSO.API"
                 for r in reglocs:
                     if r in instrs[j][i]:
                         mods[j][i] = mods[j][i].replace("reg",reglocs[r])
-
+    # %r8 initial immediate value is written here. every next is written to
+    # %r9. Write initial values to writevals structure to pass into Init
+    # function. 
             elif(ops[j][i] == "write"):
                 if(register_reset):
                     mods[j][i] = mods[j][i].replace("val","%r9")
@@ -297,14 +300,9 @@ research/Consistency/perpetual/Converter/testfolder/TSO.API"
                 for r in reglocs:
                     if r in instrs[j][i]:
                         mods[j][i] = mods[j][i].replace('reg',reglocs[r])
-            #elif(ops[j][i] == "fence"):
-            #    mods[j][i] = "MFENCE"
+            elif(ops[j][i] == "fence"):
+                mods[j][i] = "MFENCE"
     print(mods)
-    #TODO: %r8 initial immediate value is written here. every next is written to
-    # %r9. Write initial values to writevals structure to pass into Init
-    # function. 
-
-   #print(combos)
     # Create all musli clients
     for j in range (number_of_threads):
         outputs[j] = open(outpath + litmusTestName + "/" + litmusTestName + \
@@ -321,8 +319,8 @@ number_of_lines[j], vals))
             elif(ops[j][i] == "write"):
                 #litmus_strings[j] += "write(" + locs[j][i] + ")\n"
                 litmus_strings[j] += mods[j][i] + "\n"
-     #       elif(ops[j][i] == "fence"):
-     #           litmus_strings[j] += mods[j][i] + "\n"
+            elif(ops[j][i] == "fence"):
+                litmus_strings[j] += mods[j][i] + "\n"
     # Create musli main file
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])

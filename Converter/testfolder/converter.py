@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-import pysnooper
+#import pysnooper
 import itertools
 
 #TODO: abstract paths
@@ -17,22 +17,24 @@ def makeIntro(testname, i, mods, num_lines, vals):
     retstr += "\t.type P" + str(i) + ", @function\n"
     retstr += "\n"
     
-    retstr += "P" + str(i) + ":\n"
-    retstr += "\tpushq %rbx\n"
+    retstr += "P" + str(i) + ":\n"   
+    retstr += "\tpushq %rsi\n"
     retstr += "\tpushq %r12\n"
     retstr += "\tpushq %r13\n"
+    retstr += "\tpushq %r14\n"
+    retstr += "\tpushq %r15\n"
     retstr += "\tpushq %rbp\n"
     retstr += "\tmovq  %rsp, %rbp\n"
     retstr += "\n"
     
-    retstr += "\tmovq 48(%rdi), %r13\t# no. of iterations\n"
-    retstr += "\tmovq 40(%rdi), %r11\t# buf2\n"
-    retstr += "\tmovq 32(%rdi), %r10\t# buf1\n"
-    retstr += "\tmovq 24(%rdi), %rcx\t# ptr to w\n"
-    retstr += "\tmovq 16(%rdi), %rdx\t# ptr to z\n"
-    retstr += "\tmovq 8(%rdi), %rsi\t# ptr to y\n"
-    retstr += "\tmovq (%rdi), %rdi\t# ptr to x\n"
-    retstr += "\tmovq $0, %r12\t\t# loop index\n"
+    retstr += "\tmovq 32(%rdi), %r12\t# no of threads\n"
+    retstr += "\tmovq 28(%rdi), %r11\t# no of iterations\n"
+    retstr += "\tmovq 24(%rdi), %r10\t# ptr to buf[0]\n"
+    retstr += "\tmovq 16(%rdi), %r15\t# ptr to z\n"
+    retstr += "\tmovq 8(%rdi), %r14\t# ptr to y\n"
+    retstr += "\tmovq (%rdi), %rsi\t# ptr to x\n"
+    retstr += "\tmovq $0, %r13\t\t# loop index\n"
+    retstr += "\tmovq $0, %rdx\t\t#buffer address offset\n" 
 # Make conversion and insertion here. map x: r8, etc
     for n in range(num_lines):
         if "%r8" in mods[i][n]:
@@ -62,27 +64,42 @@ def makeOutro(no_writevals):
     retstr = "\n"
     
     retstr += "\t# Store in correct location in bufs\n"
-    retstr += "\tmovq %rax, (%r10, %r12, 4)\n"
-    retstr += "\tmovq %rbx, (%r11, %r12, 4)\n"
+    if(no_writevals == 1):
+	retstr += "\tmovq %rax, (%r10, %r13, 4)\n"
+    else:
+	retstr += "\tmovq %rax, (%r10, %rdx, 4)\n"
+    #Increment buf pointer
+    if(no_writevals > 1):
+    	retstr += "\tincq %rdx\n"
+    	retstr += "\tmovq %rbx, (%r10, %rdx, 4)\n"
+    if(no_writevals > 2):
+    	retstr += "\tincq %rdx\n"
+    	retstr += "\tmovq %rcx, (%r10, %rdx, 4)\n"
     retstr += "\n"
     retstr += "\t# Increment loop index and writevals\n"
-    retstr += "\tincq %r12\n"
-    retstr += "\taddq $" + str(no_writevals) + ", %r8\n"
-    retstr += "\taddq $" + str(no_writevals) + ", %r9\n"
+    retstr += "\tincq %r13\n"
+    if(no_writevals > 1):
+    	retstr += "\tincq %rdx\n"
+    if(no_writevals >= 1):
+    	retstr += "\taddq $" + str(no_writevals) + ", %r8\n"
+    if(no_writevals >= 2):
+    	retstr += "\taddq $" + str(no_writevals) + ", %r9\n"
     retstr += "\n"
     retstr += ".LOOPEND:\n"
-    retstr += "\tcmpq %r13,%r12\n"
+    retstr += "\tcmpq %r13,%r11\n"
     retstr += "\tjl .LOOPSTART\n"
     retstr += "\n"
     retstr += "\tpopq %rbp\n"
-    retstr += "\tpopq %r13\n"
+    retstr += "\tpushq %r15\n"
+    retstr += "\tpushq %r14\n"
+    retstr += "\tpushq %r13\n"
     retstr += "\tpopq %r12\n"
-    retstr += "\tpopq %rbx\n"
+    retstr += "\tpushq %rsi\n"
     retstr += "\tret\n" 
     
     return retstr
 
-
+#TODO:  2. Pass num reads to harness for memalloc
 
 def main():
     f = open(sys.argv[1], "r")
@@ -100,7 +117,7 @@ def main():
     number_of_threads = string[init_end+2:code_start].count('|') + 1
     number_of_lines = [0 for _ in range(number_of_threads)]
     number_of_writes = [0 for _ in range(number_of_threads)]
-
+    number_of_reads = [0 for _ in range(number_of_threads)]
     #number_of_lines = string[code_start:].count('|')
     ltcore = []
     lines = string.split('\n')
@@ -214,6 +231,7 @@ def main():
             else:
                 ops[j][i] = "read"
                 reads += 1
+		number_of_reads[j] += 1
     print(vals)
 # Mods unused with x86 conversion    
 # mods will hold the strings after API conversion
@@ -221,10 +239,8 @@ def main():
     for x in range(number_of_threads):
             mods.append([None]*number_of_lines[x])
     #mods = [[None]*number_of_lines for _ in range(number_of_threads)]
-    path = "/Users/themis/Documents/Princeton/\
-research/Consistency/perpetual/Converter/tests/"
-    outpath = "/Users/themis/Documents/Princeton/\
-research/Consistency/perpetual/Converter/tests/"
+    path = "/home/themis/perpetual/Converter/tests/"
+    outpath = "/home/themis/perpetual/Converter/tests/"
     access_rights = 0o755
     pathname = outpath + litmusTestName
     try:
@@ -236,14 +252,12 @@ research/Consistency/perpetual/Converter/tests/"
     outputs = [None] * number_of_threads
 
     # Conversion of locations and registers for val/obj
-    memlocs = {"x":"(%rdi)", "y":"(%rsi)", "z":"(%rdx)", "w":"(%rcx)"}
+    memlocs = {"x":"(%rsi)", "y":"(%r14)", "z":"(%r15)"}
     #reglocs = {"%r1":"%rax", "%r2":"%rbx"}
-    reglocs = {"EAX":"%rax", "EBX":"%rbx"}
-
+    reglocs = {"EAX":"%rax", "EBX":"%rbx", "ECX":"%rcx"}
 
 # Open KV-store conversion API
-    API = "/Users/themis/Documents/Princeton/\
-research/Consistency/perpetual/Converter/testfolder/TSO.API"
+    API = "/home/themis/perpetual/Converter/testfolder/TSO.API"
     APIfile = open(API, "r")
     line = APIfile.readline()
     readConversion = None
@@ -325,5 +339,20 @@ number_of_lines[j], vals))
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])
         outputs[j].write(makeOutro(number_of_writes[j]))
+
+    # Create all remaining "empty" clients
+    for j in range (number_of_threads, 4):
+        emptyThread = open(outpath + litmusTestName + "/" + litmusTestName + \
+                "_thread_" + str(j+1) + ".s", "w")
+        emptyThread.write(makeEmpty(j))
+	
+    metadataFile = open(outpath + litmusTestName + "/" + "num_reads" + \
+	".perple", "w") 
+    for j in range(number_of_threads):
+	outputStr = str(number_of_reads[j]) + "\n"
+	metadataFile.write(outputStr)
+    for j in range(number_of_threads,4):
+	metadataFile.write("0\n")
+
 if __name__ == '__main__':
       main()

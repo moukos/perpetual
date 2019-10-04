@@ -15,6 +15,7 @@ struct my_struct{
 typedef struct {
   int *x;
   int *y;
+  int *z;
   volatile int *buf;
   int num_iterations;
   int num_threads;
@@ -99,11 +100,26 @@ void add_kv4( int key, int value) {
 int main(int argc,char *argv[]) {
     // Setup
     int i=0;
+    int numReads[4];
+    int loopCnt = 0;
 
     if(argc < 2){
       	printf("Insufficient number of arguments. Specify # of iterations\n");
 	return 1;
     }
+    FILE * fp;
+    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    fp = fopen("/home/themis/perpetual/PerpetualHarness/num_reads.perple", "r");
+    if (fp==NULL)
+	exit(EXIT_FAILURE);
+    for( i=0; i<4; i++ ) {
+	read = getline(&line, &len, fp);
+ 	numReads[loopCnt] = atoi(line);
+    }
+    if (line)
+	free(line);
     int ptr1=0;
     int spacing1[10000];
     int ptr2=0;
@@ -119,28 +135,44 @@ int main(int argc,char *argv[]) {
     n = input;
     arg_t1.x = &ptr1;
     arg_t1.y = &ptr2;
+    arg_t1.z = &ptr3;
     arg_t1.num_iterations = input; 
     arg_t1.num_threads = 4;
     arg_t2.x = &ptr1;
     arg_t2.y = &ptr2;
+    arg_t2.z = &ptr3;
     arg_t2.num_iterations = input;
     arg_t2.num_threads = 4;
     arg_t3.x = arg_t2.x;
     arg_t3.y = arg_t2.y;
+    arg_t3.z = arg_t2.z;
     arg_t3.num_iterations = input;
     arg_t3.num_threads = 4;
     arg_t4.x = arg_t2.x;
     arg_t4.y = arg_t2.y;
+    arg_t4.z = arg_t2.z;
     arg_t4.num_iterations = input;
     arg_t4.num_threads = 4;
-
-    arg_t1.buf = (volatile int*) calloc(n, sizeof(volatile int));
+	
+    if(numReads[0]==0)
+	arg_t1.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    else
+    	arg_t1.buf = (volatile int*) calloc(n*numReads[0], sizeof(volatile int));
     void* spacing2 = malloc(40000);
-    arg_t2.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    if(numReads[1]==0)
+    	arg_t2.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    else
+    	arg_t2.buf = (volatile int*) calloc(n*numReads[1], sizeof(volatile int));
     void* spacing3 = malloc(40000);
-    arg_t3.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    if(numReads[2]==0)
+    	arg_t3.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    else
+    	arg_t3.buf = (volatile int*) calloc(n*numReads[2], sizeof(volatile int));
     void* spacing4 = malloc(40000);
-    arg_t4.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    if(numReads[3]==0)
+	arg_t4.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    else
+    	arg_t4.buf = (volatile int*) calloc(n*numReads[3], sizeof(volatile int));
 
     // Harness
     clock_t begin_harness = clock();

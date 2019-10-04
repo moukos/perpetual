@@ -3,45 +3,51 @@
 	.type P0, @function
 
 P0:
-	pushq %rbx
+	pushq %rsi
 	pushq %r12
 	pushq %r13
+	pushq %r14
+	pushq %r15
 	pushq %rbp
 	movq  %rsp, %rbp
 
-	movq 48(%rdi), %r13	# no. of iterations
-	movq 40(%rdi), %r11	# buf2
-	movq 32(%rdi), %r10	# buf1
-	movq 24(%rdi), %rcx	# ptr to w
-	movq 16(%rdi), %rdx	# ptr to z
-	movq 8(%rdi), %rsi	# ptr to y
-	movq (%rdi), %rdi	# ptr to x
-	movq $0, %r12		# loop index
+	movq 32(%rdi), %r12	# no of threads
+	movq 28(%rdi), %r11	# no of iterations
+	movq 24(%rdi), %r10	# ptr to buf[0]
+	movq 16(%rdi), %r15	# ptr to z
+	movq 8(%rdi), %r14	# ptr to y
+	movq (%rdi), %rsi	# ptr to x
+	movq $0, %r13		# loop index
+	movq $0, %rdx		#buffer address offset
 	movq $1, %r8		# writeval 1
 	movq $1, %r9		# writeval 2
 	jmp .LOOPEND
 
 .LOOPSTART:
 	# mp+fences Thread 0
-movq %r8,(%rdi)
+movq %r8,(%rsi)
 MFENCE
-movq %r9,(%rsi)
+movq %r9,(%r14)
 
 	# Store in correct location in bufs
-	movq %rax, (%r10, %r12, 4)
-	movq %rbx, (%r11, %r12, 4)
+	movq %rax, (%r10, %rdx, 4)
+	incq %rdx
+	movq %rbx, (%r10, %rdx, 4)
 
 	# Increment loop index and writevals
-	incq %r12
+	incq %r13
+	incq %rdx
 	addq $2, %r8
 	addq $2, %r9
 
 .LOOPEND:
-	cmpq %r13,%r12
+	cmpq %r13,%r11
 	jl .LOOPSTART
 
 	popq %rbp
-	popq %r13
+	pushq %r15
+	pushq %r14
+	pushq %r13
 	popq %r12
-	popq %rbx
+	pushq %rsi
 	ret

@@ -99,7 +99,27 @@ def makeOutro(no_writevals):
     
     return retstr
 
-#TODO:  2. Pass num reads to harness for memalloc
+#TODO:  Generate list of happens before relationships
+# a. add po edges
+# b. add rf edges - write causality
+# c. infer fr edges
+
+def addProgramOrderHB(numThreads, numLines, HBs):
+    counter = 1
+    for i in range(numThreads):
+        if numLines[i] == 1:
+            counter += 1
+        else:
+            for j in range(numLines[i]-1):
+                HBs[counter] = counter+1
+                counter += 1
+            counter += 1
+
+def addRFEdges(numThreads):
+    return
+
+def addFREdges():
+    return
 
 def main():
     f = open(sys.argv[1], "r")
@@ -114,6 +134,7 @@ def main():
     code_start = string[init_end:].index(';')+init_end+2
     variables = []
     cnt = 0
+    happensBeforeRelationships = {}
     number_of_threads = string[init_end+2:code_start].count('|') + 1
     number_of_lines = [0 for _ in range(number_of_threads)]
     number_of_writes = [0 for _ in range(number_of_threads)]
@@ -251,6 +272,9 @@ def main():
     litmus_strings = [""]*number_of_threads
     outputs = [None] * number_of_threads
 
+    addProgramOrderHB( number_of_threads, number_of_lines, \
+            happensBeforeRelationships)
+    print(happensBeforeRelationships)
     # Conversion of locations and registers for val/obj
     memlocs = {"x":"(%rsi)", "y":"(%r14)", "z":"(%r15)"}
     #reglocs = {"%r1":"%rax", "%r2":"%rbx"}
@@ -258,6 +282,7 @@ def main():
 
 # Open KV-store conversion API
     API = "/home/themis/perpetual/Converter/testfolder/TSO.API"
+    #API = "./TSO.API"
     APIfile = open(API, "r")
     line = APIfile.readline()
     readConversion = None

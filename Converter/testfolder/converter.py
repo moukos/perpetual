@@ -1,13 +1,9 @@
 import sys
 import os
 import numpy as np
-#import pysnooper
+
 import itertools
 
-#TODO: abstract paths
-
-
-#@pysnooper.snoop()
 
 def makeIntro(testname, i, mods, num_lines, vals):
     retstr = ""
@@ -27,20 +23,21 @@ def makeIntro(testname, i, mods, num_lines, vals):
     retstr += "\tmovq  %rsp, %rbp\n"
     retstr += "\n"
     
-    retstr += "\tmovq 32(%rdi), %r12\t# no of threads\n"
-    retstr += "\tmovq 28(%rdi), %r11\t# no of iterations\n"
-    retstr += "\tmovq 24(%rdi), %r10\t# ptr to buf[0]\n"
-    retstr += "\tmovq 16(%rdi), %r15\t# ptr to z\n"
-    retstr += "\tmovq 8(%rdi), %r14\t# ptr to y\n"
-    retstr += "\tmovq (%rdi), %rsi\t# ptr to x\n"
-    retstr += "\tmovq $0, %r13\t\t# loop index\n"
-    retstr += "\tmovq $0, %rdx\t\t#buffer address offset\n" 
-# Make conversion and insertion here. map x: r8, etc
+    retstr += "\tmovslq 36(%rdi), %r12\t# no of threads\n"
+    retstr += "\tmovslq 32(%rdi), %r11\t# no of iterations\n"
+    retstr += "\tmovq 24(%rdi), %r10\t\t# ptr to buf[0]\n"
+    retstr += "\tmovq 16(%rdi), %r15\t\t# ptr to z\n"
+    retstr += "\tmovq 8(%rdi), %r14\t\t# ptr to y\n"
+    retstr += "\tmovq (%rdi), %rsi\t\t# ptr to x\n"
+    retstr += "\tmovq $0, %r13\t\t\t# loop index\n"
+    retstr += "\tmovq $0, %rdx\t\t\t# buffer address offset\n" 
+
+    # Make conversion and insertion here. map x: r8, etc
     for n in range(num_lines):
         if "%r8" in mods[i][n]:
-            retstr += "\tmovq $" + vals[i][n] + ", %r8\t\t# writeval 1\n"
+            retstr += "\tmovq $" + vals[i][n] + ", %r8\t\t\t# writeval 1\n"
         if "%r9" in mods[i][n]:
-            retstr += "\tmovq $" + vals[i][n] + ", %r9\t\t# writeval 2\n"
+            retstr += "\tmovq $" + vals[i][n] + ", %r9\t\t\t# writeval 2\n"
 
     retstr += "\tjmp .LOOPEND\n"
     retstr += "\n"
@@ -65,9 +62,9 @@ def makeOutro(no_writevals):
     
     retstr += "\t# Store in correct location in bufs\n"
     if(no_writevals == 1):
-	retstr += "\tmovq %rax, (%r10, %r13, 4)\n"
+	    retstr += "\tmovq %rax, (%r10, %r13, 4)\n"
     else:
-	retstr += "\tmovq %rax, (%r10, %rdx, 4)\n"
+	    retstr += "\tmovq %rax, (%r10, %rdx, 4)\n"
     #Increment buf pointer
     if(no_writevals > 1):
     	retstr += "\tincq %rdx\n"
@@ -90,11 +87,11 @@ def makeOutro(no_writevals):
     retstr += "\tjl .LOOPSTART\n"
     retstr += "\n"
     retstr += "\tpopq %rbp\n"
-    retstr += "\tpushq %r15\n"
-    retstr += "\tpushq %r14\n"
-    retstr += "\tpushq %r13\n"
+    retstr += "\tpopq %r15\n"
+    retstr += "\tpopq %r14\n"
+    retstr += "\tpopq %r13\n"
     retstr += "\tpopq %r12\n"
-    retstr += "\tpushq %rsi\n"
+    retstr += "\tpopq %rsi\n"
     retstr += "\tret\n" 
     
     return retstr
@@ -128,6 +125,7 @@ def main():
     litmusTestPath = temp[fileSize-1]
     temp = litmusTestPath.split(".")
     litmusTestName = temp[0]
+
     # Extract the initialization information
     string = f.read()
     init_end = string.index('}')
@@ -139,6 +137,7 @@ def main():
     number_of_lines = [0 for _ in range(number_of_threads)]
     number_of_writes = [0 for _ in range(number_of_threads)]
     number_of_reads = [0 for _ in range(number_of_threads)]
+
     #number_of_lines = string[code_start:].count('|')
     ltcore = []
     lines = string.split('\n')
@@ -236,6 +235,7 @@ def main():
     
     reads = 0
     writes = 0
+    maxwriteval = 0
     #vals = [[None]*number_of_lines for _ in range(number_of_threads)]
     #ops = [[None]*number_of_lines for _ in range(number_of_threads)]
     for j in range(number_of_threads):
@@ -249,27 +249,29 @@ def main():
                 string = instrs[j][i]
                 index = instrs[j][i].find('$')
                 vals[j][i] = string[index+1:index+2]
+                if(int(vals[j][i]) > maxwriteval):
+                    maxwriteval = int(vals[j][i])
             else:
                 ops[j][i] = "read"
                 reads += 1
-		number_of_reads[j] += 1
+                number_of_reads[j] += 1
     print(vals)
-# Mods unused with x86 conversion    
-# mods will hold the strings after API conversion
+    # Mods unused with x86 conversion    
+    # mods will hold the strings after API conversion
     mods = []
     for x in range(number_of_threads):
             mods.append([None]*number_of_lines[x])
     #mods = [[None]*number_of_lines for _ in range(number_of_threads)]
-    path = "/home/themis/perpetual/Converter/tests/"
-    outpath = "/home/themis/perpetual/Converter/tests/"
+    path = sys.path[0]
+    outpath = sys.path[0]
     access_rights = 0o755
-    pathname = outpath + litmusTestName
+    pathname = outpath + '/' + litmusTestName
     try:
         os.mkdir(pathname, access_rights)
         os.chdir(pathname)
     except OSError:
         print ("Creation of the directory %s failed" %pathname)
-    litmus_strings = [""]*number_of_threads
+    litmus_strings = ["\t"]*number_of_threads
     outputs = [None] * number_of_threads
 
     addProgramOrderHB( number_of_threads, number_of_lines, \
@@ -280,8 +282,8 @@ def main():
     #reglocs = {"%r1":"%rax", "%r2":"%rbx"}
     reglocs = {"EAX":"%rax", "EBX":"%rbx", "ECX":"%rcx"}
 
-# Open KV-store conversion API
-    API = "/home/themis/perpetual/Converter/testfolder/TSO.API"
+    # Open KV-store conversion API
+    API = sys.path[0] + "/TSO.API"
     #API = "./TSO.API"
     APIfile = open(API, "r")
     line = APIfile.readline()
@@ -344,22 +346,22 @@ def main():
     print(mods)
     # Create all musli clients
     for j in range (number_of_threads):
-        outputs[j] = open(outpath + litmusTestName + "/" + litmusTestName + \
-                "_thread_" + str(j+1) + ".s", "w")
+        outputs[j] = open(pathname + "/" + litmusTestName + \
+                "_thread_" + str(j) + ".s", "w")
         outputs[j].write(makeIntro(litmusTestName, j, mods, \
-number_of_lines[j], vals))
+                number_of_lines[j], vals))
         
     for j in range (number_of_threads):
        # litmus_strings[j] += str(j) + "\n"
         for i in range (0,len(ops[j])):
             if(ops[j][i] == "read"):
                 #litmus_strings[j] += "read(" + locs[j][i] + ")\n"
-                litmus_strings[j] += mods[j][i] + "\n"
+                litmus_strings[j] += mods[j][i] + "\n\t"
             elif(ops[j][i] == "write"):
                 #litmus_strings[j] += "write(" + locs[j][i] + ")\n"
-                litmus_strings[j] += mods[j][i] + "\n"
+                litmus_strings[j] += mods[j][i] + "\n\t"
             elif(ops[j][i] == "fence"):
-                litmus_strings[j] += mods[j][i] + "\n"
+                litmus_strings[j] += mods[j][i] + "\n\t"
     # Create musli main file
     for j in range (number_of_threads):
         outputs[j].write(litmus_strings[j])
@@ -367,17 +369,107 @@ number_of_lines[j], vals))
 
     # Create all remaining "empty" clients
     for j in range (number_of_threads, 4):
-        emptyThread = open(outpath + litmusTestName + "/" + litmusTestName + \
-                "_thread_" + str(j+1) + ".s", "w")
+        emptyThread = open(pathname + "/" + litmusTestName + \
+                "_thread_" + str(j) + ".s", "w")
         emptyThread.write(makeEmpty(j))
 	
-    metadataFile = open(outpath + litmusTestName + "/" + "num_reads" + \
+    metadataFile = open(pathname + "/" + "num_reads" + \
 	".perple", "w") 
     for j in range(number_of_threads):
-	outputStr = str(number_of_reads[j]) + "\n"
-	metadataFile.write(outputStr)
+        outputStr = str(number_of_reads[j]) + "\n"
+        metadataFile.write(outputStr)
     for j in range(number_of_threads,4):
-	metadataFile.write("0\n")
+	    metadataFile.write("0\n")
+
+    
+    ######
+    ######  Deal with postcondition
+    ######
+
+    # Extract the terms of the condition
+    conditionline = lines[len(lines) - 1]
+    print(conditionline)
+    noterms = conditionline.count(":")
+    terms = ['' for _ in range(noterms)]
+    start = 0
+    for k in range(noterms):
+        colon = conditionline.find(":", start)  
+        start = colon + 1
+        terms[k] = conditionline[colon - 1:conditionline.find(" ", start)]
+
+    
+    
+    edges = list()
+    # Add po edges
+    for j in range(number_of_threads):
+        for i in range(number_of_lines[j] - 1):
+            edges.append(((j,i), (j, i+1), "po"))
+
+    # Add fr/rf edges
+    for t in range(noterms):
+        j1 = int(terms[t][0])
+
+         # find the read associated with the edge. in the condition, it reads the value x
+        for i1 in range(number_of_lines[j1]):
+            if(ops[j1][i1] == "read" and instrs[j1][i1].find(terms[t][2:5]) > 0):
+
+                # find a write to the same location
+                for j2 in range(number_of_threads):
+                    for i2 in range(number_of_lines[j1]):
+                        if(ops[j2][i2] == "write" and instrs[j2][i2].find(instrs[j1][i1][instrs[j1][i1].find('[') + 1]) > 0): 
+
+                            # if it wrote x + 1, it's an fr from the read to the write
+                            if(int(terms[t][terms[t].find('=')+1]) + 1 == int(instrs[j2][i2][instrs[j2][i2].find('$') +1])): 
+                                edges.append(((j1,i1), (j2,i2), "fr"))
+                            # if it wrote x, it's an rf from the write to the read
+                            elif(int(terms[t][terms[t].find('=')+1]) == int(instrs[j2][i2][instrs[j2][i2].find('$') +1])):
+                                edges.append(((j2,i2), (j1,i1), "rf"))
+           
+    
+    # TODO: collapse edges through transitivity
+    print(edges)
+    
+    # Transform expressions into C conditions
+    condexpressions = list()
+    indices = ["n", "m", "o", "p"]
+    for e in range(len(edges)):
+        expr = ""
+        if(edges[e][2] == "rf"):
+            
+            readthread = edges[e][1][0]
+            readinstr = edges[e][1][1]
+            writethread = edges[e][0][0]
+            writeinstr = edges[e][0][1]
+
+            readsbyreadthread = ops[readthread].count("read")
+            precedingreads = ops[readthread][:readinstr].count("read")
+
+            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
+            expr += " >= "
+            expr += str(maxwriteval) + " * " + indices[readthread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
+            condexpressions.append(expr)
+
+        if(edges[e][2] == "fr"): 
+            readthread = edges[e][0][0]
+            readinstr = edges[e][0][1]
+            writethread = edges[e][1][0]
+            writeinstr = edges[e][1][1]
+
+            readsbyreadthread = ops[readthread].count("read")
+            precedingreads = ops[readthread][:readinstr].count("read")
+
+            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
+            expr += " < "
+            expr += str(maxwriteval) + " * " + indices[readthread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] 
+            condexpressions.append(expr)
+
+
+
+        
+    print(condexpressions)
+  
+    
+
 
 if __name__ == '__main__':
       main()

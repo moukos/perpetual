@@ -428,7 +428,37 @@ def main():
     
     # TODO: collapse edges through transitivity
     print(edges)
-    
+    # Find operations that are hidden in logs, e.g. single writes from writer threads
+	
+    # IRIW example hardcoded because rf,fr edge extraction has bugs
+    # edges = [((2, 0), (2, 1), 'po'), ((3, 0), (3, 1), 'po'), ((2, 1), (1, 0), 'fr'), ((3, 1), (0, 0), 'fr'),((0, 0), (2, 0), 'rf'), ((1, 0), (3, 0), 'rf')]
+    hiddenTuples = []
+    for i in range(number_of_threads):
+        if number_of_reads[i] == 0:
+	    for j in range(number_of_lines[i]):
+	        hiddenTuples.append((i,j))
+    print( hiddenTuples)
+ 
+    # Eliminate tuples in hiddenTuples if available
+    # Pattern match all tuples in edges that contain "eliminated" tuple
+    # Then if there is a pair of tuples where "eliminated" tuple appears once on the right
+    # and once on the left, then merge tuples. TODO: that is not enough if there are multiple hidden writes per thread, might need to merge >2 tuples
+    # TODO: Investigate if there is case where tuples CANNOT be reduced or give existing relation.
+    # TODO: Sanity check if still a valid cycle
+
+    removeTuples = []
+    for x in hiddenTuples:
+	for e1 in range(len(edges)):
+	    for e2 in range(len(edges)):
+		if edges[e1][1] == x and edges[e2][0] == x:
+		    # Add merged edge and remove previous ones
+		    edges.append((edges[e1][0],edges[e2][1],edges[e1][2]))
+	            removeTuples.append(edges[e1])
+		    removeTuples.append(edges[e2])
+
+    for x in removeTuples:
+	edges.remove(x)
+    print(edges)
     # Transform expressions into C conditions
     condexpressions = list()
     indices = ["n", "m", "o", "p"]

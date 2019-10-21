@@ -387,7 +387,9 @@ def main():
     ######
 
     # Extract the terms of the condition
-    conditionline = lines[len(lines) - 1]
+    for line in range(len(lines)):
+	if lines[line].find("exists") > -1:
+	    conditionline = lines[line+1] 
     print(conditionline)
     noterms = conditionline.count(":")
     terms = ['' for _ in range(noterms)]
@@ -431,7 +433,7 @@ def main():
     # Find operations that are hidden in logs, e.g. single writes from writer threads
 	
     # IRIW example hardcoded because rf,fr edge extraction has bugs
-    # edges = [((2, 0), (2, 1), 'po'), ((3, 0), (3, 1), 'po'), ((2, 1), (1, 0), 'fr'), ((3, 1), (0, 0), 'fr'),((0, 0), (2, 0), 'rf'), ((1, 0), (3, 0), 'rf')]
+    #edges = [((2, 0), (2, 1), 'po'), ((3, 0), (3, 1), 'po'), ((2, 1), (1, 0), 'fr'), ((3, 1), (0, 0), 'fr'),((0, 0), (2, 0), 'rf'), ((1, 0), (3, 0), 'rf')]
     hiddenTuples = []
     for i in range(number_of_threads):
         if number_of_reads[i] == 0:

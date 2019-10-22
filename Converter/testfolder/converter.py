@@ -1,9 +1,7 @@
 import sys
 import os
 import numpy as np
-
 import itertools
-
 
 def makeIntro(testname, i, mods, num_lines, vals):
     retstr = ""
@@ -390,7 +388,6 @@ def main():
     for line in range(len(lines)):
 	if lines[line].find("exists") > -1:
 	    conditionline = lines[line+1] 
-    print(conditionline)
     noterms = conditionline.count(":")
     terms = ['' for _ in range(noterms)]
     start = 0
@@ -399,7 +396,9 @@ def main():
         start = colon + 1
         terms[k] = conditionline[colon - 1:conditionline.find(" ", start)]
 
-    
+    print(terms)
+    print(instrs)
+    print(ops)
     
     edges = list()
     # Add po edges
@@ -417,7 +416,7 @@ def main():
 
                 # find a write to the same location
                 for j2 in range(number_of_threads):
-                    for i2 in range(number_of_lines[j1]):
+                    for i2 in range(number_of_lines[j2]):
                         if(ops[j2][i2] == "write" and instrs[j2][i2].find(instrs[j1][i1][instrs[j1][i1].find('[') + 1]) > 0): 
 
                             # if it wrote x + 1, it's an fr from the read to the write

@@ -3,6 +3,14 @@ import os
 import numpy as np
 import itertools
 
+def generateCompiler(expressions, numthreads, numlines):
+    retstr = ""
+    retstr += "int condition(int *buf0, int *buf1, int *buf2, int *buf3){"
+    retstr += ""
+    retstr += "}"
+    retstr += "\n"
+    return retstr
+
 def makeIntro(testname, i, mods, num_lines, vals):
     retstr = ""
     
@@ -451,9 +459,20 @@ def main():
     for x in hiddenTuples:
 	for e1 in range(len(edges)):
 	    for e2 in range(len(edges)):
-		if edges[e1][1] == x and edges[e2][0] == x:
-		    # Add merged edge and remove previous ones
-		    edges.append((edges[e1][0],edges[e2][1],edges[e1][2]))
+	        if edges[e1][1] == x and edges[e2][0] == x:
+		    # Add merged edge and remove previous ones, figure out type of edge
+		    #op1 = ops[e1][0]
+		    #op2 = ops[e2][1]
+		    op1 = ops[edges[e1][0][0]][edges[e1][0][1]]
+		    op2 = ops[edges[e2][1][0]][edges[e2][1][1]]
+	    	    if op1 == "write" and op2 == "read": 
+		        edges.append((edges[e1][0],edges[e2][1],"rf"))
+		    if op1 == "read" and op2 == "write":
+			edges.append((edges[e1][0],edges[e2][1],"fr"))
+		    if op1 == "read" and op2 == "read":
+			edges.append((edges[e1][0],edges[e2][1],"rr"))
+		    if op1 == "write" and op2 == "write":
+			edges.append((edges[e1][0],edges[e2][1],"ws"))
 	            removeTuples.append(edges[e1])
 		    removeTuples.append(edges[e2])
 
@@ -495,10 +514,43 @@ def main():
             condexpressions.append(expr)
 
 
+        if(edges[e][2] == "rr"): 
+            readthread = edges[e][0][0]
+            readinstr = edges[e][0][1]
+            readthread2 = edges[e][1][0]
+            readinstr2 = edges[e][1][1]
+
+            readsbyreadthread = ops[readthread].count("read")
+            precedingreads = ops[readthread][:readinstr].count("read")
+            readsbyreadthread2 = ops[readthread2].count("read")
+            precedingreads2 = ops[readthread2][:readinstr2].count("read")
+
+
+            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
+            expr += " < "
+            expr += "buf" + str(readthread2) + "[" + str(readsbyreadthread2) + "*" + indices[readthread2] + "+ " + str(precedingreads2) + "]"
+            condexpressions.append(expr)
+
+
+        if(edges[e][2] == "ws"): 
+            writethread = edges[e][0][0]
+            writeinstr = edges[e][0][1]
+            writethread2 = edges[e][1][0]
+            writeinstr2 = edges[e][1][1]
+
+            readsbyreadthread = ops[readthread].count("read")
+            precedingreads = ops[readthread][:readinstr].count("read")
+
+            expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1]
+            expr += " < "
+            expr += str(maxwriteval) + " * " + indices[writethread2] + " + " + instrs[writethread2][writeinstr2][instrs[writethread2][writeinstr2].find('$') + 1] 
+            condexpressions.append(expr)
+
+
 
         
     print(condexpressions)
-  
+    generateCompiler(condexpressions, number_of_threads, number_of_lines) 
     
 
 

@@ -3,12 +3,32 @@ import os
 import numpy as np
 import itertools
 
-def generateCompiler(expressions, numthreads, numlines):
-    retstr = ""
-    retstr += "int condition(int *buf0, int *buf1, int *buf2, int *buf3){"
-    retstr += ""
-    retstr += "}"
-    retstr += "\n"
+def generateCompiler(expressions):
+    if len(expressions) >= 2:
+    	retstr = ""
+    	retstr += "int condition(volatile int *buf0, volatile int *buf1, volatile int *buf2, volatile int *buf3, int N){"
+    	retstr += "\n"
+    	retstr += "\tint ne = N-1;\n"
+    	retstr += "\tint me = N-1;\n"
+    	retstr += "\tint n=0, m=0, sum=0, oldne=0, oldme=0;\n" 
+    	retstr += "\tint numberUp = 0;\n"
+    	retstr += "\tfor( n=N-1; n>=0; n-- ){ \n"
+    	retstr += "\t\tif(!(" 
+	retstr += expressions[0]
+	retstr += "))\n"
+    	retstr += "\t\t\tcontinue;\n"
+    	retstr += "\t\tfor( m=N-1; m>=0; m--){\n"
+	#expressions[1] = expressions[1].replace("n","ne")
+    	retstr += "\t\t\tif("
+	retstr += expressions[1]
+	retstr += "){\n"
+    	retstr += "\t\t\t\tsum++;\n"
+    	retstr += "\t\t\t}\n"
+    	retstr += "\t\t}\n"
+    	retstr += "\t}\n"
+	retstr += "\treturn sum;\n"
+    	retstr += "}"
+    	retstr += "\n"
     return retstr
 
 def makeIntro(testname, i, mods, num_lines, vals):
@@ -101,28 +121,6 @@ def makeOutro(no_writevals):
     retstr += "\tret\n" 
     
     return retstr
-
-#TODO:  Generate list of happens before relationships
-# a. add po edges
-# b. add rf edges - write causality
-# c. infer fr edges
-
-def addProgramOrderHB(numThreads, numLines, HBs):
-    counter = 1
-    for i in range(numThreads):
-        if numLines[i] == 1:
-            counter += 1
-        else:
-            for j in range(numLines[i]-1):
-                HBs[counter] = counter+1
-                counter += 1
-            counter += 1
-
-def addRFEdges(numThreads):
-    return
-
-def addFREdges():
-    return
 
 def main():
     f = open(sys.argv[1], "r")
@@ -280,9 +278,6 @@ def main():
     litmus_strings = ["\t"]*number_of_threads
     outputs = [None] * number_of_threads
 
-    addProgramOrderHB( number_of_threads, number_of_lines, \
-            happensBeforeRelationships)
-    print(happensBeforeRelationships)
     # Conversion of locations and registers for val/obj
     memlocs = {"x":"(%rsi)", "y":"(%r14)", "z":"(%r15)"}
     #reglocs = {"%r1":"%rax", "%r2":"%rbx"}
@@ -496,7 +491,7 @@ def main():
 
             expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
             expr += " >= "
-            expr += str(maxwriteval) + " * " + indices[readthread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
+            expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
             condexpressions.append(expr)
 
         if(edges[e][2] == "fr"): 
@@ -510,7 +505,7 @@ def main():
 
             expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
             expr += " < "
-            expr += str(maxwriteval) + " * " + indices[readthread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] 
+            expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] 
             condexpressions.append(expr)
 
 
@@ -550,9 +545,11 @@ def main():
 
         
     print(condexpressions)
-    generateCompiler(condexpressions, number_of_threads, number_of_lines) 
-    
-
+    compilerString = generateCompiler(condexpressions) 
+	
+    checkerFile = open(pathname + "/" + "checker" + \
+	".c", "w") 
+    checkerFile.write(compilerString)
 
 if __name__ == '__main__':
       main()

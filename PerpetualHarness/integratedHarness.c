@@ -5,6 +5,7 @@
 #include <sched.h>
 #include <time.h>
 #include "uthash.h"
+#include "checker.c"
 
 struct my_struct{
   int id;
@@ -25,7 +26,7 @@ typedef struct {
 extern void P1(void * address);
 extern void P2(void * address);
 extern void P3(void * address);
-extern void P4(void * address);
+extern void P0(void * address);
 int n=0;
 struct my_struct *item1 = NULL;
 struct my_struct *item2 = NULL;
@@ -54,11 +55,11 @@ void* P3_wrap(void * address) {
   P3(address);
 }
 
-void* P4_wrap(void * address) {
+void* P0_wrap(void * address) {
 //  printf("launched P4_wrap\n");
   fflush(stdout);
   #pragma omp barrier
-  P4(address);
+  P0(address);
 }
 
 void add_kv1( int key, int value) {
@@ -180,10 +181,10 @@ int main(int argc,char *argv[]) {
     omp_set_num_threads(4);
     #pragma omp parallel
     {
-      if(omp_get_thread_num()==0) P1_wrap((void*)&arg_t1);
-      else if (omp_get_thread_num() ==1) P2_wrap((void*)&arg_t2);
-      else if (omp_get_thread_num() ==2) P3_wrap((void*)&arg_t3);
-      else if (omp_get_thread_num() ==3) P4_wrap((void*)&arg_t4); 
+      if(omp_get_thread_num()==0) P0_wrap((void*)&arg_t1);
+      else if (omp_get_thread_num() ==1) P1_wrap((void*)&arg_t2);
+      else if (omp_get_thread_num() ==2) P2_wrap((void*)&arg_t3);
+      else if (omp_get_thread_num() ==3) P3_wrap((void*)&arg_t4); 
     }
 
     clock_t end_harness = clock();
@@ -191,21 +192,21 @@ int main(int argc,char *argv[]) {
     //printf("Harness time spent %f \n",  time_harness);
 
     
-    int SBinterleavingsCnt = 0;
+    int interleavingsCnt = 0;
 
     // Checker - Base
-    clock_t begin_base = clock();
-
-    for(i = 0; i < n; i++) 
-      if(arg_t2.buf[arg_t1.buf[i]] < i + 1) SBinterleavingsCnt++;
+    clock_t begin_base = clock(); 
+    interleavingsCnt = condition(arg_t1.buf,arg_t2.buf,arg_t3.buf,arg_t4.buf,n);    
+//    for(i = 0; i < n; i++) 
+//      if(arg_t2.buf[arg_t1.buf[i]] < i + 1) SBinterleavingsCnt++;
 
     clock_t end_base = clock();
     double time_base = (double) (end_base - begin_base) / CLOCKS_PER_SEC;
     //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
     //printf("(Base) Checker time spent %f \n",  time_base);
-    printf("%d %d %f %f\n", n, SBinterleavingsCnt, time_harness, time_base);
+    printf("%d %d %f %f\n", n, interleavingsCnt, time_harness, time_base);
     
-    SBinterleavingsCnt = 0;
+//    SBinterleavingsCnt = 0;
     //Checker - Multithreaded
     /*    clock_t begin_multi = clock();
 

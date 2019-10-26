@@ -31,7 +31,7 @@ int n=0;
 struct my_struct *item1 = NULL;
 struct my_struct *item2 = NULL;
 struct my_struct *item3 = NULL;
-struct my_struct *item4 = NULL;
+struct my_struct *item0 = NULL;
 
 void* P1_wrap(void * address) {
 //  printf("launched P1_wrap\n");
@@ -95,7 +95,7 @@ void add_kv4( int key, int value) {
 	s = malloc(sizeof(struct my_struct));
 	s->id = key;
 	s->value = value;
-	HASH_ADD_INT( item4, id, s);
+	HASH_ADD_INT( item0, id, s);
 }
 
 int main(int argc,char *argv[]) {
@@ -127,11 +127,11 @@ int main(int argc,char *argv[]) {
     int spacing6[10000];
     int ptr3=0;
     int spacing5[10000];
-    int ptr4=0;
+    int ptr0=0;
     args arg_t1;
     args arg_t2;
     args arg_t3;
-    args arg_t4;
+    args arg_t0;
     int input = atoi(argv[1]);
     n = input;
     arg_t1.x = &ptr1;
@@ -149,31 +149,31 @@ int main(int argc,char *argv[]) {
     arg_t3.z = arg_t2.z;
     arg_t3.num_iterations = input;
     arg_t3.num_threads = 4;
-    arg_t4.x = arg_t2.x;
-    arg_t4.y = arg_t2.y;
-    arg_t4.z = arg_t2.z;
-    arg_t4.num_iterations = input;
-    arg_t4.num_threads = 4;
+    arg_t0.x = arg_t2.x;
+    arg_t0.y = arg_t2.y;
+    arg_t0.z = arg_t2.z;
+    arg_t0.num_iterations = input;
+    arg_t0.num_threads = 4;
 	
     if(numReads[0]==0)
-	arg_t1.buf = (volatile int*) calloc(n, sizeof(volatile int));
+	arg_t0.buf = (volatile int*) calloc(n, sizeof(volatile int));
     else
-    	arg_t1.buf = (volatile int*) calloc(n*numReads[0], sizeof(volatile int));
+    	arg_t0.buf = (volatile int*) calloc(n*numReads[0], sizeof(volatile int));
     void* spacing2 = malloc(40000);
     if(numReads[1]==0)
-    	arg_t2.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    	arg_t1.buf = (volatile int*) calloc(n, sizeof(volatile int));
     else
-    	arg_t2.buf = (volatile int*) calloc(n*numReads[1], sizeof(volatile int));
+    	arg_t1.buf = (volatile int*) calloc(n*numReads[1], sizeof(volatile int));
     void* spacing3 = malloc(40000);
     if(numReads[2]==0)
-    	arg_t3.buf = (volatile int*) calloc(n, sizeof(volatile int));
+    	arg_t2.buf = (volatile int*) calloc(n, sizeof(volatile int));
     else
-    	arg_t3.buf = (volatile int*) calloc(n*numReads[2], sizeof(volatile int));
+    	arg_t2.buf = (volatile int*) calloc(n*numReads[2], sizeof(volatile int));
     void* spacing4 = malloc(40000);
     if(numReads[3]==0)
-	arg_t4.buf = (volatile int*) calloc(n, sizeof(volatile int));
+	arg_t3.buf = (volatile int*) calloc(n, sizeof(volatile int));
     else
-    	arg_t4.buf = (volatile int*) calloc(n*numReads[3], sizeof(volatile int));
+    	arg_t3.buf = (volatile int*) calloc(n*numReads[3], sizeof(volatile int));
 
     // Harness
     clock_t begin_harness = clock();
@@ -181,22 +181,23 @@ int main(int argc,char *argv[]) {
     omp_set_num_threads(4);
     #pragma omp parallel
     {
-      if(omp_get_thread_num()==0) P0_wrap((void*)&arg_t1);
-      else if (omp_get_thread_num() ==1) P1_wrap((void*)&arg_t2);
-      else if (omp_get_thread_num() ==2) P2_wrap((void*)&arg_t3);
-      else if (omp_get_thread_num() ==3) P3_wrap((void*)&arg_t4); 
+      if(omp_get_thread_num()==0) P0_wrap((void*)&arg_t0);
+      else if (omp_get_thread_num() ==1) P1_wrap((void*)&arg_t1);
+      else if (omp_get_thread_num() ==2) P2_wrap((void*)&arg_t2);
+      else if (omp_get_thread_num() ==3) P3_wrap((void*)&arg_t3); 
     }
 
     clock_t end_harness = clock();
     double time_harness = (double) (end_harness - begin_harness) / CLOCKS_PER_SEC;
     //printf("Harness time spent %f \n",  time_harness);
 
-    
+    for (i=n-1; i>=0; i--)
+	printf("%d %d\n",arg_t0.buf[i],arg_t1.buf[i]);
     int interleavingsCnt = 0;
 
     // Checker - Base
     clock_t begin_base = clock(); 
-    interleavingsCnt = condition(arg_t1.buf,arg_t2.buf,arg_t3.buf,arg_t4.buf,n);    
+    interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);    
 //    for(i = 0; i < n; i++) 
 //      if(arg_t2.buf[arg_t1.buf[i]] < i + 1) SBinterleavingsCnt++;
 

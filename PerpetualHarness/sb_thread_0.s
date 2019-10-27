@@ -35,7 +35,7 @@ P0:
 	addq $1, %r8
 
 .LOOPEND:
-	cmpq %r13,%r11
+	cmpq %r11,%r13
 	jl .LOOPSTART
 
 	popq %rbp

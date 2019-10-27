@@ -9,6 +9,7 @@ int condition(volatile int *buf0, volatile int *buf1, volatile int *buf2, volati
 		for( m=N-1; m>=0; m--){
 			if(buf1[1*m+ 0] < 1 * n + 1){
 				sum++;
+				printf("T0 read %d at iter %d, T1 read %d at iter %d\n", buf0[n], n, buf1[m], m);
 			}
 		}
 	}

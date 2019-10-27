@@ -38,7 +38,6 @@ void* P1_wrap(void * address) {
   fflush(stdout);
   #pragma omp barrier
   P1(address);
-
 }
 
 void* P2_wrap(void * address) {
@@ -112,7 +111,7 @@ int main(int argc,char *argv[]) {
     char * line = NULL;
     size_t len = 0;
     ssize_t read;
-    fp = fopen("/home/themis/perpetual/PerpetualHarness/num_reads.perple", "r");
+    fp = fopen("./num_reads.perple", "r");
     if (fp==NULL)
 	exit(EXIT_FAILURE);
     for( i=0; i<4; i++ ) {
@@ -175,7 +174,7 @@ int main(int argc,char *argv[]) {
     else
     	arg_t3.buf = (volatile int*) calloc(n*numReads[3], sizeof(volatile int));
 
-    // Harness
+    // Harness    
     clock_t begin_harness = clock();
 
     omp_set_num_threads(4);
@@ -191,15 +190,11 @@ int main(int argc,char *argv[]) {
     double time_harness = (double) (end_harness - begin_harness) / CLOCKS_PER_SEC;
     //printf("Harness time spent %f \n",  time_harness);
 
-    for (i=n-1; i>=0; i--)
-	printf("%d %d\n",arg_t0.buf[i],arg_t1.buf[i]);
     int interleavingsCnt = 0;
 
     // Checker - Base
     clock_t begin_base = clock(); 
     interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);    
-//    for(i = 0; i < n; i++) 
-//      if(arg_t2.buf[arg_t1.buf[i]] < i + 1) SBinterleavingsCnt++;
 
     clock_t end_base = clock();
     double time_base = (double) (end_base - begin_base) / CLOCKS_PER_SEC;

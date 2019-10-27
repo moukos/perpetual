@@ -6,7 +6,7 @@
 #include <time.h>
 #include "uthash.h"
 #include "checker.c"
-
+#include "checker2.c"
 struct my_struct{
   int id;
   int value;
@@ -188,19 +188,40 @@ int main(int argc,char *argv[]) {
 
     clock_t end_harness = clock();
     double time_harness = (double) (end_harness - begin_harness) / CLOCKS_PER_SEC;
-    //printf("Harness time spent %f \n",  time_harness);
+    printf("Harness time spent %f \n",  time_harness);
 
     int interleavingsCnt = 0;
+    int interleavingsCnt2 = 0;
+    int oldCnt = 0;
 
     // Checker - Base
-    clock_t begin_base = clock(); 
-    interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);    
-
+    /*    clock_t begin_base = clock();
+    interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
     clock_t end_base = clock();
     double time_base = (double) (end_base - begin_base) / CLOCKS_PER_SEC;
-    //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
+    printf("NEW checker time: %f, weak %d\n", time_base, interleavingsCnt);
+    */
+    clock_t begin_base2 = clock();
+    interleavingsCnt2 = condition2(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
+    clock_t end_base2 = clock();
+    double time_base2 = (double) (end_base2 - begin_base2) / CLOCKS_PER_SEC;
+    printf("NEW2 checker time: %f, weak %d\n", time_base2, interleavingsCnt2);
+
+
+    clock_t begin_old = clock();
+    printf("OLD\n");
+     for(i = 0; i < n; i++) if(arg_t1.buf[arg_t0.buf[i]] < i + 1) {
+	oldCnt++;
+	//	printf("T0 read %d at iter %d, T1 read %d at iter %d\n", arg_t0.buf[i], i, arg_t1.buf[arg_t0.buf[i]], arg_t0.buf[i]);
+	}
+    clock_t end_old = clock();
+    double time_old = (double) (end_old - begin_old) / CLOCKS_PER_SEC;
+    printf("OLD checker time: %f, weak %d\n", time_old, oldCnt);
+  
+    // printf("%d OLD: %d NEW: %d %f %f\n", n, oldCnt, interleavingsCnt, time_harness, time_base);
+  
+     //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
     //printf("(Base) Checker time spent %f \n",  time_base);
-    printf("%d %d %f %f\n", n, interleavingsCnt, time_harness, time_base);
     
 //    SBinterleavingsCnt = 0;
     //Checker - Multithreaded

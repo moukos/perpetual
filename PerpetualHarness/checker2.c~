@@ -1,0 +1,44 @@
+int condition2(volatile int *buf0, volatile int *buf1, volatile int *buf2, volatile int *buf3, int N){
+	int ne = N-1;
+	int me = N-1;
+	int n=0, m=0;
+	double sum=0, oldne=0, oldme=0;
+	int numberUp = 0;
+
+	int mend = N-1;
+	for( n=N-1; n>=0; n-- ){
+	  int edgeEnd = buf0[1*n+ 0];
+	  if(!( edgeEnd < 1 * n + 1))
+	     continue;
+	
+	  for( m=mend; m>= edgeEnd; m--){
+		if(buf1[1*m+ 0] < 1 * n + 1){
+		    if(buf1[m] < m + 1) sum += 0.5;
+		    else sum++;
+			}
+		
+	  else mend = m;
+	}
+
+	}
+
+	for( n=N-1; n>=0; n-- ){
+	  int edgeEnd = buf1[1*n+ 0];
+	  if(!( edgeEnd < 1 * n + 1))
+	     continue;
+	
+	  for( m=N-1; m>= edgeEnd; m--){
+		  if(buf0[1*m+ 0] < 1 * n + 1){
+		    if(buf0[m] < m + 1) sum += 0.5;
+		    else sum++;
+		
+			}
+		  else mend = m;
+		}
+	  
+	}
+
+
+
+	return ((int) sum);
+}

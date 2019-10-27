@@ -109,7 +109,7 @@ def makeOutro(no_writevals):
     	retstr += "\taddq $" + str(no_writevals) + ", %r9\n"
     retstr += "\n"
     retstr += ".LOOPEND:\n"
-    retstr += "\tcmpq %r13,%r11\n"
+    retstr += "\tcmpq %r11,%r13\n"
     retstr += "\tjl .LOOPSTART\n"
     retstr += "\n"
     retstr += "\tpopq %rbp\n"

@@ -1,18 +1,18 @@
-int condition2(volatile int *buf0, volatile int *buf1, volatile int *buf2, volatile int *buf3, int N){
-	int n=0, m=0;
+long condition2(volatile long *buf0, volatile long *buf1, volatile long *buf2, volatile long *buf3, long N){
+	long n=0, m=0;
 	double sum=0, oldne=0, oldme=0;
-	int numberUp = 0;
+	long numberUp = 0;
 
-	int mend = N-1;
-	int nend = N-1;
+	long mend = N-1;
+	long nend = N-1;
 	
 	for( n=N-1; n>=0; n-- ){
-	  int leftEdgeEnd = buf0[1*n+ 0];
+	  long leftEdgeEnd = buf0[1*n+ 0];
 	  if(!( leftEdgeEnd < 1 * n + 1))
 	     continue;
 	
 	  for( m=mend; m>= leftEdgeEnd; m--){
-	    int rightEdgeEnd = buf1[1*m+ 0];
+	    long rightEdgeEnd = buf1[1*m+ 0];
 
 	    if(rightEdgeEnd < 1 * n + 1){
 		  if(rightEdgeEnd < m + 1) {
@@ -27,7 +27,7 @@ int condition2(volatile int *buf0, volatile int *buf1, volatile int *buf2, volat
 	}
 
 	for( n=N-1; n>=0; n-- ){
-	  int edgeEnd = buf1[1*n+ 0];
+	  long edgeEnd = buf1[1*n+ 0];
 	  if(!( edgeEnd < 1 * n + 1))
 	     continue;
 	
@@ -44,5 +44,5 @@ int condition2(volatile int *buf0, volatile int *buf1, volatile int *buf2, volat
 
 
 
-	return ((int) sum);
+	return ((long) sum);
 }

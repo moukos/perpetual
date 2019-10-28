@@ -11,8 +11,8 @@ P1:
 	pushq %rbp
 	movq  %rsp, %rbp
 
-	movslq 36(%rdi), %r12	# no of threads
-	movslq 32(%rdi), %r11	# no of iterations
+	movslq 40(%rdi), %r12	# no of threads
+	movq 32(%rdi), %r11	# no of iterations
 	movq 24(%rdi), %r10		# ptr to buf[0]
 	movq 16(%rdi), %r15		# ptr to z
 	movq 8(%rdi), %r14		# ptr to y
@@ -28,7 +28,7 @@ P1:
 	movq (%rsi),%rax
 	
 	# Store in correct location in bufs
-	movq %rax, (%r10, %r13, 4)
+	movq %rax, (%r10, %r13, 8)
 
 	# Increment loop index and writevals
 	incq %r13

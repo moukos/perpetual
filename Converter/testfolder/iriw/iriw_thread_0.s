@@ -23,9 +23,8 @@ P0:
 	jmp .LOOPEND
 
 .LOOPSTART:
-	# sb Thread 0
+	# iriw Thread 0
 	movq %r8,(%rsi)
-	movq (%r14),%rax
 	
 	# Store in correct location in bufs
 	movq %rax, (%r10, %r13, 8)

@@ -1,8 +1,8 @@
 	.section ".text"
-	.globl P0
-	.type P0, @function
+	.globl P1
+	.type P1, @function
 
-P0:
+P1:
 	pushq %rsi
 	pushq %r12
 	pushq %r13
@@ -23,9 +23,9 @@ P0:
 	jmp .LOOPEND
 
 .LOOPSTART:
-	# sb Thread 0
-	movq %r8,(%rsi)
+	# lb Thread 1
 	movq (%r14),%rax
+	movq %r8,(%rsi)
 	
 	# Store in correct location in bufs
 	movq %rax, (%r10, %r13, 8)

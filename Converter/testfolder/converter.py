@@ -3,15 +3,33 @@ import os
 import numpy as np
 import itertools
 
-def generateCompiler(expressions):
+def generateHeuristicChecker(heuristic):
+    retstr = ""
+    retstr += "long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, volatile long *buf3, long N){"
+    retstr += "\n"
+    retstr += "\tlong n=0, sum=0;\n" 
+    retstr += "\tlong numberUp = 0;\n"
+    retstr += "\tfor(n = 0; n < N; n++ ){ \n"
+    retstr += "\t\tif(" 
+    retstr +=  heuristic
+    retstr += ")\n"
+    retstr += "\t\t\tsum++;\n"
+    retstr += "\t}\n"
+    retstr += "\treturn sum;\n"
+    retstr += "}"
+    retstr += "\n"
+    return retstr
+
+
+def generateCompleteChecker(expressions):
     if len(expressions) >= 2:
     	retstr = ""
-    	retstr += "int condition(volatile int *buf0, volatile int *buf1, volatile int *buf2, volatile int *buf3, int N){"
+    	retstr += "long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, volatile long *buf3, long N){"
     	retstr += "\n"
-    	retstr += "\tint ne = N-1;\n"
-    	retstr += "\tint me = N-1;\n"
-    	retstr += "\tint n=0, m=0, sum=0, oldne=0, oldme=0;\n" 
-    	retstr += "\tint numberUp = 0;\n"
+    	retstr += "\tlong ne = N-1;\n"
+    	retstr += "\tlong me = N-1;\n"
+    	retstr += "\tlong n=0, m=0, sum=0, oldne=0, oldme=0;\n" 
+    	retstr += "\tlong numberUp = 0;\n"
     	retstr += "\tfor( n=N-1; n>=0; n-- ){ \n"
     	retstr += "\t\tif(!(" 
 	retstr += expressions[0]
@@ -49,8 +67,8 @@ def makeIntro(testname, i, mods, num_lines, vals):
     retstr += "\tmovq  %rsp, %rbp\n"
     retstr += "\n"
     
-    retstr += "\tmovslq 36(%rdi), %r12\t# no of threads\n"
-    retstr += "\tmovslq 32(%rdi), %r11\t# no of iterations\n"
+    retstr += "\tmovslq 40(%rdi), %r12\t# no of threads\n"
+    retstr += "\tmovq 32(%rdi), %r11\t# no of iterations\n"
     retstr += "\tmovq 24(%rdi), %r10\t\t# ptr to buf[0]\n"
     retstr += "\tmovq 16(%rdi), %r15\t\t# ptr to z\n"
     retstr += "\tmovq 8(%rdi), %r14\t\t# ptr to y\n"
@@ -88,16 +106,16 @@ def makeOutro(no_writevals):
     
     retstr += "\t# Store in correct location in bufs\n"
     if(no_writevals == 1):
-	    retstr += "\tmovq %rax, (%r10, %r13, 4)\n"
+	    retstr += "\tmovq %rax, (%r10, %r13, 8)\n"
     else:
-	    retstr += "\tmovq %rax, (%r10, %rdx, 4)\n"
+	    retstr += "\tmovq %rax, (%r10, %rdx, 8)\n"
     #Increment buf pointer
     if(no_writevals > 1):
     	retstr += "\tincq %rdx\n"
-    	retstr += "\tmovq %rbx, (%r10, %rdx, 4)\n"
+    	retstr += "\tmovq %rbx, (%r10, %rdx, 8)\n"
     if(no_writevals > 2):
     	retstr += "\tincq %rdx\n"
-    	retstr += "\tmovq %rcx, (%r10, %rdx, 4)\n"
+    	retstr += "\tmovq %rcx, (%r10, %rdx, 8)\n"
     retstr += "\n"
     retstr += "\t# Increment loop index and writevals\n"
     retstr += "\tincq %r13\n"
@@ -430,7 +448,6 @@ def main():
                                 edges.append(((j2,i2), (j1,i1), "rf"))
            
     
-    # TODO: collapse edges through transitivity
     print(edges)
     # Find operations that are hidden in logs, e.g. single writes from writer threads
 	
@@ -475,10 +492,14 @@ def main():
 	edges.remove(x)
     print(edges)
     # Transform expressions into C conditions
+    # Perform substitutions for heuristics
     condexpressions = list()
+    heurexpressions = dict({})
     indices = ["n", "m", "o", "p"]
+    # TODO: Adjust condition-assignments for initial values > 1 
     for e in range(len(edges)):
         expr = ""
+	heurstr = ""
         if(edges[e][2] == "rf"):
             
             readthread = edges[e][1][0]
@@ -489,10 +510,14 @@ def main():
             readsbyreadthread = ops[readthread].count("read")
             precedingreads = ops[readthread][:readinstr].count("read")
 
-            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
+            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
             expr += " >= "
             expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
             condexpressions.append(expr)
+	    # heuristic m = buf[n] 
+	    heurstring = "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
+            heursub = str(maxwriteval) + " * " + indices[writethread] 
+ 	    heurexpressions[heursub] = heurstring
 
         if(edges[e][2] == "fr"): 
             readthread = edges[e][0][0]
@@ -503,11 +528,14 @@ def main():
             readsbyreadthread = ops[readthread].count("read")
             precedingreads = ops[readthread][:readinstr].count("read")
 
-            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
+            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
             expr += " < "
             expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] 
             condexpressions.append(expr)
-
+            # heuristic m = buf[n]
+	    heurstring = "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
+            heursub = str(maxwriteval) + " * " + indices[writethread]
+ 	    heurexpressions[heursub] = heurstring
 
         if(edges[e][2] == "rr"): 
             readthread = edges[e][0][0]
@@ -521,10 +549,14 @@ def main():
             precedingreads2 = ops[readthread2][:readinstr2].count("read")
 
 
-            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + "*" + indices[readthread] + "+ " + str(precedingreads) + "]"
+            expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
             expr += " < "
-            expr += "buf" + str(readthread2) + "[" + str(readsbyreadthread2) + "*" + indices[readthread2] + "+ " + str(precedingreads2) + "]"
+            expr += "buf" + str(readthread2) + "[" + str(readsbyreadthread2) + " * " + indices[readthread2] + " + " + str(precedingreads2) + "]"
             condexpressions.append(expr)
+            # heuristic buf[m] = buf[n] + 1
+	    heurstring = "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]" + "+1"
+            heursub = "buf" + str(readthread2) + "[" + str(readsbyreadthread2) + " * " + indices[readthread2] + " + " + str(precedingreads2) + "]"
+ 	    heurexpressions[heursub] = heurstring
 
 
         if(edges[e][2] == "ws"): 
@@ -540,16 +572,38 @@ def main():
             expr += " < "
             expr += str(maxwriteval) + " * " + indices[writethread2] + " + " + instrs[writethread2][writeinstr2][instrs[writethread2][writeinstr2].find('$') + 1] 
             condexpressions.append(expr)
+            # heuristic m = n + 1
+	    heurstring = str(maxwriteval) + " * " + indices[writethread] + " + " + "1" 
+            heursub = str(maxwriteval) + " * " + indices[writethread2] + " + " 
+ 	    heurexpressions[heursub] = heurstring
+
 
 
 
         
-    print(condexpressions)
-    compilerString = generateCompiler(condexpressions) 
-	
+    print(condexpressions) 
+    print("heuristic conditions\n")
+    print(heurexpressions)
+    sub = ""
+    heuristic = ""
+    for x in heurexpressions:
+	if "m" in x:
+	    sub = x
+    for y in condexpressions:
+	if sub in y:
+	    heuristic = y.replace(sub,heurexpressions[sub])
+    print("heuristic")
+    print(heuristic)
+		
+    completeCheckerString = generateCompleteChecker(condexpressions) 
+    heuristicCheckerString = generateHeuristicChecker(heuristic)
     checkerFile = open(pathname + "/" + "checker" + \
 	".c", "w") 
-    checkerFile.write(compilerString)
+    checkerFile.write(completeCheckerString)
+    checkerFile2 = open(pathname + "/" + "checker-heuristic" + \
+	".c", "w") 
+    checkerFile2.write(heuristicCheckerString)
+
 
 if __name__ == '__main__':
       main()

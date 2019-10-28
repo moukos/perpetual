@@ -14,11 +14,11 @@ struct my_struct{
 };
 
 typedef struct {
-  int *x;
-  int *y;
-  int *z;
-  volatile int *buf;
-  int num_iterations;
+  long *x;
+  long *y;
+  long *z;
+  volatile long *buf;
+  long num_iterations;
   int num_threads;
 } args;
 
@@ -99,10 +99,9 @@ void add_kv4( int key, int value) {
 
 int main(int argc,char *argv[]) {
     // Setup
-    int i=0;
+    long i=0;
     int numReads[4];
-    int loopCnt = 0;
-
+   
     if(argc < 2){
       	printf("Insufficient number of arguments. Specify # of iterations\n");
 	return 1;
@@ -116,66 +115,44 @@ int main(int argc,char *argv[]) {
 	exit(EXIT_FAILURE);
     for( i=0; i<4; i++ ) {
 	read = getline(&line, &len, fp);
- 	numReads[loopCnt] = atoi(line);
+ 	numReads[i] = atoi(line);
     }
     if (line)
 	free(line);
-    int ptr1=0;
+
+    // Populate structs
+    long ptr1=0;
     int spacing1[10000];
-    int ptr2=0;
+    long ptr2=0;
     int spacing6[10000];
-    int ptr3=0;
+    long ptr3=0;
     int spacing5[10000];
-    int ptr0=0;
+    long ptr0=0;
+
+    args arg_t0;
     args arg_t1;
     args arg_t2;
     args arg_t3;
-    args arg_t0;
-    int input = atoi(argv[1]);
-    n = input;
-    arg_t1.x = &ptr1;
-    arg_t1.y = &ptr2;
-    arg_t1.z = &ptr3;
-    arg_t1.num_iterations = input; 
-    arg_t1.num_threads = 4;
-    arg_t2.x = &ptr1;
-    arg_t2.y = &ptr2;
-    arg_t2.z = &ptr3;
-    arg_t2.num_iterations = input;
-    arg_t2.num_threads = 4;
-    arg_t3.x = arg_t2.x;
-    arg_t3.y = arg_t2.y;
-    arg_t3.z = arg_t2.z;
-    arg_t3.num_iterations = input;
-    arg_t3.num_threads = 4;
-    arg_t0.x = arg_t2.x;
-    arg_t0.y = arg_t2.y;
-    arg_t0.z = arg_t2.z;
-    arg_t0.num_iterations = input;
-    arg_t0.num_threads = 4;
-	
-    if(numReads[0]==0)
-	arg_t0.buf = (volatile int*) calloc(n, sizeof(volatile int));
-    else
-    	arg_t0.buf = (volatile int*) calloc(n*numReads[0], sizeof(volatile int));
-    void* spacing2 = malloc(40000);
-    if(numReads[1]==0)
-    	arg_t1.buf = (volatile int*) calloc(n, sizeof(volatile int));
-    else
-    	arg_t1.buf = (volatile int*) calloc(n*numReads[1], sizeof(volatile int));
-    void* spacing3 = malloc(40000);
-    if(numReads[2]==0)
-    	arg_t2.buf = (volatile int*) calloc(n, sizeof(volatile int));
-    else
-    	arg_t2.buf = (volatile int*) calloc(n*numReads[2], sizeof(volatile int));
-    void* spacing4 = malloc(40000);
-    if(numReads[3]==0)
-	arg_t3.buf = (volatile int*) calloc(n, sizeof(volatile int));
-    else
-    	arg_t3.buf = (volatile int*) calloc(n*numReads[3], sizeof(volatile int));
+    long n = atoi(argv[1]);
 
-    // Harness    
-    clock_t begin_harness = clock();
+    arg_t0.x = arg_t1.x = arg_t2.x = arg_t3.x = &ptr1;
+    arg_t0.y = arg_t1.y = arg_t2.y = arg_t3.y = &ptr2;
+    arg_t0.z = arg_t1.z = arg_t2.z = arg_t3.z = &ptr3;
+    arg_t0.num_iterations = arg_t1.num_iterations = arg_t2.num_iterations = arg_t3.num_iterations = n;
+    arg_t0.num_threads = arg_t1.num_threads = arg_t2.num_threads = arg_t3.num_threads = 4;
+
+    
+    arg_t0.buf = (volatile long*) calloc((numReads[0]?numReads[0]:1)*n, sizeof(volatile long));
+    void* spacing2 = malloc(40000);
+    arg_t1.buf = (volatile long*) calloc((numReads[1]?numReads[1]:1)*n, sizeof(volatile long));
+    void* spacing3 = malloc(40000);
+    arg_t2.buf = (volatile long*) calloc((numReads[2]?numReads[2]:1)*n, sizeof(volatile long));
+    void* spacing4 = malloc(40000);
+    arg_t3.buf = (volatile long*) calloc((numReads[3]?numReads[3]:1)*n, sizeof(volatile long));
+
+    // Harness
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
 
     omp_set_num_threads(4);
     #pragma omp parallel
@@ -186,39 +163,38 @@ int main(int argc,char *argv[]) {
       else if (omp_get_thread_num() ==3) P3_wrap((void*)&arg_t3); 
     }
 
-    clock_t end_harness = clock();
-    double time_harness = (double) (end_harness - begin_harness) / CLOCKS_PER_SEC;
-    printf("Harness time spent %f \n",  time_harness);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    double time_h = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
+    //printf("Harness time %.9f \n",  time_h);
 
-    int interleavingsCnt = 0;
-    int interleavingsCnt2 = 0;
-    int oldCnt = 0;
+    long interleavingsCnt = 0;
+    long interleavingsCnt2 = 0;
+    long oldCnt = 0;
 
     // Checker - Base
-    /*    clock_t begin_base = clock();
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
-    clock_t end_base = clock();
-    double time_base = (double) (end_base - begin_base) / CLOCKS_PER_SEC;
-    printf("NEW checker time: %f, weak %d\n", time_base, interleavingsCnt);
-    */
-    clock_t begin_base2 = clock();
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    double time_n = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
+    //printf("NEW checker time: %.9f, weak %d\n", time_n, interleavingsCnt);
+    
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     interleavingsCnt2 = condition2(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
-    clock_t end_base2 = clock();
-    double time_base2 = (double) (end_base2 - begin_base2) / CLOCKS_PER_SEC;
-    printf("NEW2 checker time: %f, weak %d\n", time_base2, interleavingsCnt2);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    double time_n2 = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
+    // printf("NEW2 checker time: %.9f, weak %d\n", time_n2, interleavingsCnt2);
 
-
-    clock_t begin_old = clock();
-    printf("OLD\n");
+    
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
      for(i = 0; i < n; i++) if(arg_t1.buf[arg_t0.buf[i]] < i + 1) {
 	oldCnt++;
 	//	printf("T0 read %d at iter %d, T1 read %d at iter %d\n", arg_t0.buf[i], i, arg_t1.buf[arg_t0.buf[i]], arg_t0.buf[i]);
 	}
-    clock_t end_old = clock();
-    double time_old = (double) (end_old - begin_old) / CLOCKS_PER_SEC;
-    printf("OLD checker time: %f, weak %d\n", time_old, oldCnt);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    double time_o = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
+    //printf("OLD checker time: %.9f, weak %d\n", time_o, oldCnt);
   
-    // printf("%d OLD: %d NEW: %d %f %f\n", n, oldCnt, interleavingsCnt, time_harness, time_base);
+    printf("%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt2, oldCnt, time_h, time_n2, time_o);
   
      //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
     //printf("(Base) Checker time spent %f \n",  time_base);

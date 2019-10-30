@@ -21,8 +21,9 @@ def generateHeuristicChecker(heuristic):
     return retstr
 
 
-def generateCompleteChecker(expressions):
-    if len(expressions) >= 2:
+def generateCompleteChecker(expressions,buffers):
+    retstr = ""
+    if len(expressions) == 4:
     	retstr = ""
     	retstr += "long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, volatile long *buf3, long N){"
     	retstr += "\n"
@@ -32,21 +33,60 @@ def generateCompleteChecker(expressions):
       	retstr += "\tlong mend = N-1;\n" 
     	retstr += "\tlong numberUp = 0;\n"
     	retstr += "\tfor( n=N-1; n>=0; n-- ){ \n"
-	retstr += "\t\tlong leftEdgeEnd\n"
-    	retstr += "\t\tif(!(" 
+	retstr += "\t\tlong leftEdgeEnd = "
+	print(expressions[0])
+	print(expressions[1])
 	retstr += expressions[0]
-	retstr += "))\n"
+	retstr += ";\n"
+    	retstr += "\t\tif( leftEdgeEnd" 
+	retstr += expressions[1]
+	retstr += ")\n"
     	retstr += "\t\t\tcontinue;\n"
-    	retstr += "\t\tfor( m=N-1; m>=0; m--){\n"
-	#expressions[1] = expressions[1].replace("n","ne")
-    	retstr += "\t\t\tif("
+    	retstr += "\t\tfor( m=mend; m>= leftEdgeEnd; m--){\n"
+	retstr += "\t\t\tlong rightEdgeEnd = "
+	retstr += expressions[2]
+	retstr += ";\n"
+	retstr += "\t\t\tif(rightEdgeEnd "
+	retstr += expressions[3]
+	retstr += "){\n"
+	retstr += "\t\t\t\tif(rightEdgeEnd < m + 1) { // for edges facing upwards\n"
+    	retstr += "\t\t\t\t\tsum += 0.5;\n"
+    	retstr += "\t\t\t\t}\n"
+    	retstr += "\t\t\t\telse sum++;\n"
+    	retstr += "\t\t\t}\n"
+	retstr += "\t\t\telse mend = m;\n"
+	retstr += "\t\t}\n"
+	retstr += "\t}\n"
+	# Second loop from second thread to first thread
+    	retstr += "\tfor( n=N-1; n>=0; n-- ){ \n"
+	retstr += "\t\tlong leftEdgeEnd = "
+	expressionSub = expressions[2]
+	expressionSub = expressionSub.replace("buf0","buf1")
+	retstr += expressionSub
+	retstr += ";\n"
+    	retstr += "\t\tif( leftEdgeEnd" 
+	retstr += expressions[3]
+	retstr += ")\n"
+    	retstr += "\t\t\tcontinue;\n"
+    	retstr += "\t\tfor( m=N-1; m>= leftEdgeEnd; m--){\n"
+	retstr += "\t\t\tlong rightEdgeEnd = "
+	expressionSub = expressions[0]
+	expressionSub = expressionSub.replace("buf1","buf0")
+	retstr += expressionSub
+	retstr += ";\n"
+	retstr += "\t\t\tif(rightEdgeEnd "
 	retstr += expressions[1]
 	retstr += "){\n"
-    	retstr += "\t\t\t\tsum++;\n"
+	retstr += "\t\t\t\tif(rightEdgeEnd < m + 1) { // for edges facing upwards\n"
+    	retstr += "\t\t\t\t\tsum += 0.5;\n"
+    	retstr += "\t\t\t\t}\n"
+    	retstr += "\t\t\t\telse sum++;\n"
     	retstr += "\t\t\t}\n"
-    	retstr += "\t\t}\n"
-    	retstr += "\t}\n"
-	retstr += "\treturn sum;\n"
+	retstr += "\t\t\telse mend = m;\n"
+	retstr += "\t\t}\n"
+	retstr += "\t}\n"
+
+	retstr += "\treturn ((long) sum);\n"
     	retstr += "}"
     	retstr += "\n"
     return retstr
@@ -505,6 +545,8 @@ def main():
 	heurstr = ""
 	leftexpr = ""
 	rightexpr = ""
+	buffers = list()
+	threadstr = ""
         if(edges[e][2] == "rf"):
             
             readthread = edges[e][1][0]
@@ -514,6 +556,13 @@ def main():
 
             readsbyreadthread = ops[readthread].count("read")
             precedingreads = ops[readthread][:readinstr].count("read")
+	    threadstr = "buf" + str(readthread)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
+	    threadstr = "buf" + str(writethread)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
+
             expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
 	    leftexpr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
             expr += " >= "
@@ -521,7 +570,8 @@ def main():
             expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
 	    rightexpr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
             condexpressions.append(expr)
-	    condexpressionsList.append([leftexpr,rightexpr])
+ 	    condexpressionsList.append(leftexpr)
+	    condexpressionsList.append(rightexpr)
 	    # heuristic m = buf[n] 
 	    heurstring = "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
             heursub = str(maxwriteval) + " * " + indices[writethread] 
@@ -532,9 +582,15 @@ def main():
             readinstr = edges[e][0][1]
             writethread = edges[e][1][0]
             writeinstr = edges[e][1][1]
-
             readsbyreadthread = ops[readthread].count("read")
             precedingreads = ops[readthread][:readinstr].count("read")
+	    
+	    threadstr = "buf" + str(readthread)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
+	    threadstr = "buf" + str(writethread)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
 
             expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
             leftexpr +=  "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
@@ -542,8 +598,9 @@ def main():
 	    rightexpr += " < "
             expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] 
 	    rightexpr +=  str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] 
-            condexpressionsList.append([leftexpr,rightexpr])
-            condexpressions.append(expr)
+            condexpressionsList.append(leftexpr)
+	    condexpressionsList.append(rightexpr)
+	    condexpressions.append(expr)
             # heuristic m = buf[n]
 	    heurstring = "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
             heursub = str(maxwriteval) + " * " + indices[writethread]
@@ -559,7 +616,13 @@ def main():
             precedingreads = ops[readthread][:readinstr].count("read")
             readsbyreadthread2 = ops[readthread2].count("read")
             precedingreads2 = ops[readthread2][:readinstr2].count("read")
-
+	    
+	    threadstr = "buf" + str(readthread)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
+	    threadstr = "buf" + str(readthread2)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
 
             expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
 	    leftexpr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
@@ -568,7 +631,9 @@ def main():
             expr += "buf" + str(readthread2) + "[" + str(readsbyreadthread2) + " * " + indices[readthread2] + " + " + str(precedingreads2) + "]"
 	    rightexpr += "buf" + str(readthread2) + "[" + str(readsbyreadthread2) + " * " + indices[readthread2] + " + " + str(precedingreads2) + "]"
             condexpressions.append(expr)
-	    condexpressionsList([leftexpr,rightexpr])
+ 	    condexpressionsList.append(leftexpr)
+	    condexpressionsList.append(rightexpr)
+
             # heuristic buf[m] = buf[n] + 1
 	    heurstring = "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]" + "+1"
             heursub = "buf" + str(readthread2) + "[" + str(readsbyreadthread2) + " * " + indices[readthread2] + " + " + str(precedingreads2) + "]"
@@ -584,6 +649,13 @@ def main():
             readsbyreadthread = ops[readthread].count("read")
             precedingreads = ops[readthread][:readinstr].count("read")
 
+	    threadstr = "buf" + str(writethread)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
+	    threadstr = "buf" + str(writethread2)
+	    if threadstr not in buffers:
+		buffers.append(threadstr)
+
             expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1]
 	    leftexpr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1]
             expr += " < "
@@ -591,18 +663,15 @@ def main():
             expr += str(maxwriteval) + " * " + indices[writethread2] + " + " + instrs[writethread2][writeinstr2][instrs[writethread2][writeinstr2].find('$') + 1] 
 	    rightexpr += str(maxwriteval) + " * " + indices[writethread2] + " + " + instrs[writethread2][writeinstr2][instrs[writethread2][writeinstr2].find('$') + 1]
             condexpressions.append(expr)
-	    condexpressionsList.append([leftexpr,rightexpr])
+	    condexpressionsList.append(leftexpr)
+	    condexpressionsList.append(rightexpr)
             # heuristic m = n + 1
 	    heurstring = str(maxwriteval) + " * " + indices[writethread] + " + " + "1" 
             heursub = str(maxwriteval) + " * " + indices[writethread2] + " + " 
  	    heurexpressions[heursub] = heurstring
 
-
-
-
-        
+    
     print(condexpressions) 
-    print(condexpressionsList)
     print("heuristic conditions\n")
     print(heurexpressions)
     sub = ""
@@ -616,7 +685,7 @@ def main():
     print("heuristic")
     print(heuristic)
 		
-    completeCheckerString = generateCompleteChecker(condexpressions) 
+    completeCheckerString = generateCompleteChecker(condexpressionsList,buffers) 
     heuristicCheckerString = generateHeuristicChecker(heuristic)
     checkerFile = open(pathname + "/" + "checker" + \
 	".c", "w") 

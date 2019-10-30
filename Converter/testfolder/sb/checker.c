@@ -5,14 +5,34 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 	long mend = N-1;
 	long numberUp = 0;
 	for( n=N-1; n>=0; n-- ){ 
-		long leftEdgeEnd
-		if(!(buf0[1 * n + 0] < 1 * m + 1))
+		long leftEdgeEnd = buf0[1 * n + 0];
+		if( leftEdgeEnd < 1 * m + 1)
 			continue;
-		for( m=N-1; m>=0; m--){
-			if(buf1[1 * m + 0] < 1 * n + 1){
-				sum++;
+		for( m=mend; m>= leftEdgeEnd; m--){
+			long rightEdgeEnd = buf1[1 * m + 0];
+			if(rightEdgeEnd  < 1 * n + 1){
+				if(rightEdgeEnd < m + 1) { // for edges facing upwards
+					sum += 0.5;
+				}
+				else sum++;
 			}
+			else mend = m;
 		}
 	}
-	return sum;
+	for( n=N-1; n>=0; n-- ){ 
+		long leftEdgeEnd = buf1[1 * m + 0];
+		if( leftEdgeEnd < 1 * n + 1)
+			continue;
+		for( m=N-1; m>= leftEdgeEnd; m--){
+			long rightEdgeEnd = buf0[1 * n + 0];
+			if(rightEdgeEnd  < 1 * m + 1){
+				if(rightEdgeEnd < m + 1) { // for edges facing upwards
+					sum += 0.5;
+				}
+				else sum++;
+			}
+			else mend = m;
+		}
+	}
+	return ((long) sum);
 }

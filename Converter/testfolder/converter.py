@@ -33,56 +33,54 @@ def generateCompleteChecker(expressions,buffers):
       	retstr += "\tlong mend = N-1;\n" 
     	retstr += "\tlong numberUp = 0;\n"
     	retstr += "\tfor( n=N-1; n>=0; n-- ){ \n"
-	retstr += "\t\tlong leftEdgeEnd = "
-	print(expressions[0])
-	print(expressions[1])
+    	retstr += "\t\tfor( m=mend; m>= leftEdgeEnd; m--){\n"
+	retstr += "\t\t\tlong leftEdgeEnd = "
 	retstr += expressions[0]
 	retstr += ";\n"
-    	retstr += "\t\tif( leftEdgeEnd" 
+    	retstr += "\t\t\tif(leftEdgeEnd" 
 	retstr += expressions[1]
-	retstr += ")\n"
-    	retstr += "\t\t\tcontinue;\n"
-    	retstr += "\t\tfor( m=mend; m>= leftEdgeEnd; m--){\n"
-	retstr += "\t\t\tlong rightEdgeEnd = "
+	retstr += "){\n"
+	retstr += "\t\t\t\tlong rightEdgeEnd = "
 	retstr += expressions[2]
 	retstr += ";\n"
-	retstr += "\t\t\tif(rightEdgeEnd "
+	retstr += "\t\t\t\tif(rightEdgeEnd "
 	retstr += expressions[3]
 	retstr += "){\n"
-	retstr += "\t\t\t\tif(rightEdgeEnd < m + 1) { // for edges facing upwards\n"
-    	retstr += "\t\t\t\t\tsum += 0.5;\n"
-    	retstr += "\t\t\t\t}\n"
-    	retstr += "\t\t\t\telse sum++;\n"
+	retstr += "\t\t\t\t\tif(rightEdgeEnd < m + 1) { // for edges facing upwards\n"
+    	retstr += "\t\t\t\t\t\tsum += 0.5;\n"
+    	retstr += "\t\t\t\t\t}\n"
+    	retstr += "\t\t\t\t\telse sum++;\n"
+	retstr += "\t\t\t\t}\n"
+	retstr += "\t\t\t\telse mend = m;\n"
     	retstr += "\t\t\t}\n"
-	retstr += "\t\t\telse mend = m;\n"
 	retstr += "\t\t}\n"
 	retstr += "\t}\n"
 	# Second loop from second thread to first thread
     	retstr += "\tfor( n=N-1; n>=0; n-- ){ \n"
-	retstr += "\t\tlong leftEdgeEnd = "
-	expressionSub = expressions[2]
-	expressionSub = expressionSub.replace("buf0","buf1")
-	retstr += expressionSub
-	retstr += ";\n"
-    	retstr += "\t\tif( leftEdgeEnd" 
-	retstr += expressions[3]
-	retstr += ")\n"
-    	retstr += "\t\t\tcontinue;\n"
     	retstr += "\t\tfor( m=N-1; m>= leftEdgeEnd; m--){\n"
-	retstr += "\t\t\tlong rightEdgeEnd = "
+	retstr += "\t\t\tlong leftEdgeEnd = "
 	expressionSub = expressions[0]
-	expressionSub = expressionSub.replace("buf1","buf0")
+	expressionSub = expressionSub.replace(buffers[1],buffers[0])
 	retstr += expressionSub
 	retstr += ";\n"
-	retstr += "\t\t\tif(rightEdgeEnd "
+    	retstr += "\t\t\tif( leftEdgeEnd" 
 	retstr += expressions[1]
 	retstr += "){\n"
-	retstr += "\t\t\t\tif(rightEdgeEnd < m + 1) { // for edges facing upwards\n"
-    	retstr += "\t\t\t\t\tsum += 0.5;\n"
+	retstr += "\t\t\tlong rightEdgeEnd = "
+	expressionSub = expressions[2]
+	expressionSub = expressionSub.replace(buffers[0],buffers[1])
+	retstr += expressionSub
+	retstr += ";\n"
+	retstr += "\t\t\t\tif(rightEdgeEnd "
+	retstr += expressions[3]
+	retstr += "){\n"
+	retstr += "\t\t\t\t\tif(rightEdgeEnd < m + 1) { // for edges facing upwards\n"
+    	retstr += "\t\t\t\t\t\tsum += 0.5;\n"
+    	retstr += "\t\t\t\t\t}\n"
+    	retstr += "\t\t\t\t\telse sum++;\n"
     	retstr += "\t\t\t\t}\n"
-    	retstr += "\t\t\t\telse sum++;\n"
-    	retstr += "\t\t\t}\n"
-	retstr += "\t\t\telse mend = m;\n"
+	retstr += "\t\t\t\telse mend = m;\n"
+	retstr += "\t\t\t}\n"
 	retstr += "\t\t}\n"
 	retstr += "\t}\n"
 
@@ -672,28 +670,32 @@ def main():
 
     
     print(condexpressions) 
-    print("heuristic conditions\n")
-    print(heurexpressions)
     sub = ""
     heuristic = ""
+    exists = 0
     for x in heurexpressions:
 	if "m" in x:
 	    sub = x
-    for y in condexpressions:
-	if sub in y:
-	    heuristic = y.replace(sub,heurexpressions[sub])
-    print("heuristic")
-    print(heuristic)
-		
+	if x.find('buf') == -1:
+	    exists = 1
+	if heurexpressions[x].find('buf') == -1:
+	    exists = 1
+
+    if exists:
+    	print("Heuristic found")
+    	for y in condexpressions:
+		if sub in y and sub:
+	    	    heuristic = y.replace(sub,heurexpressions[sub])
+ 	heuristicCheckerString = generateHeuristicChecker(heuristic)
+   	checkerFile2 = open(pathname + "/" + "checker-heuristic" + \
+".c", "w") 
+    	checkerFile2.write(heuristicCheckerString)
+
+
     completeCheckerString = generateCompleteChecker(condexpressionsList,buffers) 
-    heuristicCheckerString = generateHeuristicChecker(heuristic)
     checkerFile = open(pathname + "/" + "checker" + \
 	".c", "w") 
     checkerFile.write(completeCheckerString)
-    checkerFile2 = open(pathname + "/" + "checker-heuristic" + \
-	".c", "w") 
-    checkerFile2.write(heuristicCheckerString)
-
 
 if __name__ == '__main__':
       main()

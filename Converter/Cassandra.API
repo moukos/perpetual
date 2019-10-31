@@ -1,2 +1,0 @@
-write:UPDATE users SET name = 'val' WHERE nameid='obj'
-read:SELECT name FROM users WHERE nameid = 'obj'

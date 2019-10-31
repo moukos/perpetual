@@ -2,8 +2,8 @@ from __future__ import division
 import sys
 import subprocess
 import datetime
-import numpy as np
-import matplotlib.pyplot as plt
+import numpy 
+#import matplotlib.pyplot as plt
 
 
 ## Parse command line arguments
@@ -51,7 +51,17 @@ m = start
 formatstring = "%-14d|%-14.3f|%-14.3f|%-14.9f|%-14.9f|%-14.9f|%-14.3f|%-14.3f\n"             
 for line in g:
     linecounter += 1
+    fields = line.split()
+    weaksum += numpy.int64(fields[1])
+    hweaksum += numpy.int64(fields[2])
+    harnesssum += float(fields[3])
+    checkersum += float(fields[4])
+    hcheckersum += float(fields[5])
+
     if (linecounter % tries == 0):
+        print(harnesssum)
+        print(checkersum)
+        print(hcheckersum)
         s.write(formatstring % (m, weaksum/tries, hweaksum/tries, harnesssum/tries, checkersum/tries, hcheckersum/tries, weaksum/(harnesssum+checkersum), hweaksum/(harnesssum+hcheckersum)))
         ratesPF.append(weaksum/(harnesssum+checkersum))
         ratesPH.append(hweaksum/(harnesssum+hcheckersum))
@@ -61,13 +71,6 @@ for line in g:
         harnesssum = 0
         checkersum = 0
         hcheckersum = 0
-    else:
-        fields = line.split()
-        weaksum += numpy.int64(fields[1])
-        hweaksum += numpy.int64(fields[2])
-        harnesssum += float(fields[3])
-        checkersum += float(fields[4])
-        hcheckersum += float(fields[5])
 s.write("\n")
 g.close()
 

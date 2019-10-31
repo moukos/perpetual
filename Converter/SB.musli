@@ -1,3 +1,0 @@
-Thread 0	Thread 1	
-x.write(1)	y.write(1)	
-read(y)	read(x)	

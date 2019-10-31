@@ -1,3 +1,0 @@
-0
-UPDATE users SET name = '1' WHERE nameid='x'	0	20	0
-SELECT name FROM users WHERE nameid = 'y'	1	20	0

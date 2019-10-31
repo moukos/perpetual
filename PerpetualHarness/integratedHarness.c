@@ -195,6 +195,7 @@ int main(int argc,char *argv[]) {
     //printf("OLD checker time: %.9f, weak %d\n", time_o, oldCnt);
   
     printf("%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt2, oldCnt, time_h, time_n2, time_o);
+    fprintf(stderr, "%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt2, oldCnt, time_h, time_n2, time_o);
   
      //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
     //printf("(Base) Checker time spent %f \n",  time_base);

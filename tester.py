@@ -16,14 +16,14 @@ tries = numpy.int64(sys.argv[5])
 ## Set up files
 # Compile executable
 execfilename = "integratedHarness_" + testname
-threadfilenames = testname + "_thread_*"
+threadfilenames = "./PerpLETestSuites/x86tso/" + testname + "/" + testname + "_thread_*"
 subprocess.call("gcc -fopenmp -o " + execfilename + " integratedHarness.c " + threadfilenames, shell=True)
 # Open output file
 now = datetime.datetime.now()
 outfilename = "output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 f = open(outfilename, 'w+')
 # Open summary file
-summfilename = "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
+summfilename = "./PerpLEResults/x86tso/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 s = open(summfilename, 'w+')
 
 ## Run tests with PerpLE and write file
@@ -83,7 +83,7 @@ f = open(outfilename, 'w+')
 ## Run tests with litmus and write file
 n = start
 for j in range(steps):
-    subprocess.call(["litmus", testname + ".litmus", "-r", str(tries), "-s", str(n)], stdout=f)
+    subprocess.call(["litmus", "./LitmusTestSuites/x86tso/" + testname + ".litmus", "-r", str(tries), "-s", str(n)], stdout=f)
     n = multi * n
 f.close()
 

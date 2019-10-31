@@ -327,7 +327,7 @@ def main():
     path = sys.path[0]
     outpath = sys.path[0]
     access_rights = 0o755
-    pathname = outpath + '/' + litmusTestName
+    pathname = outpath + '/PerpLETestSuites/x86tso/' + litmusTestName
     try:
         os.mkdir(pathname, access_rights)
         os.chdir(pathname)

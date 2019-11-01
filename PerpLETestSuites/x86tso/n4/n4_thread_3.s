@@ -1,6 +1,6 @@
 	.section ".text"
-	.globl P2
-	.type P2, @function
+	.globl P3
+	.type P3, @function
 
-P2:
+P3:
 	ret

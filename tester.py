@@ -3,6 +3,9 @@ import sys
 import subprocess
 import datetime
 import numpy 
+import timeit
+import os
+import shutil
 #import matplotlib.pyplot as plt
 
 
@@ -14,6 +17,14 @@ multi = numpy.int64(sys.argv[4])
 tries = numpy.int64(sys.argv[5])
 
 ## Set up files
+# Copy files to working folder
+perpleFile = "PerpLETestSuites/x86tso/" + testname + "/num_reads.perple"
+checkerFile = "PerpLETestSuites/x86tso/" + testname + "/checker.c"
+checkerHeuristicFile = "PerpLETestSuites/x86tso/" + testname + "/checker-heuristic.c"
+dest = shutil.copyfile(perpleFile,"num_reads.perple")
+dest = shutil.copyfile(checkerFile,"checker.c")
+dest = shutil.copyfile(checkerHeuristicFile,"checker-heuristic.c")
+
 # Compile executable
 execfilename = "integratedHarness_" + testname
 threadfilenames = "./PerpLETestSuites/x86tso/" + testname + "/" + testname + "_thread_*"
@@ -22,6 +33,15 @@ subprocess.call("gcc -fopenmp -o " + execfilename + " integratedHarness.c " + th
 now = datetime.datetime.now()
 outfilename = "output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 f = open(outfilename, 'w+')
+
+# create folder
+pathname = "./PerpLEResults/x86tso/" + testname
+access_rights = 0o755
+print(pathname)
+try:
+    os.mkdir(pathname, access_rights)
+except OSError:
+    print("Could not create directory.")
 # Open summary file
 summfilename = "./PerpLEResults/x86tso/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 s = open(summfilename, 'w+')
@@ -106,8 +126,13 @@ for line in g:
         timestart = line.find(" ", line.find(" ") + 1) + 1
         timeend = line.find(" ", timestart)
         time = numpy.float64(line[timestart:timeend])
-        s.write(formatstring % (m, weak/tries, time/tries, weak/time))
-        ratesL.append(weak/time)
+	# TODO: we need higher precision timing
+        if time == 0:
+	    s.write(formatstring % (m, weak/tries, time/tries, 0))
+	    ratesL.append(0)
+	else:
+	    s.write(formatstring % (m, weak/tries, time/tries, weak/time))
+            ratesL.append(weak/time)
         m = multi * m
         weak = 0
         time = 0
@@ -125,3 +150,5 @@ print(ratesL)
 
 ## Clean up
 subprocess.call("rm output_*",shell = True )
+subprocess.call("rm num_reads.perple checker.c checker-heuristic.c",shell = True )
+

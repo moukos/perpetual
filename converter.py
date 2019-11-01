@@ -187,7 +187,7 @@ def main():
     litmusTestPath = temp[fileSize-1]
     temp = litmusTestPath.split(".")
     litmusTestName = temp[0]
-
+    print(litmusTestName)
     # Extract the initialization information
     string = f.read()
     init_end = string.index('}')
@@ -249,7 +249,7 @@ def main():
     for i in range(number_of_threads):
         for j in range(number_of_lines[i]):
             instrs[i][j] = struct[i][j]
-    print(instrs)
+    #print(instrs)
 # Extract the final condition into cond
 
     #code_end = instr_start
@@ -268,7 +268,7 @@ def main():
                 variable = instruction[instrStart+1:instrEnd]
                 if variable not in variables:
                     variables.append(variable)
-    print(variables)
+    #print(variables)
 
 # Classify operations according to which memory location they modify
 # locs has the same structure as instrs.
@@ -284,7 +284,7 @@ def main():
                 #print(instrs[j][i])
                 if v in instrs[j][i]:
                     locs[j][i] = v # variables.index(v)
-    print(locs)
+    #print(locs)
 # Classify operations. Supported: reads, writes, fences. 
 # ops has the same structure as instrs.
 # vals holds the values of the writes
@@ -317,7 +317,7 @@ def main():
                 ops[j][i] = "read"
                 reads += 1
                 number_of_reads[j] += 1
-    print(vals)
+    #print(vals)
     # Mods unused with x86 conversion    
     # mods will hold the strings after API conversion
     mods = []
@@ -331,8 +331,8 @@ def main():
     try:
         os.mkdir(pathname, access_rights)
         os.chdir(pathname)
-    except OSError:
-        print ("Creation of the directory %s failed" %pathname)
+    #except OSError:
+    #    print ("Creation of the directory %s failed" %pathname)
     litmus_strings = ["\t"]*number_of_threads
     outputs = [None] * number_of_threads
 
@@ -342,7 +342,7 @@ def main():
     reglocs = {"EAX":"%rax", "EBX":"%rbx", "ECX":"%rcx"}
 
     # Open KV-store conversion API
-    API = sys.path[0] + "/TSO.API"
+    API = sys.path[0] + "/APIs/TSO.API"
     #API = "./TSO.API"
     APIfile = open(API, "r")
     line = APIfile.readline()
@@ -368,7 +368,7 @@ def main():
                 # mods[j][i] = mods[j][i].replace("val",str(vals[j][i]))
                 # mods[j][i] = mods[j][i].replace("obj",str(locs[j][i]))
         
-    print(mods)
+    #print(mods)
     register_reset = 0
     for j in range (number_of_threads):
         register_reset = 0
@@ -402,7 +402,7 @@ def main():
                         mods[j][i] = mods[j][i].replace('reg',reglocs[r])
             elif(ops[j][i] == "fence"):
                 mods[j][i] = "MFENCE"
-    print(mods)
+    #print(mods)
     # Create all musli clients
     for j in range (number_of_threads):
         outputs[j] = open(pathname + "/" + litmusTestName + \
@@ -457,9 +457,9 @@ def main():
         start = colon + 1
         terms[k] = conditionline[colon - 1:conditionline.find(" ", start)]
 
-    print(terms)
-    print(instrs)
-    print(ops)
+    #print(terms)
+    #print(instrs)
+    #print(ops)
     
     edges = list()
     # Add po edges
@@ -488,7 +488,7 @@ def main():
                                 edges.append(((j2,i2), (j1,i1), "rf"))
            
     
-    print(edges)
+    #print(edges)
     # Find operations that are hidden in logs, e.g. single writes from writer threads
 	
     # IRIW example hardcoded because rf,fr edge extraction has bugs
@@ -498,7 +498,7 @@ def main():
         if number_of_reads[i] == 0:
 	    for j in range(number_of_lines[i]):
 	        hiddenTuples.append((i,j))
-    print( hiddenTuples)
+    #print( hiddenTuples)
  
     # Eliminate tuples in hiddenTuples if available
     # Pattern match all tuples in edges that contain "eliminated" tuple
@@ -506,7 +506,7 @@ def main():
     # and once on the left, then merge tuples. TODO: that is not enough if there are multiple hidden writes per thread, might need to merge >2 tuples
     # TODO: Investigate if there is case where tuples CANNOT be reduced or give existing relation.
     # TODO: Sanity check if still a valid cycle
-
+    # Before removing/adding, check if edge already in graph
     removeTuples = []
     for x in hiddenTuples:
 	for e1 in range(len(edges)):
@@ -527,10 +527,12 @@ def main():
 			edges.append((edges[e1][0],edges[e2][1],"ws"))
 	            removeTuples.append(edges[e1])
 		    removeTuples.append(edges[e2])
-
+    #print(removeTuples)
+    #print(edges)
     for x in removeTuples:
-	edges.remove(x)
-    print(edges)
+	if x in edges:
+	    edges.remove(x)
+    #print(edges)
     # Transform expressions into C conditions
     # Perform substitutions for heuristics
     condexpressions = list()
@@ -669,7 +671,7 @@ def main():
  	    heurexpressions[heursub] = heurstring
 
     
-    print(condexpressions) 
+    #print(condexpressions) 
     sub = ""
     heuristic = ""
     exists = 0
@@ -681,11 +683,13 @@ def main():
 	if heurexpressions[x].find('buf') == -1:
 	    exists = 1
 
+    
     if exists:
     	print("Heuristic found")
     	for y in condexpressions:
 		if sub in y and sub:
 	    	    heuristic = y.replace(sub,heurexpressions[sub])
+#	print(heuristic)
  	heuristicCheckerString = generateHeuristicChecker(heuristic)
    	checkerFile2 = open(pathname + "/" + "checker-heuristic" + \
 ".c", "w") 

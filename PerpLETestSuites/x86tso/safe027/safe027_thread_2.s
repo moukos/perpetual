@@ -1,8 +1,8 @@
 	.section ".text"
-	.globl P1
-	.type P1, @function
+	.globl P2
+	.type P2, @function
 
-P1:
+P2:
 	pushq %rsi
 	pushq %r12
 	pushq %r13
@@ -11,35 +11,36 @@ P1:
 	pushq %rbp
 	movq  %rsp, %rbp
 
-	movq 32(%rdi), %r12	# no of threads
-	movq 28(%rdi), %r11	# no of iterations
-	movq 24(%rdi), %r10	# ptr to buf[0]
-	movq 16(%rdi), %r15	# ptr to z
-	movq 8(%rdi), %r14	# ptr to y
-	movq (%rdi), %rsi	# ptr to x
-	movq $0, %r13		# loop index
-	movq $0, %rdx		#buffer address offset
+	movslq 40(%rdi), %r12	# no of threads
+	movq 32(%rdi), %r11	# no of iterations
+	movq 24(%rdi), %r10		# ptr to buf[0]
+	movq 16(%rdi), %r15		# ptr to z
+	movq 8(%rdi), %r14		# ptr to y
+	movq (%rdi), %rsi		# ptr to x
+	movq $0, %r13			# loop index
+	movq $0, %rdx			# buffer address offset
+	movq $1, %r8			# writeval 1
 	jmp .LOOPEND
 
 .LOOPSTART:
-	# safe027 Thread 1
-movq (%rsi),%rax
-movq (%r14),%rbx
-
+	# safe027 Thread 2
+	movq %r8,(%r14)
+	
 	# Store in correct location in bufs
-	movq %rax, (%r10, %rdx, 4)
+	movq %rax, (%r10, %r13, 8)
 
 	# Increment loop index and writevals
 	incq %r13
+	addq $1, %r8
 
 .LOOPEND:
-	cmpq %r13,%r11
+	cmpq %r11,%r13
 	jl .LOOPSTART
 
 	popq %rbp
-	pushq %r15
-	pushq %r14
-	pushq %r13
+	popq %r15
+	popq %r14
+	popq %r13
 	popq %r12
-	pushq %rsi
+	popq %rsi
 	ret

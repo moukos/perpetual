@@ -4,14 +4,8 @@
 #include <string.h>
 #include <sched.h>
 #include <time.h>
-#include "uthash.h"
 #include "checker.c"
-#include "checker2.c"
-struct my_struct{
-  int id;
-  int value;
-  UT_hash_handle hh;
-};
+#include "checker-heuristic.c"
 
 typedef struct {
   long *x;
@@ -60,45 +54,10 @@ void* P0_wrap(void * address) {
   #pragma omp barrier
   P0(address);
 }
-
-void add_kv1( int key, int value) {
-	struct my_struct *s;
-	
-	s = malloc(sizeof(struct my_struct));
-	s->id = key;
-	s->value = value;
-	HASH_ADD_INT( item1, id, s);
-}
-
-void add_kv2( int key, int value) {
-	struct my_struct *s;
-	
-	s = malloc(sizeof(struct my_struct));
-	s->id = key;
-	s->value = value;
-	HASH_ADD_INT( item2, id, s);
-}
-
-void add_kv3( int key, int value) {
-	struct my_struct *s;
-	
-	s = malloc(sizeof(struct my_struct));
-	s->id = key;
-	s->value = value;
-	HASH_ADD_INT( item3, id, s);
-}
-
-void add_kv4( int key, int value) {
-	struct my_struct *s;
-	
-	s = malloc(sizeof(struct my_struct));
-	s->id = key;
-	s->value = value;
-	HASH_ADD_INT( item0, id, s);
-}
-
 int main(int argc,char *argv[]) {
     // Setup
+    //
+
     long i=0;
     int numReads[4];
    
@@ -170,14 +129,16 @@ int main(int argc,char *argv[]) {
     long interleavingsCnt = 0;
     long interleavingsCnt2 = 0;
     long oldCnt = 0;
-
-    // Checker - Base
-    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-    interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
-    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
-    double time_n = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
-    //printf("NEW checker time: %.9f, weak %d\n", time_n, interleavingsCnt);
     
+    double time_n = 0;
+    // Checker - Base
+    if( n <= 1000000 ){
+    	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+    	interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
+    	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    	time_n = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
+    //printf("NEW checker time: %.9f, weak %d\n", time_n, interleavingsCnt);
+    }
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     interleavingsCnt2 = condition2(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);
@@ -193,9 +154,8 @@ int main(int argc,char *argv[]) {
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);
     double time_o = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
     //printf("OLD checker time: %.9f, weak %d\n", time_o, oldCnt);
-  
-    printf("%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt2, oldCnt, time_h, time_n2, time_o);
-    fprintf(stderr, "%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt2, oldCnt, time_h, time_n2, time_o);
+    printf("%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt, interleavingsCnt2, time_h, time_n2, time_o);
+    fprintf(stderr, "%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt, interleavingsCnt2, time_h, time_n2, time_o);
   
      //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
     //printf("(Base) Checker time spent %f \n",  time_base);

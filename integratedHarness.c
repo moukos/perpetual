@@ -154,8 +154,8 @@ int main(int argc,char *argv[]) {
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);
     double time_o = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
     //printf("OLD checker time: %.9f, weak %d\n", time_o, oldCnt);
-    printf("%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt, interleavingsCnt2, time_h, time_n2, time_o);
-    fprintf(stderr, "%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt, interleavingsCnt2, time_h, time_n2, time_o);
+    printf("%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt, interleavingsCnt2, time_h, time_n, time_n2);
+    fprintf(stderr, "%d %d %d %.9f %.9f %.9f\n", n,  interleavingsCnt, interleavingsCnt2, time_h, time_n, time_n2);
   
      //printf("(Base) SB weak orderings %d \n",SBinterleavingsCnt);
     //printf("(Base) Checker time spent %f \n",  time_base);

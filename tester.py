@@ -8,13 +8,20 @@ import os
 import shutil
 #import matplotlib.pyplot as plt
 
-
 ## Parse command line arguments
 testname = sys.argv[1]
 start = numpy.int64(sys.argv[2])
 steps = numpy.int64(sys.argv[3])
 multi = numpy.int64(sys.argv[4])
 tries = numpy.int64(sys.argv[5])
+
+# create working folder
+workingPath = "./workingFolder_" + testname
+access_rights = 0o755
+try:
+    os.mkdir(workingPath, access_rights)
+except OSError:
+    print("Could not create working directory.")
 
 ## Set up files
 # Copy files to working folder
@@ -31,12 +38,11 @@ threadfilenames = "./PerpLETestSuites/x86tso/" + testname + "/" + testname + "_t
 subprocess.call("gcc -fopenmp -o " + execfilename + " integratedHarness.c " + threadfilenames, shell=True)
 # Open output file
 now = datetime.datetime.now()
-outfilename = "output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
+outfilename = workingPath + "/output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 f = open(outfilename, 'w+')
 
 # create folder
 pathname = "./PerpLEResults/x86tso/" + testname
-access_rights = 0o755
 print(pathname)
 try:
     os.mkdir(pathname, access_rights)
@@ -97,7 +103,7 @@ g.close()
 
 # Open output file
 now = datetime.datetime.now()
-outfilename = "output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
+outfilename = workingPath +  "/output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 f = open(outfilename, 'w+')
 
 ## Run tests with litmus and write file
@@ -126,8 +132,8 @@ for line in g:
         timestart = line.find(" ", line.find(" ") + 1) + 1
         timeend = line.find(" ", timestart)
         time = numpy.float64(line[timestart:timeend])
-	# TODO: we need higher precision timing
-        if time == 0:
+	# TODO: we need higher precision timing for litmus
+	if time == 0:
 	    s.write(formatstring % (m, weak/tries, time/tries, 0))
 	    ratesL.append(0)
 	else:
@@ -149,6 +155,6 @@ print(ratesL)
 
 
 ## Clean up
-subprocess.call("rm output_*",shell = True )
-subprocess.call("rm num_reads.perple checker.c checker-heuristic.c",shell = True )
-
+shcall = "rm -r " + workingPath
+#subprocess.call(shcall,shell = True )
+subprocess.call("rm checker.c checker-heuristic.c num_reads.perple", shell = True)

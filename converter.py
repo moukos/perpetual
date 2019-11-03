@@ -5,7 +5,7 @@ import itertools
 
 def generateHeuristicChecker(heuristic):
     retstr = ""
-    retstr += "long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, volatile long *buf3, long N){"
+    retstr += "long condition2(volatile long *buf0, volatile long *buf1, volatile long *buf2, volatile long *buf3, long N){"
     retstr += "\n"
     retstr += "\tlong n=0, sum=0;\n" 
     retstr += "\tlong numberUp = 0;\n"
@@ -31,6 +31,7 @@ def generateCompleteChecker(expressions,buffers):
     	retstr += "\tdouble sum=0;\n"
     	retstr += "\tlong nend = N-1;\n" 
       	retstr += "\tlong mend = N-1;\n" 
+	retstr += "\tlong leftEdgeEnd = 0;\n"
     	retstr += "\tlong numberUp = 0;\n"
     	retstr += "\tfor( n=N-1; n>=0; n-- ){ \n"
     	retstr += "\t\tfor( m=mend; m>= leftEdgeEnd; m--){\n"
@@ -331,9 +332,9 @@ def main():
     try:
         os.mkdir(pathname, access_rights)
         os.chdir(pathname)
-    #except OSError:
-    #    print ("Creation of the directory %s failed" %pathname)
-    litmus_strings = ["\t"]*number_of_threads
+    except OSError:
+        print ("Creation of the directory %s failed" %pathname)
+    litmus_strings = ["\t"] * number_of_threads
     outputs = [None] * number_of_threads
 
     # Conversion of locations and registers for val/obj

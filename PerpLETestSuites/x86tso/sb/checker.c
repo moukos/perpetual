@@ -3,8 +3,8 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 	double sum=0;
 	long nend = N-1;
 	long mend = N-1;
-	long numberUp = 0;
 	long leftEdgeEnd = 0;
+	long numberUp = 0;
 	for( n=N-1; n>=0; n-- ){ 
 		for( m=mend; m>= leftEdgeEnd; m--){
 			long leftEdgeEnd = buf0[1 * n + 0];

@@ -184,3 +184,34 @@ Could not create directory.
 [0.0]
 [21472163.070180222]
 [3353.0221581224596]
+50000 148205 11126 0.014933009 11.694678322 0.000612549
+./PerpLEResults/x86tso/sb
+Could not create directory.
+0.014933009
+11.694678322
+0.000612549
+[12656.696777598621]
+[715702.83935771231]
+[900.0]
+50000 75000 50000 0.025868816 16.382419837 0.000201625
+rm: cannot remove ‘checker.c’: No such file or directory
+rm: cannot remove ‘checker-heuristic.c’: No such file or directory
+rm: cannot remove ‘num_reads.perple’: No such file or directory
+./PerpLEResults/x86tso/lb
+Could not create directory.
+0.025868816
+16.382419837
+0.000201625
+[4570.86059284357]
+[1917880.8674544478]
+[0.0]
+50000 41272 42360 0.000326848 7.248263471 0.000243035
+Could not create working directory.
+./PerpLEResults/x86tso/lb
+Could not create directory.
+0.000326848
+7.248263471
+0.000243035
+[5693.7967499443112]
+[74331046.899100348]
+[0.0]

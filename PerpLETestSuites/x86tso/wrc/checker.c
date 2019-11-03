@@ -8,7 +8,7 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 	for( n=N-1; n>=0; n-- ){ 
 		for( m=mend; m>= leftEdgeEnd; m--){
 			long leftEdgeEnd = buf2[2 * o + 0];
-			if(leftEdgeEnd >= 1 * m + 1 - 1){
+			if(leftEdgeEnd > 1 * m + 1 - 1){
 				long rightEdgeEnd = buf2[2 * o + 1];
 				if(rightEdgeEnd  < buf1[1 * m + 0]){
 					if(rightEdgeEnd < m + 1) { // for edges facing upwards
@@ -23,7 +23,7 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 	for( n=N-1; n>=0; n-- ){ 
 		for( m=N-1; m>= leftEdgeEnd; m--){
 			long leftEdgeEnd = buf2[2 * o + 0];
-			if( leftEdgeEnd >= 1 * m + 1 - 1){
+			if( leftEdgeEnd > 1 * m + 1 - 1){
 			long rightEdgeEnd = buf1[2 * o + 1];
 				if(rightEdgeEnd  < buf1[1 * m + 0]){
 					if(rightEdgeEnd < m + 1) { // for edges facing upwards

@@ -1,24 +1,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Results for ./LitmusTestSuites/x86tso/sb.litmus %
+% Results for ./LitmusTestSuites/x86tso/lb.litmus %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-X86 sb-iwp2.3.a-amd4
+X86 lb-iwp2.2-amd2
 
 {}
 
  P0          | P1          ;
- MOV [x],$1  | MOV [y],$1  ;
- MOV EAX,[y] | MOV EAX,[x] ;
+ MOV EAX,[x] | MOV EAX,[y] ;
+ MOV [y],$1  | MOV [x],$1  ;
 
-exists (0:EAX=0 /\ 1:EAX=0)
+exists (0:EAX=1 /\ 1:EAX=1)
 Generated assembler
 #START _litmus_P1
-	movl $1,(%rdi,%rcx)
-	movl (%rdx,%rcx),%eax
-#START _litmus_P0
-	movl $1,(%rdx,%rcx)
 	movl (%rdi,%rcx),%eax
+	movl $1,(%rdx,%rcx)
+#START _litmus_P0
+	movl (%rdx,%rcx),%eax
+	movl $1,(%rdi,%rcx)
 
-Test sb-iwp2.3.a-amd4 Allowed
+Test lb-iwp2.2-amd2 Allowed
 Histogram (2 states)
 5000  :>0:EAX=1; 1:EAX=0;
 5000  :>0:EAX=0; 1:EAX=1;
@@ -26,10 +26,10 @@ No
 
 Witnesses
 Positive: 0, Negative: 10000
-Condition exists (0:EAX=0 /\ 1:EAX=0) is NOT validated
-Hash=edd4722437d708675ed921e7607e77f0
-Observation sb-iwp2.3.a-amd4 Never 0 10000
-Time sb-iwp2.3.a-amd4 0.00
+Condition exists (0:EAX=1 /\ 1:EAX=1) is NOT validated
+Hash=bc727e08c12bc31ce6243b60e5911812
+Observation lb-iwp2.2-amd2 Never 0 10000
+Time lb-iwp2.2-amd2 0.00
 
 Machine:cafe
 processor	: 0
@@ -39,7 +39,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 3490.820
+cpu MHz		: 3480.664
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -91,7 +91,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1210.156
+cpu MHz		: 1205.859
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -117,7 +117,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1244.921
+cpu MHz		: 1302.539
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -143,7 +143,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1379.687
+cpu MHz		: 1200.195
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -169,7 +169,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 1211.523
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -195,7 +195,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 1200.976
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -247,7 +247,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 3463.671
+cpu MHz		: 3451.953
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -273,7 +273,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 2491.210
+cpu MHz		: 3054.492
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -299,7 +299,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.195
+cpu MHz		: 2296.679
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -325,7 +325,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 1300.195
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -377,7 +377,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 2300.781
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -403,7 +403,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 1200.195
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -429,7 +429,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 3500.000
+cpu MHz		: 3324.023
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -455,7 +455,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 3448.242
+cpu MHz		: 3399.609
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -481,7 +481,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1224.804
+cpu MHz		: 1398.437
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -507,7 +507,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1464.062
+cpu MHz		: 1200.781
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -533,7 +533,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1283.984
+cpu MHz		: 1200.000
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -559,7 +559,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 1238.281
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -585,7 +585,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.195
+cpu MHz		: 1209.375
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -611,7 +611,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.390
+cpu MHz		: 1200.000
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -637,7 +637,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.390
+cpu MHz		: 1271.875
 cache size	: 20480 KB
 physical id	: 0
 siblings	: 16
@@ -663,7 +663,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 3499.804
+cpu MHz		: 3390.039
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -689,7 +689,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 3175.781
+cpu MHz		: 1203.320
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -715,7 +715,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1289.257
+cpu MHz		: 1292.773
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -741,7 +741,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.195
+cpu MHz		: 1291.015
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -767,7 +767,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 1200.781
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -793,7 +793,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.000
+cpu MHz		: 2197.656
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -819,7 +819,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 1200.390
+cpu MHz		: 1203.710
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -845,7 +845,7 @@ model		: 63
 model name	: Intel(R) Xeon(R) CPU E5-2667 v3 @ 3.20GHz
 stepping	: 2
 microcode	: 0x3d
-cpu MHz		: 3471.289
+cpu MHz		: 3432.031
 cache size	: 20480 KB
 physical id	: 1
 siblings	: 16
@@ -865,7 +865,7 @@ address sizes	: 46 bits physical, 48 bits virtual
 power management:
 
 Revision exported, version 5.99-D
-Command line: litmus ./LitmusTestSuites/x86tso/sb.litmus -r 1 -s 10000
+Command line: litmus ./LitmusTestSuites/x86tso/lb.litmus -r 1 -s 10000
 Parameters
 #define SIZE_OF_TEST 10000
 #define NUMBER_OF_RUN 1

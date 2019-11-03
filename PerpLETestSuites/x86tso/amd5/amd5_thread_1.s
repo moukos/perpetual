@@ -29,7 +29,7 @@ P1:
 	movq (%rsi),%rbx
 	
 	# Store in correct location in bufs
-	movq %rax, (%r10, %r13, 8)
+	movq %rbx, (%r10, %r13, 8)
 
 	# Increment loop index and writevals
 	incq %r13

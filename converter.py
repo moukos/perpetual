@@ -566,16 +566,16 @@ def main():
 
             expr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
 	    leftexpr += "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
-            expr += " >= "
-	    rightexpr += " >= "	
+            expr += " > "
+	    rightexpr += " > "	
             expr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
 	    rightexpr += str(maxwriteval) + " * " + indices[writethread] + " + " + instrs[writethread][writeinstr][instrs[writethread][writeinstr].find('$') + 1] + " - 1"
             condexpressions.append(expr)
  	    condexpressionsList.append(leftexpr)
 	    condexpressionsList.append(rightexpr)
-	    # heuristic m = buf[n] 
+	    # heuristic m = buf[n] + 1 
 	    heurstring = "buf" + str(readthread) + "[" + str(readsbyreadthread) + " * " + indices[readthread] + " + " + str(precedingreads) + "]"
-            heursub = str(maxwriteval) + " * " + indices[writethread] 
+            heursub = str(maxwriteval) + " * " + indices[writethread] + " + 1"
  	    heurexpressions[heursub] = heurstring
 
         if(edges[e][2] == "fr"): 
@@ -672,7 +672,7 @@ def main():
  	    heurexpressions[heursub] = heurstring
 
     
-    #print(condexpressions) 
+    print(condexpressions) 
     sub = ""
     heuristic = ""
     exists = 0
@@ -684,13 +684,13 @@ def main():
 	if heurexpressions[x].find('buf') == -1:
 	    exists = 1
 
-    
+    print(heurexpressions)
     if exists:
     	print("Heuristic found")
     	for y in condexpressions:
 		if sub in y and sub:
 	    	    heuristic = y.replace(sub,heurexpressions[sub])
-#	print(heuristic)
+	print(heuristic)
  	heuristicCheckerString = generateHeuristicChecker(heuristic)
    	checkerFile2 = open(pathname + "/" + "checker-heuristic" + \
 ".c", "w") 

@@ -1,0 +1,18 @@
+Test: amd5
+Date: 2019-11-03 17:00:52
+
+Summary of PerpLE results (start = 100, steps = 4, tries = 10)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+100           |0.000         |0.000         |0.003389111   |0.000039775   |0.000000705   |0.000         |0.000         
+1000          |0.000         |0.000         |0.002252846   |0.003685107   |0.000003263   |0.000         |0.000         
+10000         |0.000         |0.000         |0.005462089   |0.367606504   |0.000028262   |0.000         |0.000         
+100000        |0.000         |0.000         |0.018611765   |37.232462070  |0.000376719   |0.000         |0.000         
+
+
+Summary of litmus results (start = 100, steps = 4, tries = 10)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+100           |0.000         |0.000000000   |0.000         
+1000          |0.000         |0.001000000   |0.000         
+10000         |0.000         |0.006000000   |0.000         
+100000        |0.000         |0.047000000   |0.000         
+

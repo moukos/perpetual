@@ -20,18 +20,16 @@ P0:
 	movq $0, %r13			# loop index
 	movq $0, %rdx			# buffer address offset
 	movq $1, %r8			# writeval 1
-	movq $1, %r9			# writeval 2
 	jmp .LOOPEND
 
 .LOOPSTART:
 	# mp Thread 0
 	movq %r8,(%rsi)
-	movq %r9,(%r14)
+	movq %r8,(%r14)
 	
 	# Increment loop index and writevals
 	incq %r13
-	addq $2, %r8
-	addq $2, %r9
+	incq %r8
 
 .LOOPEND:
 	cmpq %r11,%r13

@@ -1,8 +1,8 @@
 	.section ".text"
-	.globl P0
-	.type P0, @function
+	.globl P1
+	.type P1, @function
 
-P0:
+P1:
 	pushq %rsi
 	pushq %r12
 	pushq %r13
@@ -23,14 +23,16 @@ P0:
 	jmp .LOOPEND
 
 .LOOPSTART:
-	# mp+fences Thread 0
-	movq %r8,(%rsi)
-	MFENCE
+	# iwp23b Thread 1
 	movq %r8,(%r14)
+	movq (%r14),%rax
 	
+	# Store in correct location in bufs
+	movq %rax, (%r10, %r13, 8)
+
 	# Increment loop index and writevals
 	incq %r13
-	incq %r8
+	addq $1, %r8
 
 .LOOPEND:
 	cmpq %r11,%r13

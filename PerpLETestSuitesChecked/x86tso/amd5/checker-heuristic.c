@@ -2,7 +2,7 @@ long condition2(volatile long *buf0, volatile long *buf1, volatile long *buf2, v
 	long n=0, sum=0;
 	long numberUp = 0;
 	for(n = 0; n < N; n++ ){ 
-		if(buf1[buf0[1 * n + 0] + 0] < 1 * n + 1 && (buf0[1 * n + 0] + 0 < N) ){
+		if((buf1[buf0[1 * n + 0] + 0] < 1 * n + 1) && (buf0[1 * n + 0] + 0 < N) ){
 			sum++;
 			//printf("n:%ld buf0[n]:%ld buf1[n]:%ld buf1[buf0[n]] %d \n",n,buf0[n],buf1[n],buf1[buf0[n]]);  
 		}

@@ -25,16 +25,16 @@ except OSError:
 
 ## Set up files
 # Copy files to working folder
-perpleFile = "PerpLETestSuites/x86tso/" + testname + "/num_reads.perple"
-checkerFile = "PerpLETestSuites/x86tso/" + testname + "/checker.c"
-checkerHeuristicFile = "PerpLETestSuites/x86tso/" + testname + "/checker-heuristic.c"
+perpleFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/num_reads.perple"
+checkerFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/checker.c"
+checkerHeuristicFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/checker-heuristic.c"
 dest = shutil.copyfile(perpleFile,"num_reads.perple")
 dest = shutil.copyfile(checkerFile,"checker.c")
 dest = shutil.copyfile(checkerHeuristicFile,"checker-heuristic.c")
 
 # Compile executable
 execfilename = "integratedHarness_" + testname
-threadfilenames = "./PerpLETestSuites/x86tso/" + testname + "/" + testname + "_thread_*"
+threadfilenames = "./PerpLETestSuitesChecked/x86tso/" + testname + "/" + testname + "_thread_*"
 subprocess.call("gcc -fopenmp -o " + execfilename + " integratedHarness.c " + threadfilenames, shell=True)
 # Open output file
 now = datetime.datetime.now()

@@ -24,12 +24,12 @@ P0:
 
 .LOOPSTART:
 	# amd5+staleld Thread 0
+	movq None,reg
 	movq %r8,(%rsi)
 	MFENCE
-	movq (%r14), %rbx
 	
 	# Store in correct location in bufs
-	movq %rbx, (%r10, %r13, 8)
+	movq %rax, (%r10, %r13, 8)
 
 	# Increment loop index and writevals
 	incq %r13

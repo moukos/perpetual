@@ -30,13 +30,10 @@ P1:
 	movq (%rsi),%rbx
 	
 	# Store in correct location in bufs
-	movq %rax, (%r10, %rdx, 8)
-	incq %rdx
-	movq %rbx, (%r10, %rdx, 8)
+	movq %rax, (%r10, %r13, 8)
 
 	# Increment loop index and writevals
 	incq %r13
-	incq %rdx
 	addq $1, %r8
 
 .LOOPEND:

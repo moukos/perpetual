@@ -132,7 +132,7 @@ int main(int argc,char *argv[]) {
     
     double time_n = 0;
     // Checker - Base
-    if( n <= 1000000 ){
+    if( n <= 100000 ){
     	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     	interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
     	clock_gettime(CLOCK_MONOTONIC_RAW, &end);

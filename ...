@@ -1,0 +1,22 @@
+X86 MP
+"Fre PodWR Fre PodWR"
+{ x=0; y=0; n=100000;}
+ P0          | P1          ;
+             | MOV EDX,$0  ;
+ MOV ESI,[n] | MOV ESI,[n] ;
+ MOV EDI,$0  | MOV EDI,$0  ;
+             |             ;
+ LOOP:       | LOOP:       ;
+ MOV [x],EDI | MOV ECX, [y];
+ MOV [y],EDI | MOV EAX, [x];
+             | INC EAX     ;
+             | CMP EAX,ECX ;
+             | JNE END     ;
+	     | MOV EDX, $1 ;
+	     | END:        ;
+	     |             ;
+ INC EDI     | INC EDI     ;
+ CMP EDI,ESI | CMP EDI,ESI ;
+ JNE LOOP    | JNE LOOP    ;
+ locations [x;y;]
+ exists (1:EDX=1)

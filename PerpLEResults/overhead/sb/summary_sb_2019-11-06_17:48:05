@@ -1,0 +1,12 @@
+Test: sb
+Date: 2019-11-06 17:48:05
+
+Summary of PerpLE results (start = 10000000, steps = 1, tries = 5)
+Iterations    |Harness Time  |Harness Time with syncronization
+10000000      |0.051694825   |33.946955527  |
+
+
+Summary of litmus results (start = 10000000, steps = 1, tries = 5)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+10000000      |155.600       |1.798000000   |86.541        
+

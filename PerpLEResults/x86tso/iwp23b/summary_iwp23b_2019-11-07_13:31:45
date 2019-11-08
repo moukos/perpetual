@@ -1,0 +1,11 @@
+Test: iwp23b
+Date: 2019-11-07 13:31:45
+
+Summary of PerpLE results (start = 100, steps = 1, tries = 10)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+100           |0.000         |0.000         |0.000161826   |0.000001958   |0.000001515   |0.000         |0.000         
+
+
+Summary of litmus results (start = 100, steps = 1, tries = 10)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+

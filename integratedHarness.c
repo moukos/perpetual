@@ -21,7 +21,6 @@ extern void P1(void * address);
 extern void P2(void * address);
 extern void P3(void * address);
 extern void P0(void * address);
-int n=0;
 struct my_struct *item1 = NULL;
 struct my_struct *item2 = NULL;
 struct my_struct *item3 = NULL;

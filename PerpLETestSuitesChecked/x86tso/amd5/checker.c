@@ -8,8 +8,9 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 				long rightEdgeEnd = buf1[1 * m + 0];
 				if(rightEdgeEnd  < 1 * n + 1){
 						sum ++;
+				}
 			}
 		}
-	}
 	return sum;
+	}
 }

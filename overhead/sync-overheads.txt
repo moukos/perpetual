@@ -1,0 +1,189 @@
+436.096216 801.125350
+567.663020 930.813249
+524.855108 883.229024
+373.799296 729.511134
+373.844250 733.702506
+374.380141 734.644764
+377.101450 738.439679
+563.862648 927.200374
+508.285996 869.319121
+605.078558 966.039586
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (4 states)
+1974573*>0:EAX=0; 1:EAX=0;
+9889393413:>0:EAX=1; 1:EAX=0;
+102803826:>0:EAX=0; 1:EAX=1;
+5828188:>0:EAX=1; 1:EAX=1;
+Ok
+
+Witnesses
+Positive: 1974573, Negative: 9998025427
+Condition exists (0:EAX=0 /\ 1:EAX=0) is validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Sometimes 1974573 9998025427
+Time sb-iwp2.3.a-amd4 11585.68
+0.000081 0.000158
+0.000201 0.000285
+0.000086 0.000169
+0.000087 0.000173
+0.000082 0.000161
+0.000090 0.000173
+0.000085 0.000168
+0.000084 0.000166
+0.000091 0.000174
+0.000083 0.000166
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (2 states)
+999   :>0:EAX=1; 1:EAX=0;
+1     :>0:EAX=0; 1:EAX=1;
+No
+
+Witnesses
+Positive: 0, Negative: 1000
+Condition exists (0:EAX=0 /\ 1:EAX=0) is NOT validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Never 0 1000
+Time sb-iwp2.3.a-amd4 0.00
+0.000913 0.001726
+0.000759 0.001523
+0.000757 0.001511
+0.000809 0.001602
+0.000754 0.001510
+0.000745 0.001483
+0.000702 0.001409
+0.000806 0.001597
+0.000690 0.001380
+0.000696 0.001411
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (3 states)
+9989  :>0:EAX=1; 1:EAX=0;
+10    :>0:EAX=0; 1:EAX=1;
+1     :>0:EAX=1; 1:EAX=1;
+No
+
+Witnesses
+Positive: 0, Negative: 10000
+Condition exists (0:EAX=0 /\ 1:EAX=0) is NOT validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Never 0 10000
+Time sb-iwp2.3.a-amd4 0.02
+0.007242 0.014235
+0.006466 0.012576
+0.006048 0.011787
+0.005095 0.010165
+0.005236 0.010196
+0.004568 0.009145
+0.006392 0.012763
+0.005658 0.011322
+0.008339 0.016341
+0.007773 0.015570
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (4 states)
+6     *>0:EAX=0; 1:EAX=0;
+99924 :>0:EAX=1; 1:EAX=0;
+68    :>0:EAX=0; 1:EAX=1;
+2     :>0:EAX=1; 1:EAX=1;
+Ok
+
+Witnesses
+Positive: 6, Negative: 99994
+Condition exists (0:EAX=0 /\ 1:EAX=0) is validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Sometimes 6 99994
+Time sb-iwp2.3.a-amd4 0.19
+0.057425 0.111628
+0.039267 0.077857
+0.037299 0.075749
+0.057203 0.111142
+0.057755 0.112228
+0.057449 0.111551
+0.039745 0.078363
+0.034847 0.070408
+0.043596 0.083982
+0.035210 0.070816
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (4 states)
+756   *>0:EAX=0; 1:EAX=0;
+998370:>0:EAX=1; 1:EAX=0;
+835   :>0:EAX=0; 1:EAX=1;
+39    :>0:EAX=1; 1:EAX=1;
+Ok
+
+Witnesses
+Positive: 756, Negative: 999244
+Condition exists (0:EAX=0 /\ 1:EAX=0) is validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Sometimes 756 999244
+Time sb-iwp2.3.a-amd4 1.37
+0.329049 0.661108
+0.332375 0.673315
+0.321100 0.646573
+0.349596 0.701842
+0.349678 0.696950
+0.381652 0.739951
+0.302205 0.608545
+0.312899 0.631160
+0.298872 0.603201
+0.393159 0.776776
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (4 states)
+5454  *>0:EAX=0; 1:EAX=0;
+9989503:>0:EAX=1; 1:EAX=0;
+4729  :>0:EAX=0; 1:EAX=1;
+314   :>0:EAX=1; 1:EAX=1;
+Ok
+
+Witnesses
+Positive: 5454, Negative: 9994546
+Condition exists (0:EAX=0 /\ 1:EAX=0) is validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Sometimes 5454 9994546
+Time sb-iwp2.3.a-amd4 10.43
+3.698689 7.281263
+3.598611 7.086931
+3.375546 6.726049
+3.526259 6.981915
+3.584324 7.110500
+3.585841 7.097044
+4.539645 7.933566
+3.592786 7.092387
+2.919204 5.897577
+3.528406 7.027630
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (4 states)
+67011 *>0:EAX=0; 1:EAX=0;
+99669245:>0:EAX=1; 1:EAX=0;
+212903:>0:EAX=0; 1:EAX=1;
+50841 :>0:EAX=1; 1:EAX=1;
+Ok
+
+Witnesses
+Positive: 67011, Negative: 99932989
+Condition exists (0:EAX=0 /\ 1:EAX=0) is validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Sometimes 67011 99932989
+Time sb-iwp2.3.a-amd4 103.73
+36.130115 70.788871
+35.266544 69.093050
+34.595794 68.393464
+37.216823 70.104457
+36.237977 67.582822
+29.298781 59.108954
+32.740532 65.844569
+29.398129 59.255882
+29.354745 59.133958
+41.060152 75.908939
+Test sb-iwp2.3.a-amd4 Allowed
+Histogram (4 states)
+348018*>0:EAX=0; 1:EAX=0;
+996801856:>0:EAX=1; 1:EAX=0;
+2378546:>0:EAX=0; 1:EAX=1;
+471580:>0:EAX=1; 1:EAX=1;
+Ok
+
+Witnesses
+Positive: 348018, Negative: 999651982
+Condition exists (0:EAX=0 /\ 1:EAX=0) is validated
+Hash=edd4722437d708675ed921e7607e77f0
+Observation sb-iwp2.3.a-amd4 Sometimes 348018 999651982
+Time sb-iwp2.3.a-amd4 989.80

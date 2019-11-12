@@ -124,11 +124,11 @@ time = 0
 m = start
 formatstring = "%-14d|%-14.3f|%-14.9f|%-14.3f\n"             
 for line in g:
-    if(line.find("Observation " + testname) != -1):
+    if(line.find("Observation ") != -1):
         weakstart = line.find(" ", line.find(" ", line.find(" ") + 1 ) + 1) + 1
         weakend = line.find(" ", weakstart)
         weak = numpy.int64(line[weakstart:weakend])
-    if(line.find("Time " + testname) != -1):
+    if(line.find("Time ") != -1):
         timestart = line.find(" ", line.find(" ") + 1) + 1
         timeend = line.find(" ", timestart)
         time = numpy.float64(line[timestart:timeend])
@@ -156,5 +156,5 @@ print(ratesL)
 
 ## Clean up
 shcall = "rm -r " + workingPath
-subprocess.call(shcall,shell = True )
+#subprocess.call(shcall,shell = True )
 subprocess.call("rm checker.c checker-heuristic.c num_reads.perple", shell = True)

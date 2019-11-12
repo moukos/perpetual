@@ -2,8 +2,7 @@ long condition2(volatile long *buf0, volatile long *buf1, volatile long *buf2, v
 	long n=0, sum=0;
 	long numberUp = 0;
 	for(n = 0; n < N; n++ ){ 
-	  if((buf1[buf2[2 * m + 1] - 1] > buf2[2 * m + 2]) && (buf2[2 * m + 1] > 0)
-	     && (buf2[2 * m + 1] - 1 < N))
+	  if((buf1[buf0[1 * n + 0] + 0] < 1 * n + 1) && (buf0[1* n + 0] + 0 < N))
 			sum++;
 	}
 	return sum;

@@ -1,8 +1,8 @@
 	.section ".text"
-	.globl P0
-	.type P0, @function
+	.globl P1
+	.type P1, @function
 
-P0:
+P1:
 	pushq %rsi
 	pushq %r12
 	pushq %r13
@@ -19,20 +19,21 @@ P0:
 	movq (%rdi), %rsi		# ptr to x
 	movq $0, %r13			# loop index
 	movq $0, %rdx			# buffer address offset
-	movq $1, %r8			# writeval 1
 	jmp .LOOPEND
 
 .LOOPSTART:
-	# n5 Thread 0
-	movq %r8,(%rsi)
+	# rwc-fenced Thread 1
 	movq (%rsi),%rax
+	movq (%r14),%rbx
 	
 	# Store in correct location in bufs
-	movq %rax, (%r10, %r13, 8)
+	movq %rax, (%r10, %rdx, 8)
+	incq %rdx
+	movq %rbx, (%r10, %rdx, 8)
 
 	# Increment loop index and writevals
 	incq %r13
-	addq $2, %r8
+	incq %rdx
 
 .LOOPEND:
 	cmpq %r11,%r13

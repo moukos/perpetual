@@ -23,16 +23,16 @@ P0:
 	jmp .LOOPEND
 
 .LOOPSTART:
-	# n5 Thread 0
+	# sb Thread 0
 	movq %r8,(%rsi)
-	movq (%rsi),%rax
+	movq (%r14),%rax
 	
 	# Store in correct location in bufs
 	movq %rax, (%r10, %r13, 8)
 
 	# Increment loop index and writevals
 	incq %r13
-	addq $2, %r8
+	addq $1, %r8
 
 .LOOPEND:
 	cmpq %r11,%r13

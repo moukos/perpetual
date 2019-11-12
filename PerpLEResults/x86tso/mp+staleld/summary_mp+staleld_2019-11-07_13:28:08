@@ -1,0 +1,12 @@
+Test: mp+staleld
+Date: 2019-11-07 13:28:08
+
+Summary of PerpLE results (start = 100, steps = 1, tries = 10)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+100           |0.000         |0.000         |0.000172107   |0.000002057   |0.000001690   |0.000         |0.000         
+
+
+Summary of litmus results (start = 100, steps = 1, tries = 10)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+100           |0.000         |0.000000000   |0.000         
+

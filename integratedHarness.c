@@ -136,7 +136,7 @@ int main(int argc,char *argv[]) {
     	interleavingsCnt = condition(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);
     	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
     	time_n = (double) end.tv_sec + (double) end.tv_nsec / 1000000000.0 - (double)start.tv_sec - (double) start.tv_nsec / 1000000000.0;
-    //printf("NEW checker time: %.9f, weak %d\n", time_n, interleavingsCnt);
+    	fprintf(stderr,"Outcome (0,0) %ld Outcome (0,1) %ld Outcome (1,0) %ld Outcome 4 (1,1) %ld\n",arg_t3.buf[0], arg_t3.buf[1], arg_t3.buf[2], arg_t3.buf[3]);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     interleavingsCnt2 = condition2(arg_t0.buf,arg_t1.buf,arg_t2.buf,arg_t3.buf,n);

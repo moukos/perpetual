@@ -28,12 +28,9 @@ P2:
 	
 	# Store in correct location in bufs
 	movq %rax, (%r10, %rdx, 8)
-	incq %rdx
-	movq %rbx, (%r10, %rdx, 8)
 
 	# Increment loop index and writevals
 	incq %r13
-	incq %rdx
 
 .LOOPEND:
 	cmpq %r11,%r13

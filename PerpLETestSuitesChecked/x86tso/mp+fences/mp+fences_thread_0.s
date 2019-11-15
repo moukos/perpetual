@@ -31,6 +31,7 @@ P0:
 	# Increment loop index and writevals
 	incq %r13
 	incq %r8
+	MFENCE
 
 .LOOPEND:
 	cmpq %r11,%r13

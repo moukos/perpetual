@@ -29,7 +29,7 @@ P0:
 	# Increment loop index and writevals
 	incq %r13
 	addq $1, %r8
-
+	MFENCE
 .LOOPEND:
 	cmpq %r11,%r13
 	jl .LOOPSTART

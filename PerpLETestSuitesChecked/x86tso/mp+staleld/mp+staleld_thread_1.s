@@ -28,12 +28,13 @@ P1:
 	movq (%rsi),%rcx
 	
 	# Store in correct location in bufs
+	MFENCE
 	movq %rax, (%r10, %rdx, 8)
 	incq %rdx
 	movq %rbx, (%r10, %rdx, 8)
 	incq %rdx
 	movq %rcx, (%r10, %rdx, 8)
-
+	MFENCE
 	# Increment loop index and writevals
 	incq %r13
 	incq %rdx

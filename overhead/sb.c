@@ -214,6 +214,7 @@ static void *P0(void *_vb) {
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     barrier_wait(_th_id,_i,&barrier[_i]);
     clock_gettime(CLOCK_MONOTONIC_RAW, &barr);
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
    
 asm __volatile__ (
 "\n"
@@ -227,7 +228,7 @@ asm __volatile__ (
 :
 :"cc","memory"
 );
-    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    //clock_gettime(CLOCK_MONOTONIC_RAW, &end);
     time_sync += (double) barr.tv_sec + (double) barr.tv_nsec / 1000000000 - ((double) start.tv_sec + (double) start.tv_nsec / 1000000000);
     time_test += (double) end.tv_sec + (double) end.tv_nsec / 1000000000 - ((double) barr.tv_sec + (double) barr.tv_nsec / 1000000000);
   }

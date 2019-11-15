@@ -173,7 +173,7 @@ P1:
 	movq	8(%rbx), %rdx
 	movq	(%rbx), %rdi
 #APP
-# 250 "sb.c" 1
+# 251 "sb.c" 1
 	
 #START _litmus_P1
 #_litmus_P1_0
@@ -248,19 +248,19 @@ P0:
 	mfence
 # 0 "" 2
 #NO_APP
-	movq	8(%rdi), %r12
-	movq	%r12, %rdi
+	movq	8(%rdi), %r15
+	movq	%r15, %rdi
 	call	check_globals
-	movq	56(%r12), %rax
-	movl	(%rbx), %r13d
-	movq	40(%r12), %r14
-	movq	16(%r12), %r15
-	movl	4(%rax), %ebp
-	subl	$1, %ebp
+	movq	56(%r15), %rax
+	movl	(%rbx), %ebp
+	movq	40(%r15), %r12
+	movq	16(%r15), %r13
+	movl	4(%rax), %ebx
+	subl	$1, %ebx
 	js	.L40
 	xorpd	%xmm4, %xmm4
-	movslq	%ebp, %rbx
-	salq	$2, %rbx
+	movslq	%ebx, %r14
+	salq	$2, %r14
 	movsd	%xmm4, 8(%rsp)
 	movsd	%xmm4, (%rsp)
 	.p2align 4,,10
@@ -269,10 +269,10 @@ P0:
 	leaq	16(%rsp), %rsi
 	movl	$4, %edi
 	call	clock_gettime
-	movl	%ebp, %eax
-	leaq	(%r14,%rbx), %rdx
+	movl	%ebx, %eax
+	leaq	(%r12,%r14), %rdx
 	andl	$1, %eax
-	cmpl	%r13d, %eax
+	cmpl	%ebp, %eax
 	je	.L46
 	.p2align 4,,10
 	.p2align 3
@@ -284,31 +284,31 @@ P0:
 	leaq	32(%rsp), %rsi
 	movl	$4, %edi
 	call	clock_gettime
-	movq	8(%r12), %rdx
-	movq	(%r12), %rcx
+	leaq	48(%rsp), %rsi
+	movl	$4, %edi
+	call	clock_gettime
+	movq	8(%r15), %rdx
+	movq	(%r15), %rcx
 #APP
-# 218 "sb.c" 1
+# 219 "sb.c" 1
 	
 #START _litmus_P0
 #_litmus_P0_0
-	movl $1,(%rdx,%rbx)
+	movl $1,(%rdx,%r14)
 #_litmus_P0_1
-	movl (%rcx,%rbx),%eax
+	movl (%rcx,%r14),%eax
 #END _litmus_P0
 	
 # 0 "" 2
 #NO_APP
-	leaq	48(%rsp), %rsi
-	movl	%eax, (%r15,%rbx)
-	movl	$4, %edi
-	subl	$1, %ebp
-	subq	$4, %rbx
-	call	clock_gettime
 	cvtsi2sdq	40(%rsp), %xmm0
 	cvtsi2sdq	24(%rsp), %xmm2
 	divsd	.LC3(%rip), %xmm0
 	cvtsi2sdq	32(%rsp), %xmm1
-	cmpl	$-1, %ebp
+	subl	$1, %ebx
+	movl	%eax, 0(%r13,%r14)
+	subq	$4, %r14
+	cmpl	$-1, %ebx
 	divsd	.LC3(%rip), %xmm2
 	addsd	%xmm0, %xmm1
 	cvtsi2sdq	16(%rsp), %xmm0
@@ -1038,5 +1038,5 @@ main:
 .LC15:
 	.long	0
 	.long	1093567616
-	.ident	"GCC: (GNU) 4.8.5 20150623 (Red Hat 4.8.5-36)"
+	.ident	"GCC: (GNU) 4.8.5 20150623 (Red Hat 4.8.5-39)"
 	.section	.note.GNU-stack,"",@progbits

@@ -529,7 +529,7 @@ def main():
 	            removeTuples.append(edges[e1])
 		    removeTuples.append(edges[e2])
     #print(removeTuples)
-    #print(edges)
+    print(edges)
     for x in removeTuples:
 	if x in edges:
 	    edges.remove(x)
@@ -670,7 +670,7 @@ def main():
 	    heurstring = str(maxwriteval) + " * " + indices[writethread] + " + " + "1" 
             heursub = str(maxwriteval) + " * " + indices[writethread2] + " + " 
  	    heurexpressions[heursub] = heurstring
-
+	print(condexpressions)
     
     print(condexpressions) 
     sub = ""

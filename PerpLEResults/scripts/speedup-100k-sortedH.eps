@@ -1,9 +1,9 @@
 %!PS-Adobe-2.0 EPSF-2.0
-%%Title: runtimes.eps
+%%Title: speedup-100k.eps
 %%Creator: gnuplot 5.2 patchlevel 7
-%%CreationDate: Thu Nov 21 12:20:13 2019
+%%CreationDate: Thu Nov 21 00:46:17 2019
 %%DocumentFonts: (atend)
-%%BoundingBox: 50 50 770 266
+%%BoundingBox: 50 50 554 194
 %%EndComments
 %%BeginProlog
 /gnudict 256 dict def
@@ -28,7 +28,7 @@ gnudict begin
 /Gamma 1.0 def
 /BackgroundColor {-1.000 -1.000 -1.000} def
 %
-/vshift -46 def
+/vshift -40 def
 /dl1 {
   10.0 Dashlength userlinewidth gnulinewidth div mul mul mul
   Rounded { currentlinewidth 0.75 mul sub dup 0 le { pop 0.01 } if } if
@@ -43,7 +43,7 @@ gnudict begin
 /vpt vpt_ def
 /doclip {
   ClipToBoundingBox {
-    newpath 50 50 moveto 770 50 lineto 770 266 lineto 50 266 lineto closepath
+    newpath 50 50 moveto 554 50 lineto 554 194 lineto 50 194 lineto closepath
     clip
   } if
 } def
@@ -476,12 +476,12 @@ systemdict /pdfmark known not {
   userdict /pdfmark systemdict /cleartomark get put
 } if
 SDict begin [
-  /Title (runtimes.eps)
+  /Title (speedup-100k.eps)
   /Subject (gnuplot plot)
   /Creator (gnuplot 5.2 patchlevel 7)
 %  /Producer (gnuplot)
 %  /Keywords ()
-  /CreationDate (Thu Nov 21 12:20:13 2019)
+  /CreationDate (Thu Nov 21 00:46:17 2019)
   /DOCINFO pdfmark
 end
 } ifelse
@@ -521,588 +521,440 @@ doclip
 0.050 0.050 scale
 0 setgray
 newpath
-(arial) findfont 140 scalefont setfont
-BackgroundColor 0 lt 3 1 roll 0 lt exch 0 lt or or not {BackgroundColor C 1.000 0 0 14400.00 4320.00 BoxColFill} if
+(arial) findfont 120 scalefont setfont
+BackgroundColor 0 lt 3 1 roll 0 lt exch 0 lt or or not {BackgroundColor C 1.000 0 0 10080.00 2880.00 BoxColFill} if
 1.000 UL
 LTb
 LCb setrgbcolor
-854 1148 M
+444 984 M
 63 0 V
-13230 0 R
+9356 0 R
 -63 0 V
 stroke
-770 1148 M
-[ [(arial) 140.0 0.0 true true 0 ( 0.001)]
-] -46.7 MRshow
-/arial findfont 140 scalefont setfont
-/vshift -46 def
+372 984 M
+[ [(arial) 120.0 0.0 true true 0 ( 0)]
+] -40.0 MRshow
+/arial findfont 120 scalefont setfont
+/vshift -40 def
 1.000 UL
 LTb
 LCb setrgbcolor
-854 1330 M
-31 0 V
-13262 0 R
--31 0 V
-854 1437 M
-31 0 V
-13262 0 R
--31 0 V
-854 1513 M
-31 0 V
-13262 0 R
--31 0 V
-854 1572 M
-31 0 V
-13262 0 R
--31 0 V
-854 1620 M
-31 0 V
-13262 0 R
--31 0 V
-854 1660 M
-31 0 V
-13262 0 R
--31 0 V
-854 1695 M
-31 0 V
-13262 0 R
--31 0 V
-854 1726 M
-31 0 V
-13262 0 R
--31 0 V
-854 1754 M
+444 1280 M
 63 0 V
-13230 0 R
+9356 0 R
 -63 0 V
 stroke
-770 1754 M
-[ [(arial) 140.0 0.0 true true 0 ( 0.01)]
-] -46.7 MRshow
-/arial findfont 140 scalefont setfont
+372 1280 M
+[ [(arial) 120.0 0.0 true true 0 ( 1)]
+] -40.0 MRshow
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-854 1937 M
-31 0 V
-13262 0 R
--31 0 V
-854 2043 M
-31 0 V
-13262 0 R
--31 0 V
-854 2119 M
-31 0 V
-13262 0 R
--31 0 V
-854 2178 M
-31 0 V
-13262 0 R
--31 0 V
-854 2226 M
-31 0 V
-13262 0 R
--31 0 V
-854 2266 M
-31 0 V
-13262 0 R
--31 0 V
-854 2302 M
-31 0 V
-13262 0 R
--31 0 V
-854 2333 M
-31 0 V
-13262 0 R
--31 0 V
-854 2360 M
+444 1576 M
 63 0 V
-13230 0 R
+9356 0 R
 -63 0 V
 stroke
-770 2360 M
-[ [(arial) 140.0 0.0 true true 0 ( 0.1)]
-] -46.7 MRshow
-/arial findfont 140 scalefont setfont
+372 1576 M
+[ [(arial) 120.0 0.0 true true 0 ( 2)]
+] -40.0 MRshow
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-854 2543 M
-31 0 V
-13262 0 R
--31 0 V
-854 2650 M
-31 0 V
-13262 0 R
--31 0 V
-854 2725 M
-31 0 V
-13262 0 R
--31 0 V
-854 2784 M
-31 0 V
-13262 0 R
--31 0 V
-854 2832 M
-31 0 V
-13262 0 R
--31 0 V
-854 2873 M
-31 0 V
-13262 0 R
--31 0 V
-854 2908 M
-31 0 V
-13262 0 R
--31 0 V
-854 2939 M
-31 0 V
-13262 0 R
--31 0 V
-854 2967 M
+444 1872 M
 63 0 V
-13230 0 R
+9356 0 R
 -63 0 V
 stroke
-770 2967 M
-[ [(arial) 140.0 0.0 true true 0 ( 1)]
-] -46.7 MRshow
-/arial findfont 140 scalefont setfont
+372 1872 M
+[ [(arial) 120.0 0.0 true true 0 ( 3)]
+] -40.0 MRshow
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-854 3149 M
-31 0 V
-13262 0 R
--31 0 V
-854 3256 M
-31 0 V
-13262 0 R
--31 0 V
-854 3332 M
-31 0 V
-13262 0 R
--31 0 V
-854 3390 M
-31 0 V
-13262 0 R
--31 0 V
-854 3438 M
-31 0 V
-13262 0 R
--31 0 V
-854 3479 M
-31 0 V
-13262 0 R
--31 0 V
-854 3514 M
-31 0 V
-13262 0 R
--31 0 V
-854 3545 M
-31 0 V
-13262 0 R
--31 0 V
-854 3573 M
+444 2167 M
 63 0 V
-13230 0 R
+9356 0 R
 -63 0 V
 stroke
-770 3573 M
-[ [(arial) 140.0 0.0 true true 0 ( 10)]
-] -46.7 MRshow
-/arial findfont 140 scalefont setfont
+372 2167 M
+[ [(arial) 120.0 0.0 true true 0 ( 4)]
+] -40.0 MRshow
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-854 3755 M
-31 0 V
-13262 0 R
--31 0 V
-854 3862 M
-31 0 V
-13262 0 R
--31 0 V
-854 3938 M
-31 0 V
-13262 0 R
--31 0 V
-854 3997 M
-31 0 V
-13262 0 R
--31 0 V
-854 4045 M
-31 0 V
-13262 0 R
--31 0 V
-854 4085 M
-31 0 V
-13262 0 R
--31 0 V
-854 4120 M
-31 0 V
-13262 0 R
--31 0 V
-854 4151 M
-31 0 V
-13262 0 R
--31 0 V
-854 4179 M
+444 2463 M
 63 0 V
-13230 0 R
+9356 0 R
 -63 0 V
 stroke
-770 4179 M
-[ [(arial) 140.0 0.0 true true 0 ( 100)]
-] -46.7 MRshow
-/arial findfont 140 scalefont setfont
+372 2463 M
+[ [(arial) 120.0 0.0 true true 0 ( 5)]
+] -40.0 MRshow
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-854 1148 M
-0 63 V
+444 2759 M
+63 0 V
+9356 0 R
+-63 0 V
 stroke
-854 1064 M
-currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (iwp23b)]
-] -46.7 MLshow
-grestore
-/arial findfont 140 scalefont setfont
+372 2759 M
+[ [(arial) 120.0 0.0 true true 0 ( 6)]
+] -40.0 MRshow
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1365 1148 M
+444 984 M
 0 63 V
 stroke
-1365 1064 M
+444 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (safe022)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (iwp23b)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1877 1148 M
+806 984 M
 0 63 V
 stroke
-1877 1064 M
+806 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (mp)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (safe022)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-2388 1148 M
+1169 984 M
 0 63 V
 stroke
-2388 1064 M
+1169 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (mp+staleld)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (mp)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-2899 1148 M
+1531 984 M
 0 63 V
 stroke
-2899 1064 M
+1531 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (mp+fences)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (iwp24)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-3410 1148 M
+1893 984 M
 0 63 V
 stroke
-3410 1064 M
+1893 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (co-iriw)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (rfi013)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-3922 1148 M
+2255 984 M
 0 63 V
 stroke
-3922 1064 M
+2255 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (n5)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (amd3)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-4433 1148 M
+2618 984 M
 0 63 V
 stroke
-4433 1064 M
+2618 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (safe006)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (podwr000)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-4944 1148 M
+2980 984 M
 0 63 V
 stroke
-4944 1064 M
+2980 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (lb)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (n5)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-5455 1148 M
+3342 984 M
 0 63 V
 stroke
-5455 1064 M
+3342 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (podwr000)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (amd5)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-5967 1148 M
+3704 984 M
 0 63 V
 stroke
-5967 1064 M
+3704 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (amd5)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (sb)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-6478 1148 M
+4067 984 M
 0 63 V
 stroke
-6478 1064 M
+4067 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (iwp24)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (n1)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-6989 1148 M
+4429 984 M
 0 63 V
 stroke
-6989 1064 M
+4429 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (amd5+staleld)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (amd5+staleld)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-7501 1148 M
+4791 984 M
 0 63 V
 stroke
-7501 1064 M
+4791 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (amd10)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (safe036)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-8012 1148 M
+5154 984 M
 0 63 V
 stroke
-8012 1064 M
+5154 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (safe036)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (rfi015)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-8523 1148 M
+5516 984 M
 0 63 V
 stroke
-8523 1064 M
+5516 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (rwc-fenced)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (mp+staleld)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-9034 1148 M
+5878 984 M
 0 63 V
 stroke
-9034 1064 M
+5878 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (amd3)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (n4)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-9546 1148 M
+6240 984 M
 0 63 V
 stroke
-9546 1064 M
+6240 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (rwc-unfenced)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (amd10)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-10057 1148 M
+6603 984 M
 0 63 V
 stroke
-10057 1064 M
+6603 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (wrc)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (rfi009)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-10568 1148 M
+6965 984 M
 0 63 V
 stroke
-10568 1064 M
+6965 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (sb)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (rfi017)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-11079 1148 M
+7327 984 M
 0 63 V
 stroke
-11079 1064 M
+7327 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (n1)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (mp+fences)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-11591 1148 M
+7689 984 M
 0 63 V
 stroke
-11591 1064 M
+7689 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (rfi009)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (lb)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-12102 1148 M
+8052 984 M
 0 63 V
 stroke
-12102 1064 M
+8052 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (n4)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (rwc-unfenced)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-12613 1148 M
+8414 984 M
 0 63 V
 stroke
-12613 1064 M
+8414 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (rfi017)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (safe006)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-13124 1148 M
+8776 984 M
 0 63 V
 stroke
-13124 1064 M
+8776 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (rfi015)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (co-iriw)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-13636 1148 M
+9138 984 M
 0 63 V
 stroke
-13636 1064 M
+9138 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (rfi013)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (wrc)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-14147 1148 M
+9501 984 M
 0 63 V
 stroke
-14147 1064 M
+9501 912 M
 currentpoint gsave translate -90 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (Geomean)]
-] -46.7 MLshow
+[ [(arial) 120.0 0.0 true true 0 (rwc-fenced)]
+] -40.0 MLshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
+1.000 UL
+LTb
+LCb setrgbcolor
+9863 984 M
+0 63 V
+stroke
+9863 912 M
+currentpoint gsave translate -90 rotate 0 0 moveto
+[ [(arial) 120.0 0.0 true true 0 (Geomean)]
+] -40.0 MLshow
+grestore
+/arial findfont 120 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 1.000 UL
 LTB
 LCb setrgbcolor
-854 4179 N
-0 -3031 V
-13293 0 V
-0 3031 V
-854 4179 L
+444 2759 N
+444 984 L
+9419 0 V
+0 1775 V
+-9419 0 V
 Z stroke
 1.000 UP
 1.000 UL
 LTb
 LCb setrgbcolor
 LCb setrgbcolor
-196 2663 M
+168 1871 M
 currentpoint gsave translate -270 rotate 0 0 moveto
-[ [(arial) 140.0 0.0 true true 0 (Runtime \(s\))]
-] -46.7 MCshow
+[ [(arial) 120.0 0.0 true true 0 (Speedup)]
+] -40.0 MCshow
 grestore
-/arial findfont 140 scalefont setfont
+/arial findfont 120 scalefont setfont
 LTb
 % Begin plot #1
 1.000 UP
@@ -1110,69 +962,69 @@ LTb
 LTb
 0.58 0.00 0.83 C
 LCb setrgbcolor
-1505 4046 M
+1011 2636 M
 (litmus7) Lshow
 1.000 UP
 1.000 UL
 LTb
 0.58 0.00 0.83 C
-1022 4046 M
-399 0 V
-854 1950 M
-511 119 V
-512 -34 V
-511 8 V
-511 63 V
-511 13 V
-512 0 V
-511 -146 V
-511 111 V
-511 54 V
-512 29 V
-511 16 V
-511 10 V
-512 -15 V
-511 5 V
-511 -70 V
-511 -14 V
-512 7 V
-511 -15 V
-511 47 V
-511 -25 V
-512 -14 V
-511 -15 V
-511 7 V
-511 41 V
-512 -159 V
-511 126 V
-854 1950 Pls
-1365 2069 Pls
-1877 2035 Pls
-2388 2043 Pls
-2899 2106 Pls
-3410 2119 Pls
-3922 2119 Pls
-4433 1973 Pls
-4944 2084 Pls
-5455 2138 Pls
-5967 2167 Pls
-6478 2183 Pls
-6989 2193 Pls
-7501 2178 Pls
-8012 2183 Pls
-8523 2113 Pls
-9034 2099 Pls
-9546 2106 Pls
-10057 2091 Pls
-10568 2138 Pls
-11079 2113 Pls
-11591 2099 Pls
-12102 2084 Pls
-12613 2091 Pls
-13124 2132 Pls
-13636 1973 Pls
-14147 2099 Pls
-1222 4046 Pls
+588 2636 M
+351 0 V
+444 1280 M
+362 0 V
+363 0 V
+362 0 V
+362 0 V
+362 0 V
+363 0 V
+362 0 V
+362 0 V
+362 0 V
+363 0 V
+362 0 V
+362 0 V
+363 0 V
+362 0 V
+362 0 V
+362 0 V
+363 0 V
+362 0 V
+362 0 V
+362 0 V
+363 0 V
+362 0 V
+362 0 V
+362 0 V
+363 0 V
+362 0 V
+444 1280 Pls
+806 1280 Pls
+1169 1280 Pls
+1531 1280 Pls
+1893 1280 Pls
+2255 1280 Pls
+2618 1280 Pls
+2980 1280 Pls
+3342 1280 Pls
+3704 1280 Pls
+4067 1280 Pls
+4429 1280 Pls
+4791 1280 Pls
+5154 1280 Pls
+5516 1280 Pls
+5878 1280 Pls
+6240 1280 Pls
+6603 1280 Pls
+6965 1280 Pls
+7327 1280 Pls
+7689 1280 Pls
+8052 1280 Pls
+8414 1280 Pls
+8776 1280 Pls
+9138 1280 Pls
+9501 1280 Pls
+9863 1280 Pls
+764 2636 Pls
 % End plot #1
 % Begin plot #2
 1.000 UP
@@ -1180,69 +1032,69 @@ LTb
 LTb
 0.02 0.62 0.46 C
 LCb setrgbcolor
-3584 4046 M
+2802 2636 M
 (PerpLE \(Checker\)) Lshow
 1.000 UP
 1.000 UL
 LTb
 0.02 0.62 0.46 C
-3101 4046 M
-399 0 V
-854 1615 M
-511 61 V
-512 28 V
-511 182 V
-511 56 V
-511 47 V
-512 1807 V
-511 0 V
-511 2 V
-511 6 V
-512 0 V
-511 1 V
-511 3 V
-512 4 V
-511 1 V
-511 6 V
-511 3 V
-512 8 V
-511 5 V
-511 1 V
-511 26 V
-512 14 V
-511 12 V
-511 5 V
-511 2 V
-512 52 V
-511 -580 V
-854 1615 Crs
-1365 1676 Crs
-1877 1704 Crs
-2388 1886 Crs
-2899 1942 Crs
-3410 1989 Crs
-3922 3796 Crs
-4433 3796 Crs
-4944 3798 Crs
-5455 3804 Crs
-5967 3804 Crs
-6478 3805 Crs
-6989 3808 Crs
-7501 3812 Crs
-8012 3813 Crs
-8523 3819 Crs
-9034 3822 Crs
-9546 3830 Crs
-10057 3835 Crs
-10568 3836 Crs
-11079 3862 Crs
-11591 3876 Crs
-12102 3888 Crs
-12613 3893 Crs
-13124 3895 Crs
-13636 3947 Crs
-14147 3367 Crs
-3301 4046 Crs
+2379 2636 M
+351 0 V
+444 2036 M
+362 262 V
+363 -277 V
+1531 985 L
+362 -1 V
+362 0 V
+363 1 V
+362 0 V
+362 0 V
+362 -1 V
+363 0 V
+362 1 V
+362 0 V
+363 -1 V
+362 539 V
+5878 984 L
+362 1 V
+363 -1 V
+362 0 V
+362 551 V
+7689 984 L
+363 0 V
+362 0 V
+362 486 V
+9138 984 L
+363 0 V
+362 2 V
+444 2036 Crs
+806 2298 Crs
+1169 2021 Crs
+1531 985 Crs
+1893 984 Crs
+2255 984 Crs
+2618 985 Crs
+2980 985 Crs
+3342 985 Crs
+3704 984 Crs
+4067 984 Crs
+4429 985 Crs
+4791 985 Crs
+5154 984 Crs
+5516 1523 Crs
+5878 984 Crs
+6240 985 Crs
+6603 984 Crs
+6965 984 Crs
+7327 1535 Crs
+7689 984 Crs
+8052 984 Crs
+8414 984 Crs
+8776 1470 Crs
+9138 984 Crs
+9501 984 Crs
+9863 986 Crs
+2555 2636 Crs
 % End plot #2
 % Begin plot #3
 1.000 UP
@@ -1250,69 +1102,69 @@ LTb
 LTb
 0.34 0.71 0.91 C
 LCb setrgbcolor
-5663 4046 M
+4593 2636 M
 (PerpLE \(Heuristic\)) Lshow
 1.000 UP
 1.000 UL
 LTb
 0.34 0.71 0.91 C
-5180 4046 M
-399 0 V
-854 1615 M
-511 60 V
-512 29 V
-511 180 V
-511 57 V
-511 40 V
-512 -134 V
-511 126 V
-511 -30 V
-511 -97 V
-512 6 V
-511 -64 V
-511 84 V
-512 58 V
-511 -57 V
-511 136 V
-511 -171 V
-512 110 V
-511 46 V
-511 -136 V
-511 13 V
-512 67 V
-511 -28 V
-511 31 V
-511 -63 V
-512 -51 V
-511 47 V
-854 1615 Star
-1365 1675 Star
-1877 1704 Star
-2388 1884 Star
-2899 1941 Star
-3410 1981 Star
-3922 1847 Star
-4433 1973 Star
-4944 1943 Star
-5455 1846 Star
-5967 1852 Star
-6478 1788 Star
-6989 1872 Star
-7501 1930 Star
-8012 1873 Star
-8523 2009 Star
-9034 1838 Star
-9546 1948 Star
-10057 1994 Star
-10568 1858 Star
-11079 1871 Star
-11591 1938 Star
-12102 1910 Star
-12613 1941 Star
-13124 1878 Star
-13636 1827 Star
-14147 1874 Star
-5380 4046 Star
+4170 2636 M
+351 0 V
+444 2038 M
+362 264 V
+363 -278 V
+362 287 V
+362 -812 V
+362 281 V
+363 103 V
+362 -66 V
+362 145 V
+362 -119 V
+363 -118 V
+362 262 V
+362 -43 V
+363 -183 V
+362 -234 V
+362 30 V
+362 186 V
+363 -214 V
+362 -21 V
+362 28 V
+362 -47 V
+363 34 V
+362 -243 V
+362 204 V
+362 -71 V
+363 10 V
+362 256 V
+444 2038 Star
+806 2302 Star
+1169 2024 Star
+1531 2311 Star
+1893 1499 Star
+2255 1780 Star
+2618 1883 Star
+2980 1817 Star
+3342 1962 Star
+3704 1843 Star
+4067 1725 Star
+4429 1987 Star
+4791 1944 Star
+5154 1761 Star
+5516 1527 Star
+5878 1557 Star
+6240 1743 Star
+6603 1529 Star
+6965 1508 Star
+7327 1536 Star
+7689 1489 Star
+8052 1523 Star
+8414 1280 Star
+8776 1484 Star
+9138 1413 Star
+9501 1423 Star
+9863 1679 Star
+4346 2636 Star
 % End plot #3
 2.000 UL
 LTb
@@ -1320,11 +1172,11 @@ LCb setrgbcolor
 1.000 UL
 LTB
 LCb setrgbcolor
-854 4179 N
-0 -3031 V
-13293 0 V
-0 3031 V
-854 4179 L
+444 2759 N
+444 984 L
+9419 0 V
+0 1775 V
+-9419 0 V
 Z stroke
 1.000 UP
 1.000 UL

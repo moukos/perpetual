@@ -3,10 +3,11 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
         long sum=0;
         for( n=N-1; n>=0; n-- ){
                 for( m=N-1; m>= 0; m--){
-                        long leftEdgeEnd = buf2[2 * m];
-                        long rightEdgeEnd = buf2[2 * m + 1];
-                        if(leftEdgeEnd > buf0[n]){
-                                if(rightEdgeEnd  > 2*n+1 && leftEdgeEnd < 2*n+2)
+                        long leftEdgeEnd = buf0[n];
+                        long rightEdgeEnd1 = buf2[2 * m];
+                        long rightEdgeEnd2 = buf2[2 * m + 1];
+                        if(leftEdgeEnd < rightEdgeEnd1){
+			  if((rightEdgeEnd1 % 2 == 1) && (rightEdgeEnd2 <= 2 * n) &&(rightEdgeEnd2 % 2 == 0))
                                   sum++;
                         }
                 }

@@ -1,3 +1,5 @@
+import os
+import shutil
 import re
 import pysnooper
 import sys
@@ -9,22 +11,24 @@ def replacenth(string, sub, wanted, n):
     after = string[where:]
     after = after.replace(sub, wanted, 1)
     newString = before + after
-    print newString
+    #print newString
 
 def combin(ops1,ops2,ops3):
     combs = list()
     for i in ops1:
         for i in ops3:
             combs = combinations(list(i),ops3)
-            print(combs)
+            #print(combs)
 def main():
     data = ""
     operands1 = list()
     operands2 = list()
     operands3 = list()
     args = list()
-    with open(sys.argv[1],"r") as f:
-        data = f.read()
+    testname = sys.argv[1]
+    testfile = "../x86tso/" + testname + "/checker.c"
+    f = open(testfile,"r") 
+    data = f.read()
     data = data.replace("  <","<")
     data = data.replace("  >",">")
     data = data.replace(" <","<")
@@ -38,7 +42,7 @@ def main():
     data = data.replace("midEdgeEnd>","op2")
     data = data.replace("rightEdgeEnd<","op3")
     data = data.replace("rightEdgeEnd>","op3")
-    print(data)
+    #print(data)
     for i in range(left):
         operands1.append("leftEdgeEnd <")
         operands1.append("leftEdgeEnd >")
@@ -48,9 +52,9 @@ def main():
     for i in range(right):
         operands3.append("rightEdgeEnd <")
         operands3.append("rightEdgeEnd >")
-    print(operands1)
-    print(operands2)
-    print(operands3)
+    #print(operands1)
+    #print(operands2)
+    #print(operands3)
     levels = 2
     if mid > 0:
         levels = 3
@@ -68,12 +72,28 @@ def main():
                 temp2 = temp
                 temp2 = temp2.replace("op2",str(l))
                 args.append(temp2)
-                
+    for i in range(0,len(args)):
+        workingPath = "./" + testname + "_" + str(i)
+        access_rights = 0o755
+        try:
+            os.mkdir(workingPath, access_rights)
+        except OSError:
+            print("Could not create working directory.")
 
-    print(args[0])
-#    replacenth("hello","l","7",1)
+## Set up files
+# Copy files to working folder
 #
-#    replacenth("hello","l","7",2)
-#    replacenth("hello","7","72",1)
+        multiFiles = workingPath + "/"
+        perpleFiles = "../x86tso/" + testname 
+        src =  "../x86tso/" + testname + "/"
+        src_files = os.listdir(src)
+        for fname in src_files:
+            full_fname = os.path.join(src,fname)
+            if os.path.isfile(full_fname):
+                shutil.copy(full_fname, multiFiles)
+        checkerDest = multiFiles + "checker.c"
+        f = open(checkerDest,"w+")
+        f.write(args[i])
+        f.close()
 if __name__ == "__main__":
     main()

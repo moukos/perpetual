@@ -4,9 +4,9 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 	for( n=N-1; n>=0; n-- ){ 
 		for( m=N-1; m>= 0; m--){
 			long leftEdgeEnd = buf2[2 * m];
-			if(leftEdgeEnd < n){
+			if(leftEdgeEnd <= n){
 				long rightEdgeEnd = buf2[2 * m + 1];
-				if(rightEdgeEnd < buf1[1 * n + 0])
+				if(rightEdgeEnd == buf1[1 * n + 0]&& rightEdgeEnd <= n)
 				  sum++;
 			}
 		}

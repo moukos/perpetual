@@ -6,7 +6,7 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 			long leftEdgeEnd = buf0[1 * n + 0];
 			if(leftEdgeEnd < 1 * m + 1 - 1){
 				long rightEdgeEnd = buf1[1 * m + 0];
-				if(rightEdgeEnd > 1 * n + 1 - 1)
+				if(rightEdgeEnd >= 1 * n + 1 - 1)
 				  sum++;
 			}
 		}

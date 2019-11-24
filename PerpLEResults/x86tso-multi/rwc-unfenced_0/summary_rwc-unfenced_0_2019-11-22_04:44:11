@@ -1,0 +1,12 @@
+Test: rwc-unfenced_0
+Date: 2019-11-22 04:44:11
+
+Summary of PerpLE results (start = 1000, steps = 1, tries = 1)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+1000          |456829.000    |1.000         |0.000357861   |0.006064005   |0.000006505   |71136488.989  |2744.493      
+
+
+Summary of litmus results (start = 1000, steps = 1, tries = 1)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)|Number of Outcomes
+1000          |0.000         |0.000000000   |0.000         |6             
+

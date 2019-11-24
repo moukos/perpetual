@@ -1,0 +1,12 @@
+Test: wrc_3
+Date: 2019-11-23 07:00:35
+
+Summary of PerpLE results (start = 100, steps = 1, tries = 1)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+100           |2537.000      |0.000         |0.000230785   |0.000083509   |0.000001905   |8072059.918   |0.000         
+
+
+Summary of litmus results (start = 100, steps = 1, tries = 1)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)|Number of Outcomes
+100           |0.000         |0.000000000   |0.000         |5             
+

@@ -1,0 +1,12 @@
+Test: iriw_0
+Date: 2019-11-23 17:12:10
+
+Summary of PerpLE results (start = 100, steps = 1, tries = 1)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+100           |3169.000      |0.000         |0.000210675   |0.000080696   |0.000000859   |10876168.184  |0.000         
+
+
+Summary of litmus results (start = 100, steps = 1, tries = 1)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)|Number of Outcomes
+100           |0.000         |0.000000000   |0.000         |9             
+

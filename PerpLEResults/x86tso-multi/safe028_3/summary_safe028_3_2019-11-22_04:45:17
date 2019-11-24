@@ -1,0 +1,12 @@
+Test: safe028_3
+Date: 2019-11-22 04:45:17
+
+Summary of PerpLE results (start = 1000, steps = 1, tries = 1)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+1000          |59689.000     |1.000         |0.000407209   |0.006212751   |0.000007643   |9016519.737   |2410.498      
+
+
+Summary of litmus results (start = 1000, steps = 1, tries = 1)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)|Number of Outcomes
+1000          |0.000         |0.000000000   |0.000         |6             
+

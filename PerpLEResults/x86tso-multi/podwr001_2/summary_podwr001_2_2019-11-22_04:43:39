@@ -1,0 +1,12 @@
+Test: podwr001_2
+Date: 2019-11-22 04:43:39
+
+Summary of PerpLE results (start = 1000, steps = 1, tries = 1)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+1000          |328940680.000 |24.000        |0.000281389   |3.063544986   |0.000005308   |107362702.627 |83712.072     
+
+
+Summary of litmus results (start = 1000, steps = 1, tries = 1)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)|Number of Outcomes
+1000          |0.000         |0.000000000   |0.000         |6             
+

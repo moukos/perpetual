@@ -105,7 +105,7 @@ g.close()
 
 # Open output file
 now = datetime.datetime.now()
-outfilename = workingPath +  "/output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
+outfilename = workingPath +  "/outputL_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 f = open(outfilename, 'w+')
 
 ## Run tests with litmus and write file

@@ -27,7 +27,6 @@ P3:
 	movq (%rsi),%rbx
 	
 	# Store in correct location in bufs
-	MFENCE
 	movq %rax, (%r10, %rdx, 8)
 	incq %rdx
 	movq %rbx, (%r10, %rdx, 8)

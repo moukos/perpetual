@@ -26,7 +26,6 @@ P1:
 	movq (%r14),%rax
         movq %r8,(%r15)	
 	# Store in correct location in bufs
-	MFENCE
 	movq %rax, (%r10, %r13, 8)
 	MFENCE
 	# Increment loop index and writevals

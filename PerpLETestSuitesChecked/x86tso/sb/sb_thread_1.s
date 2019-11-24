@@ -26,7 +26,6 @@ P1:
 	# sb Thread 1
 	movq %r8,(%r14)
 	movq (%rsi),%rax
-	MFENCE
 	# Store in correct location in bufs
 	movq %rax, (%r10, %r13, 8)
 	MFENCE

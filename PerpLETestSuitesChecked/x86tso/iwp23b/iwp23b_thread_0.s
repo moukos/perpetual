@@ -28,7 +28,6 @@ P0:
 	movq (%rsi),%rax
 	
 	# Store in correct location in bufs
-	MFENCE
 	movq %rax, (%r10, %r13, 8)
 	MFENCE
 	# Increment loop index and writevals

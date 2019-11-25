@@ -1,7 +1,7 @@
 %!PS-Adobe-2.0 EPSF-2.0
 %%Title: single-outcomes-10k.eps
-%%Creator: gnuplot 5.2 patchlevel 7
-%%CreationDate: Sun Nov 24 14:19:34 2019
+%%Creator: gnuplot 4.6 patchlevel 2
+%%CreationDate: Mon Nov 25 02:14:42 2019
 %%DocumentFonts: (atend)
 %%BoundingBox: 50 50 554 194
 %%EndComments
@@ -18,7 +18,6 @@ gnudict begin
 /Dashlength 1 def
 /Landscape false def
 /Level1 false def
-/Level3 false def
 /Rounded false def
 /ClipToBoundingBox false def
 /SuppressPDFMark false def
@@ -30,11 +29,11 @@ gnudict begin
 %
 /vshift -60 def
 /dl1 {
-  10.0 Dashlength userlinewidth gnulinewidth div mul mul mul
+  10.0 Dashlength mul mul
   Rounded { currentlinewidth 0.75 mul sub dup 0 le { pop 0.01 } if } if
 } def
 /dl2 {
-  10.0 Dashlength userlinewidth gnulinewidth div mul mul mul
+  10.0 Dashlength mul mul
   Rounded { currentlinewidth 0.75 mul add } if
 } def
 /hpt_ 31.5 def
@@ -48,7 +47,7 @@ gnudict begin
   } if
 } def
 %
-% Gnuplot Prolog Version 5.2 (Dec 2017)
+% Gnuplot Prolog Version 4.6 (September 2012)
 %
 %/SuppressPDFMark true def
 %
@@ -65,11 +64,11 @@ gnudict begin
 /vpt2 vpt 2 mul def
 /hpt2 hpt 2 mul def
 /Lshow {currentpoint stroke M 0 vshift R 
-	Blacktext {gsave 0 setgray textshow grestore} {textshow} ifelse} def
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
 /Rshow {currentpoint stroke M dup stringwidth pop neg vshift R
-	Blacktext {gsave 0 setgray textshow grestore} {textshow} ifelse} def
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
 /Cshow {currentpoint stroke M dup stringwidth pop -2 div vshift R 
-	Blacktext {gsave 0 setgray textshow grestore} {textshow} ifelse} def
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
 /UP {dup vpt_ mul /vpt exch def hpt_ mul /hpt exch def
   /hpt2 hpt 2 mul def /vpt2 vpt 2 mul def} def
 /DL {Color {setrgbcolor Solid {pop []} if 0 setdash}
@@ -83,7 +82,7 @@ gnudict begin
 /PL {stroke userlinewidth setlinewidth
 	Rounded {1 setlinejoin 1 setlinecap} if} def
 3.8 setmiterlimit
-% Classic Line colors (version 5.0)
+% Default Line colors
 /LCw {1 1 1} def
 /LCb {0 0 0} def
 /LCa {0 0 0} def
@@ -96,21 +95,19 @@ gnudict begin
 /LC6 {0 0 0} def
 /LC7 {1 0.3 0} def
 /LC8 {0.5 0.5 0.5} def
-% Default dash patterns (version 5.0)
-/LTB {BL [] LCb DL} def
+% Default Line Types
 /LTw {PL [] 1 setgray} def
-/LTb {PL [] LCb DL} def
+/LTb {BL [] LCb DL} def
 /LTa {AL [1 udl mul 2 udl mul] 0 setdash LCa setrgbcolor} def
 /LT0 {PL [] LC0 DL} def
-/LT1 {PL [2 dl1 3 dl2] LC1 DL} def
-/LT2 {PL [1 dl1 1.5 dl2] LC2 DL} def
-/LT3 {PL [6 dl1 2 dl2 1 dl1 2 dl2] LC3 DL} def
-/LT4 {PL [1 dl1 2 dl2 6 dl1 2 dl2 1 dl1 2 dl2] LC4 DL} def
-/LT5 {PL [4 dl1 2 dl2] LC5 DL} def
-/LT6 {PL [1.5 dl1 1.5 dl2 1.5 dl1 1.5 dl2 1.5 dl1 6 dl2] LC6 DL} def
-/LT7 {PL [3 dl1 3 dl2 1 dl1 3 dl2] LC7 DL} def
-/LT8 {PL [2 dl1 2 dl2 2 dl1 6 dl2] LC8 DL} def
-/SL {[] 0 setdash} def
+/LT1 {PL [4 dl1 2 dl2] LC1 DL} def
+/LT2 {PL [2 dl1 3 dl2] LC2 DL} def
+/LT3 {PL [1 dl1 1.5 dl2] LC3 DL} def
+/LT4 {PL [6 dl1 2 dl2 1 dl1 2 dl2] LC4 DL} def
+/LT5 {PL [3 dl1 3 dl2 1 dl1 3 dl2] LC5 DL} def
+/LT6 {PL [2 dl1 2 dl2 2 dl1 6 dl2] LC6 DL} def
+/LT7 {PL [1 dl1 2 dl2 6 dl1 2 dl2 1 dl1 2 dl2] LC7 DL} def
+/LT8 {PL [2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 4 dl2] LC8 DL} def
 /Pnt {stroke [] 0 setdash gsave 1 setlinecap M 0 0 V stroke grestore} def
 /Dia {stroke [] 0 setdash 2 copy vpt add M
   hpt neg vpt neg V hpt vpt neg V
@@ -305,7 +302,7 @@ gnudict begin
   ColR ColG ColB setrgbcolor} def
 /BoxColFill {gsave Rec PolyFill} def
 /PolyFill {gsave Density fill grestore grestore} def
-/h {rlineto rlineto rlineto closepath gsave fill grestore stroke} bind def
+/h {rlineto rlineto rlineto gsave closepath fill grestore} bind def
 %
 % PostScript Level 1 Pattern Fill routine for rectangles
 % Usage: x y w h s a XX PatternFill
@@ -332,14 +329,9 @@ gnudict begin
 %
 /languagelevel where
  {pop languagelevel} {1} ifelse
-dup 2 lt
-	{/InterpretLevel1 true def
-	 /InterpretLevel3 false def}
-	{/InterpretLevel1 Level1 def
-	 2 gt
-	    {/InterpretLevel3 Level3 def}
-	    {/InterpretLevel3 false def}
-	 ifelse }
+ 2 lt
+	{/InterpretLevel1 true def}
+	{/InterpretLevel1 Level1 def}
  ifelse
 %
 % PostScript level 2 pattern fill definitions
@@ -428,29 +420,16 @@ Level1 {Level1PatternFill} {Level2PatternFill} ifelse
 /Symbol-Oblique /Symbol findfont [1 0 .167 1 0 0] makefont
 dup length dict begin {1 index /FID eq {pop pop} {def} ifelse} forall
 currentdict end definefont pop
-%
-/Metrics {ExtendTextBox Gswidth} def
-/Lwidth {currentpoint stroke M 0 vshift R Metrics} def
-/Rwidth {currentpoint stroke M dup stringwidth pop neg vshift R Metrics} def
-/Cwidth {currentpoint stroke M dup stringwidth pop -2 div vshift R Metrics} def
-/GLwidth {currentpoint stroke M 0 vshift R {ExtendTextBox} forall} def
-/GRwidth {currentpoint stroke M dup Gwidth vshift R {ExtendTextBox} forall} def
-/GCwidth {currentpoint stroke M dup Gwidth 2 div vshift R {ExtendTextBox} forall} def
-/GLwidth2 {0 Gwidth AddGlyphWidth} def
-/GRwidth2 {Gwidth -1 mul 0 AddGlyphWidth} def
-/GCwidth2 {Gwidth 2 div dup -1 mul AddGlyphWidth} def
-/AddGlyphWidth { dup TBx2 gt {userdict /TBx2 3 -1 roll put} {pop} ifelse
-                 dup TBx1 lt {userdict /TBx1 3 -1 roll put} {pop} ifelse } def
 /MFshow {
    { dup 5 get 3 ge
      { 5 get 3 eq {gsave} {grestore} ifelse }
      {dup dup 0 get findfont exch 1 get scalefont setfont
      [ currentpoint ] exch dup 2 get 0 exch R dup 5 get 2 ne {dup dup 6
-     get exch 4 get {textshow} {Metrics pop 0 R} ifelse }if dup 5 get 0 eq
+     get exch 4 get {Gshow} {stringwidth pop 0 R} ifelse }if dup 5 get 0 eq
      {dup 3 get {2 get neg 0 exch R pop} {pop aload pop M} ifelse} {dup 5
-     get 1 eq {dup 2 get exch dup 3 get exch 6 get Gswidth pop -2 div
-     dup 0 R} {dup 6 get Gswidth pop -2 div 0 R 6 get
-     textshow 2 index {aload pop M neg 3 -1 roll neg R pop pop} {pop pop pop
+     get 1 eq {dup 2 get exch dup 3 get exch 6 get stringwidth pop -2 div
+     dup 0 R} {dup 6 get stringwidth pop -2 div 0 R 6 get
+     show 2 index {aload pop M neg 3 -1 roll neg R pop pop} {pop pop pop
      pop aload pop M} ifelse }ifelse }ifelse }
      ifelse }
    forall} def
@@ -478,39 +457,14 @@ systemdict /pdfmark known not {
 SDict begin [
   /Title (single-outcomes-10k.eps)
   /Subject (gnuplot plot)
-  /Creator (gnuplot 5.2 patchlevel 7)
+  /Creator (gnuplot 4.6 patchlevel 2)
+  /Author (themis)
 %  /Producer (gnuplot)
 %  /Keywords ()
-  /CreationDate (Sun Nov 24 14:19:34 2019)
+  /CreationDate (Mon Nov 25 02:14:42 2019)
   /DOCINFO pdfmark
 end
 } ifelse
-%
-% Support for boxed text - Ethan A Merritt Sep 2016
-%
-/InitTextBox { userdict /TBy2 3 -1 roll put userdict /TBx2 3 -1 roll put
-           userdict /TBy1 3 -1 roll put userdict /TBx1 3 -1 roll put
-	   /Boxing true def } def
-/ExtendTextBox { dup type /stringtype eq
-    { Boxing { gsave dup false charpath pathbbox
-      dup TBy2 gt {userdict /TBy2 3 -1 roll put} {pop} ifelse
-      dup TBx2 gt {userdict /TBx2 3 -1 roll put} {pop} ifelse
-      dup TBy1 lt {userdict /TBy1 3 -1 roll put} {pop} ifelse
-      dup TBx1 lt {userdict /TBx1 3 -1 roll put} {pop} ifelse
-      grestore } if }
-    {} ifelse} def
-/PopTextBox { newpath TBx1 TBxmargin sub TBy1 TBymargin sub M
-               TBx1 TBxmargin sub TBy2 TBymargin add L
-	       TBx2 TBxmargin add TBy2 TBymargin add L
-	       TBx2 TBxmargin add TBy1 TBymargin sub L closepath } def
-/DrawTextBox { PopTextBox stroke /Boxing false def} def
-/FillTextBox { gsave PopTextBox fill grestore /Boxing false def} def
-0 0 0 0 InitTextBox
-/TBxmargin 20 def
-/TBymargin 20 def
-/Boxing false def
-/textshow { ExtendTextBox Gshow } def
-%
 end
 %%EndProlog
 %%Page: 1 1
@@ -523,13 +477,16 @@ doclip
 newpath
 (Garamond-Bold) findfont 180 scalefont setfont
 BackgroundColor 0 lt 3 1 roll 0 lt exch 0 lt or or not {BackgroundColor C 1.000 0 0 10080.00 2880.00 BoxColFill} if
+/Garamond-Bold findfont 180 scalefont setfont
+/vshift -60 def
+/Garamond-Bold findfont 180 scalefont setfont
+/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 2.000 UL
 LTa
-0.73 0.73 0.73 C
-1098 1096 M
+0.73 0.73 0.73 C 1098 1096 M
 8657 0 V
 stroke
 1.000 UL
@@ -543,280 +500,126 @@ stroke
 990 1096 M
 [ [(Garamond-Bold) 130.0 0.0 true true 0 ( 0.01)]
 ] -43.3 MRshow
-/Garamond-Bold findfont 180 scalefont setfont
-/vshift -60 def
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 1269 M
-31 0 V
-8626 0 R
--31 0 V
--8626 45 R
-31 0 V
-8626 0 R
--31 0 V
--8626 27 R
-31 0 V
-8626 0 R
--31 0 V
--8626 20 R
-31 0 V
-8626 0 R
--31 0 V
--8626 15 R
-31 0 V
-8626 0 R
--31 0 V
--8626 13 R
-31 0 V
-8626 0 R
--31 0 V
--8626 10 R
-31 0 V
-8626 0 R
--31 0 V
--8626 9 R
+1098 1253 M
 31 0 V
 8626 0 R
 -31 0 V
 stroke
 2.000 UL
 LTa
-0.73 0.73 0.73 C
-1098 1417 M
+0.73 0.73 0.73 C 1098 1409 M
 8657 0 V
 stroke
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 1417 M
+1098 1409 M
 63 0 V
 8594 0 R
 -63 0 V
 stroke
-990 1417 M
+990 1409 M
 [ [(Garamond-Bold) 130.0 0.0 true true 0 ( 1)]
 ] -43.3 MRshow
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 1590 M
-31 0 V
-8626 0 R
--31 0 V
--8626 45 R
-31 0 V
-8626 0 R
--31 0 V
--8626 27 R
-31 0 V
-8626 0 R
--31 0 V
--8626 20 R
-31 0 V
-8626 0 R
--31 0 V
--8626 15 R
-31 0 V
-8626 0 R
--31 0 V
--8626 12 R
-31 0 V
-8626 0 R
--31 0 V
--8626 11 R
-31 0 V
-8626 0 R
--31 0 V
--8626 9 R
+1098 1566 M
 31 0 V
 8626 0 R
 -31 0 V
 stroke
 2.000 UL
 LTa
-0.73 0.73 0.73 C
-1098 1737 M
+0.73 0.73 0.73 C 1098 1723 M
 8657 0 V
 stroke
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 1737 M
+1098 1723 M
 63 0 V
 8594 0 R
 -63 0 V
 stroke
-990 1737 M
+990 1723 M
 [ [(Garamond-Bold) 130.0 0.0 true true 0 ( 100)]
 ] -43.3 MRshow
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 1910 M
-31 0 V
-8626 0 R
--31 0 V
--8626 45 R
-31 0 V
-8626 0 R
--31 0 V
--8626 28 R
-31 0 V
-8626 0 R
--31 0 V
--8626 19 R
-31 0 V
-8626 0 R
--31 0 V
--8626 15 R
-31 0 V
-8626 0 R
--31 0 V
--8626 13 R
-31 0 V
-8626 0 R
--31 0 V
--8626 11 R
-31 0 V
-8626 0 R
--31 0 V
--8626 9 R
+1098 1880 M
 31 0 V
 8626 0 R
 -31 0 V
 stroke
 2.000 UL
 LTa
-0.73 0.73 0.73 C
-1098 2058 M
+0.73 0.73 0.73 C 1098 2036 M
 8657 0 V
 stroke
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 2058 M
+1098 2036 M
 63 0 V
 8594 0 R
 -63 0 V
 stroke
-990 2058 M
+990 2036 M
 [ [(Garamond-Bold) 130.0 0.0 true true 0 ( 10000)]
 ] -43.3 MRshow
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 2231 M
-31 0 V
-8626 0 R
--31 0 V
--8626 45 R
-31 0 V
-8626 0 R
--31 0 V
--8626 27 R
-31 0 V
-8626 0 R
--31 0 V
--8626 20 R
-31 0 V
-8626 0 R
--31 0 V
--8626 15 R
-31 0 V
-8626 0 R
--31 0 V
--8626 13 R
-31 0 V
-8626 0 R
--31 0 V
--8626 10 R
-31 0 V
-8626 0 R
--31 0 V
--8626 9 R
+1098 2193 M
 31 0 V
 8626 0 R
 -31 0 V
 stroke
 2.000 UL
 LTa
-0.73 0.73 0.73 C
-1098 2378 M
+0.73 0.73 0.73 C 1098 2350 M
 8657 0 V
 stroke
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 2378 M
+1098 2350 M
 63 0 V
 8594 0 R
 -63 0 V
 stroke
-990 2378 M
-[ [(Garamond-Bold) 130.0 0.0 true true 0 ( 1x10)]
-[(Garamond-Bold) 104.0 65.0 true true 0 (6)]
-] -56.3 MRshow
-/Garamond-Bold findfont 180 scalefont setfont
+990 2350 M
+[ [(Garamond-Bold) 130.0 0.0 true true 0 ( 1e+06)]
+] -43.3 MRshow
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 2551 M
-31 0 V
-8626 0 R
--31 0 V
--8626 46 R
-31 0 V
-8626 0 R
--31 0 V
--8626 27 R
-31 0 V
-8626 0 R
--31 0 V
--8626 19 R
-31 0 V
-8626 0 R
--31 0 V
--8626 16 R
-31 0 V
-8626 0 R
--31 0 V
--8626 12 R
-31 0 V
-8626 0 R
--31 0 V
--8626 11 R
-31 0 V
-8626 0 R
--31 0 V
--8626 9 R
+1098 2506 M
 31 0 V
 8626 0 R
 -31 0 V
 stroke
 2.000 UL
 LTa
-0.73 0.73 0.73 C
-1098 2699 M
+0.73 0.73 0.73 C 1098 2663 M
 8657 0 V
 stroke
 1.000 UL
 LTb
 LCb setrgbcolor
-1098 2699 M
+1098 2663 M
 63 0 V
 8594 0 R
 -63 0 V
 stroke
-990 2699 M
-[ [(Garamond-Bold) 130.0 0.0 true true 0 ( 1x10)]
-[(Garamond-Bold) 104.0 65.0 true true 0 (8)]
-] -56.3 MRshow
-/Garamond-Bold findfont 180 scalefont setfont
+990 2663 M
+[ [(Garamond-Bold) 130.0 0.0 true true 0 ( 1e+08)]
+] -43.3 MRshow
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -827,7 +630,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (amd10)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -838,7 +640,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (amd3)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -849,7 +650,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (amd5)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -860,7 +660,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (amd5+staleld)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -871,7 +670,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (co-iriw)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -882,7 +680,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (iwp23b)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -893,7 +690,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (iwp24)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -904,7 +700,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (lb)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -915,7 +710,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (mp)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -926,7 +720,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (mp+fences)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -937,7 +730,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (mp+staleld)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -948,7 +740,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (n1)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -959,7 +750,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (n4)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -970,7 +760,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (n5)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -981,7 +770,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (podwr000)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -992,7 +780,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (podwr001)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1003,7 +790,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (rfi009)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1014,7 +800,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (rfi013)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1025,7 +810,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (rfi015)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1036,7 +820,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (rfi017)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1047,7 +830,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (rwc-fenced)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1058,7 +840,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (rwc-unfenced)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1069,7 +850,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (safe006)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1080,7 +860,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (safe022)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1091,7 +870,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (safe036)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1102,7 +880,6 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (sb)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
@@ -1113,448 +890,369 @@ currentpoint gsave translate -45 rotate 0 0 moveto
 [ [(Garamond-Bold) 130.0 0.0 true true 0 (wrc)]
 ] -43.3 MLshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 1.000 UL
 LTb
 LCb setrgbcolor
 1.000 UL
-LTB
+LTb
 LCb setrgbcolor
-1098 2699 N
-0 -1603 V
+1098 2663 N
+0 -1567 V
 8657 0 V
-0 1603 V
+0 1567 V
 -8657 0 V
 Z stroke
-1.000 UP
-1.000 UL
-LTb
 LCb setrgbcolor
-LCb setrgbcolor
-252 1897 M
+144 1879 M
 currentpoint gsave translate -270 rotate 0 0 moveto
 [ [(Garamond-Bold) 180.0 0.0 true true 0 (Outcome Occurrences)]
 ] -60.0 MCshow
 grestore
-/Garamond-Bold findfont 180 scalefont setfont
 LTb
+1.000 UP
+1.000 UL
+LTb
+LCb setrgbcolor
 % Begin plot #1
 1.000 UL
-LTb
-0.29 0.01 0.63 C
+LT0
+0.29 0.01 0.63 C /Garamond-Bold findfont 180 scalefont setfont
 LCb setrgbcolor
-3150 2546 M
-(PerpLE \(Counter\)) Rshow
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 3258 2501 495 90 BoxColFill
+3150 2510 M
+(PerpLE \(Heuristic\)) Rshow
+LT0
+0.29 0.01 0.63 C 1.000 3258 2465 495 90 BoxColFill
 LCb setrgbcolor
-3258 2501 N
+3258 2465 N
 495 0 V
 0 90 V
 -495 0 V
 0 -90 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 1604 1096 71 825 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 1604 1096 71 806 BoxColFill
 LCb setrgbcolor
 1604 1096 N
-0 824 V
+0 805 V
 70 0 V
-0 -824 V
+0 -805 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 2532 1096 70 210 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 2532 1096 70 205 BoxColFill
 LCb setrgbcolor
 2532 1096 N
-0 209 V
+0 204 V
 69 0 V
-0 -209 V
+0 -204 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 3150 1096 71 789 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 3150 1096 71 772 BoxColFill
 LCb setrgbcolor
 3150 1096 N
-0 788 V
+0 771 V
 70 0 V
-0 -788 V
+0 -771 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 4696 1096 71 1089 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 4696 1096 71 1065 BoxColFill
 LCb setrgbcolor
 4696 1096 N
-0 1088 V
+0 1064 V
 70 0 V
-0 -1088 V
+0 -1064 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 5005 1096 71 1334 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 5005 1096 71 1305 BoxColFill
 LCb setrgbcolor
 5005 1096 N
-0 1333 V
+0 1304 V
 70 0 V
-0 -1333 V
+0 -1304 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 5624 1096 70 830 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 5624 1096 70 812 BoxColFill
 LCb setrgbcolor
 5624 1096 N
-0 829 V
+0 811 V
 69 0 V
-0 -829 V
+0 -811 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 5933 1096 70 845 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 5933 1096 70 826 BoxColFill
 LCb setrgbcolor
 5933 1096 N
-0 844 V
+0 825 V
 69 0 V
-0 -844 V
+0 -825 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 6242 1096 71 506 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 6242 1096 71 494 BoxColFill
 LCb setrgbcolor
 6242 1096 N
-0 505 V
+0 493 V
 70 0 V
-0 -505 V
+0 -493 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 6551 1096 71 739 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 6551 1096 71 722 BoxColFill
 LCb setrgbcolor
 6551 1096 N
-0 738 V
+0 721 V
 70 0 V
-0 -738 V
+0 -721 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 6860 1096 71 528 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 6860 1096 71 517 BoxColFill
 LCb setrgbcolor
 6860 1096 N
-0 527 V
+0 516 V
 70 0 V
-0 -527 V
+0 -516 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 7169 1096 71 798 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 7169 1096 71 780 BoxColFill
 LCb setrgbcolor
 7169 1096 N
-0 797 V
+0 779 V
 70 0 V
-0 -797 V
+0 -779 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 7788 1096 70 238 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 7788 1096 70 232 BoxColFill
 LCb setrgbcolor
 7788 1096 N
-0 237 V
+0 231 V
 69 0 V
-0 -237 V
+0 -231 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-1.000 9025 1096 70 828 BoxColFill
+LT0
+0.29 0.01 0.63 C 1.000 9025 1096 70 809 BoxColFill
 LCb setrgbcolor
 9025 1096 N
-0 827 V
+0 808 V
 69 0 V
-0 -827 V
+0 -808 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.29 0.01 0.63 C
-% End plot #1
+LT0
+0.29 0.01 0.63 C % End plot #1
 % Begin plot #2
 1.000 UL
-LTb
-0.02 0.62 0.46 C
+LT1
+0.02 0.62 0.46 C /Garamond-Bold findfont 180 scalefont setfont
 LCb setrgbcolor
-5805 2546 M
-(PerpLE \(Heuristic\)) Rshow
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 5913 2501 495 90 BoxColFill
+5805 2510 M
+(litmus7) Rshow
+LT1
+0.02 0.62 0.46 C 1.000 5913 2465 495 90 BoxColFill
 LCb setrgbcolor
-5913 2501 N
+5913 2465 N
 495 0 V
 0 90 V
 -495 0 V
 0 -90 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 1682 1096 70 383 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 1682 1096 70 374 BoxColFill
 LCb setrgbcolor
 1682 1096 N
-0 382 V
+0 373 V
 69 0 V
-0 -382 V
+0 -373 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 3227 1096 71 789 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 3227 1096 71 772 BoxColFill
 LCb setrgbcolor
 3227 1096 N
-0 788 V
+0 771 V
 70 0 V
-0 -788 V
+0 -771 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 5701 1096 70 830 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 5701 1096 70 811 BoxColFill
 LCb setrgbcolor
 5701 1096 N
-0 829 V
+0 810 V
 69 0 V
-0 -829 V
+0 -810 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 6010 1096 71 836 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 6010 1096 71 817 BoxColFill
 LCb setrgbcolor
 6010 1096 N
-0 835 V
+0 816 V
 70 0 V
-0 -835 V
+0 -816 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 6319 1096 71 481 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 6319 1096 71 470 BoxColFill
 LCb setrgbcolor
 6319 1096 N
-0 480 V
+0 469 V
 70 0 V
-0 -480 V
+0 -469 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 6628 1096 71 739 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 6628 1096 71 722 BoxColFill
 LCb setrgbcolor
 6628 1096 N
-0 738 V
+0 721 V
 70 0 V
-0 -738 V
+0 -721 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 6938 1096 70 528 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 6938 1096 70 517 BoxColFill
 LCb setrgbcolor
 6938 1096 N
-0 527 V
+0 516 V
 69 0 V
-0 -527 V
+0 -516 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 7247 1096 70 790 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 7247 1096 70 773 BoxColFill
 LCb setrgbcolor
 7247 1096 N
-0 789 V
+0 772 V
 69 0 V
-0 -789 V
+0 -772 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 7865 1096 71 238 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 7865 1096 71 232 BoxColFill
 LCb setrgbcolor
 7865 1096 N
-0 237 V
+0 231 V
 70 0 V
-0 -237 V
+0 -231 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-1.000 9102 1096 70 827 BoxColFill
+LT1
+0.02 0.62 0.46 C 1.000 9102 1096 70 809 BoxColFill
 LCb setrgbcolor
 9102 1096 N
-0 826 V
+0 808 V
 69 0 V
-0 -826 V
+0 -808 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.02 0.62 0.46 C
-% End plot #2
+LT1
+0.02 0.62 0.46 C % End plot #2
 % Begin plot #3
 1.000 UL
-LTb
-0.90 0.42 0.36 C
+LT2
+0.90 0.42 0.36 C /Garamond-Bold findfont 180 scalefont setfont
 LCb setrgbcolor
-8460 2546 M
+8460 2510 M
 (litmus7) Rshow
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 8568 2501 495 90 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 8568 2465 495 90 BoxColFill
 LCb setrgbcolor
-8568 2501 N
+8568 2465 N
 495 0 V
 0 90 V
 -495 0 V
 0 -90 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 2996 1096 70 963 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 2996 1096 70 941 BoxColFill
 LCb setrgbcolor
 2996 1096 N
-0 962 V
+0 940 V
 69 0 V
-0 -962 V
+0 -940 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 3305 1096 70 340 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 3305 1096 70 332 BoxColFill
 LCb setrgbcolor
 3305 1096 N
-0 339 V
+0 331 V
 69 0 V
-0 -339 V
+0 -331 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 5778 1096 71 328 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 5778 1096 71 321 BoxColFill
 LCb setrgbcolor
 5778 1096 N
-0 327 V
+0 320 V
 70 0 V
-0 -327 V
+0 -320 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 6087 1096 71 512 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 6087 1096 71 500 BoxColFill
 LCb setrgbcolor
 6087 1096 N
-0 511 V
+0 499 V
 70 0 V
-0 -511 V
+0 -499 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 6397 1096 70 161 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 6397 1096 70 158 BoxColFill
 LCb setrgbcolor
 6397 1096 N
-0 160 V
+0 157 V
 69 0 V
-0 -160 V
+0 -157 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 6706 1096 70 258 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 6706 1096 70 252 BoxColFill
 LCb setrgbcolor
 6706 1096 N
-0 257 V
+0 251 V
 69 0 V
-0 -257 V
+0 -251 V
 -69 0 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 7942 1096 71 161 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 7942 1096 71 158 BoxColFill
 LCb setrgbcolor
 7942 1096 N
-0 160 V
+0 157 V
 70 0 V
-0 -160 V
+0 -157 V
 -70 0 V
 Z stroke
-1.000 UL
-LTb
-0.90 0.42 0.36 C
-1.000 9179 1096 71 161 BoxColFill
+LT2
+0.90 0.42 0.36 C 1.000 9179 1096 71 158 BoxColFill
 LCb setrgbcolor
 9179 1096 N
-0 160 V
+0 157 V
 70 0 V
-0 -160 V
+0 -157 V
 -70 0 V
 Z stroke
+LT2
+0.90 0.42 0.36 C % End plot #3
 1.000 UL
 LTb
-0.90 0.42 0.36 C
-% End plot #3
-2.000 UL
-LTb
 LCb setrgbcolor
-1.000 UL
-LTB
-LCb setrgbcolor
-1098 2699 N
-0 -1603 V
+1098 2663 N
+0 -1567 V
 8657 0 V
-0 1603 V
+0 1567 V
 -8657 0 V
 Z stroke
 1.000 UP

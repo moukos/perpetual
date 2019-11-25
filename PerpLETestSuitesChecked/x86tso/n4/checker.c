@@ -10,7 +10,7 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 				long rightEdgeEnd1 = buf1[2 * m + 0];
 				long rightEdgeEnd2 = buf1[2 * m + 1];
 				if((rightEdgeEnd1 < 2 * n + 2) && (rightEdgeEnd1 % 2 == 1)&&
-			           (rightEdgeEnd2 >= 2 * m + 2) && (rightEdgeEnd2 % 2 == 0))
+			           (rightEdgeEnd2 >= 2 * m + 2) && (rightEdgeEnd2 % 2 == 0A))
 				  sum++;
 			
 			}

@@ -2,7 +2,7 @@ long condition2(volatile long *buf0, volatile long *buf1, volatile long *buf2, v
 	long n=0, sum=0;
 	long numberUp = 0;
 	for(n = 0; n < N; n++ ){ 
-		if(buf0[n] == n || buf1[n] == n)
+		if(buf0[n] == n+1 || buf1[n] == n+1)
 			sum++;
 	}
 	return sum;

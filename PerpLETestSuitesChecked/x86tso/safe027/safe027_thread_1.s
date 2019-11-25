@@ -32,6 +32,7 @@ P1:
 	movq %rbx, (%r10, %rdx, 8)
 	MFENCE
 	# Increment loop index and writevals
+	incq %rdx
 	incq %r13
 
 .LOOPEND:

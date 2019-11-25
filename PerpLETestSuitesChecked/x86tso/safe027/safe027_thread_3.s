@@ -33,6 +33,7 @@ P3:
 	MFENCE
 	# Increment loop index and writevals
 	incq %r13
+	incq %rdx
 
 .LOOPEND:
 	cmpq %r11,%r13

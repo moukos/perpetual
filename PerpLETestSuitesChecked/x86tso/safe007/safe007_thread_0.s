@@ -23,7 +23,7 @@ P0:
 	jmp .LOOPEND
 
 .LOOPSTART:
-	# podwr001 Thread 0
+	# safe007 Thread 0
 	movq (%rsi),%rax
         movq %r8,(%r14)	
 	# Store in correct location in bufs

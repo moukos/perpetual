@@ -33,7 +33,7 @@ P1:
 	# Increment loop index and writevals
 	incq %r13
 	incq %rdx
-	addq $2, %r8
+	addq $1, %r8
 	addq $2, %r9
 
 .LOOPEND:

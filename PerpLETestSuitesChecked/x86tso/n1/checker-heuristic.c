@@ -2,7 +2,7 @@ long condition2(volatile long *buf0, volatile long *buf1, volatile long *buf2, v
 	long n=0, sum=0;
 
 	for (n=N-1; n>=0; n--) {
-	  if((buf0[buf2[2 * n + 1] /2] < buf2[2 *n]) && (buf2[2 * n] % 2  == 1) && (buf2[2 * n + 1] % 2 == 1))
+	  if((buf0[buf2[2 * n + 1] /2] < (buf2[2 * n] / 2 + 1)) && (buf2[2 * n] % 2  == 1) && (buf2[2 * n + 1] % 2 == 0))
 	    sum++;
 	}
 	

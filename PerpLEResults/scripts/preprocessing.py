@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import glob
-import statistics
+#import statistics
 import os
 import numpy as np
 import matplotlib.pyplot as plt

@@ -2,7 +2,7 @@ long condition(volatile long *buf0, volatile long *buf1, volatile long *buf2, vo
 	long n=0, m=0, p=0, o=0;
 	long sum=0;
 	for( n=N-1; n>=0; n-- ){ 
-		for( m=0; m>= 0; m--){
+		for( m=N-1; m>= 0; m--){
 			long leftEdgeEnd1 = buf2[2 * n];
 			long leftEdgeEnd2 = buf2[2 * n + 1];
 			long rightEdgeEnd1 = buf3[2 * m];

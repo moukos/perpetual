@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import glob
-#import statistics
+import statistics
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -132,9 +132,9 @@ def mlp():
 def heuristic_accuracy(perple_data, litmus_data, testnames):
     retstr = ""
     ratios = [list() for x in range(2)]
-    retstr += "PerpLE Heuristic\n"
-    perple_perf = returnSummary(perple_data,3,1)
-    litmus_perf = returnSummary(litmus_data,3,2)
+    retstr += "\tPerpLE Heuristic\n"
+    perple_perf = returnSummary(perple_data,2,1)
+    litmus_perf = returnSummary(litmus_data,2,2)
     perple_perf.append(litmus_perf[1])
     perple_perf.append(litmus_perf[2])
     perple_perf.append(testnames)
@@ -143,7 +143,7 @@ def heuristic_accuracy(perple_data, litmus_data, testnames):
             ratios[0].append(float(perple_perf[2][i]/perple_perf[1][i]))
             ratios[1].append(perple_perf[12][i])
             print(perple_perf[1][i],perple_perf[2][i],perple_perf[12][i])
-    plot_data = returnSorted(ratios,0)
+    plot_data = returnSorted(ratios,1)
     for i in range(0,len(plot_data[0])):
         retstr += plot_data[1][i]
         retstr += "\t"
@@ -160,10 +160,102 @@ def heuristic_accuracy(perple_data, litmus_data, testnames):
     retstr += "\n"
     return retstr
 
+
+
+def georates(perple_data, litmus_data, testnames):
+    # outcomes with 10000 iterations, start from 100
+    retstr = ""
+    retstr += "\tPerpLE (Counter)\tPerpLE (Heuristic)\tlitmus7\n"
+    for i in range(0,8):
+        perple_perf = returnSummary(perple_data,i,1)
+        litmus_perf = returnSummary(litmus_data,i,2)
+        perple_perf.append(litmus_perf[1])
+        perple_perf.append(litmus_perf[2])
+        perple_perf.append(litmus_perf[3])
+        perple_perf.append(testnames)
+        plot_data = returnSorted(perple_perf,13)
+        l1 = list(plot_data[12])
+        l2 = list(plot_data[6])
+        l3 = list(plot_data[7])
+        l1 = [i for i in l1 if i != 0.0]
+        l2 = [i for i in l2 if i != 0.0]
+        l3 = [i for i in l3 if i != 0.0]
+        #print(l1)
+        #print(l2)
+        #print(l3)
+        if l1:
+            geolitmus = geo_mean(l1)
+        else:
+            geolitmus = 0.0
+        print(geolitmus)
+        if l2:
+            geoChecker = geo_mean(l2)
+        else:
+            geoChecker = 0.0
+        print(geoChecker)
+        if l3:
+            geoHeuristic = geo_mean(l3)
+        else:
+            geoHeuristic = 0.0
+        print(geoHeuristic)
+        retstr += str(int(plot_data[0][0]))
+        retstr += "\t"
+        retstr += str(geoChecker) # select 100000 + runtime
+        retstr += "\t"
+        retstr += str(geoHeuristic)
+        retstr += "\t"
+        retstr += str(geolitmus)
+        retstr += "\t"
+        if geolitmus>0:
+            retstr += str(geoHeuristic/geolitmus)
+        else:
+            retstr += str(0)
+        retstr += "\n"
+    return retstr
+
+
+def rates(perple_data, litmus_data, testnames):
+    # outcomes with 10000 iterations, start from 100
+    retstr = ""
+    retstr += "\tPerpLE (Counter)\tPerpLE (Heuristic)\tlitmus7\n"
+    perple_perf = returnSummary(perple_data,2,1)
+    litmus_perf = returnSummary(litmus_data,2,2)
+    perple_perf.append(litmus_perf[1])
+    perple_perf.append(litmus_perf[2])
+    print(litmus_perf[3])
+    perple_perf.append(litmus_perf[3])
+    perple_perf.append(testnames)
+    plot_data = returnSorted(perple_perf,13)
+    for i in range(0,len(plot_data[12])):
+        if perple_perf[1][i] > 0:
+            retstr += plot_data[13][i]
+            retstr += "\t"
+            retstr += str(plot_data[6][i]) # select 100000 + runtime
+            retstr += "\t"
+            retstr += str(plot_data[7][i])
+            retstr += "\t"
+            retstr += str(plot_data[12][i])
+            retstr += "\n"
+#    retstr += "Geomean\t"
+#    geolitmus = geo_mean(plot_data[11])
+#    geoChecker = geo_mean(plot_data[8])
+#    geoHeuristic = geo_mean(plot_data[9])
+#    retstr += str(geolitmus)
+#    retstr += "\t"
+#    retstr += str(geoChecker)
+#    retstr += "\t"
+#    retstr += str(geoHeuristic)
+#    retstr += "\n"
+    return retstr
+
+
+
+
+
 def single_outcomes(perple_data, litmus_data, testnames):
     # outcomes with 10000 iterations, start from 100
     retstr = ""
-    retstr += ",PerpLE (Counter),PerpLE (Heuristic),litmus7\n"
+    retstr += "\tPerpLE (Counter)\tPerpLE (Heuristic)\tlitmus7\n"
     perple_perf = returnSummary(perple_data,2,1)
     litmus_perf = returnSummary(litmus_data,2,2)
     perple_perf.append(litmus_perf[1])
@@ -172,11 +264,11 @@ def single_outcomes(perple_data, litmus_data, testnames):
     plot_data = returnSorted(perple_perf,12)
     for i in range(0,len(plot_data[12])):
         retstr += plot_data[12][i]
-        retstr += ","
+        retstr += "\t"
         retstr += str(plot_data[1][i]) # select 100000 + runtime
-        retstr += ","
+        retstr += "\t"
         retstr += str(plot_data[2][i])
-        retstr += ","
+        retstr += "\t"
         retstr += str(plot_data[10][i])
         retstr += "\n"
 #    retstr += "Geomean\t"
@@ -263,7 +355,7 @@ def returnSummary(array,size,mode):
     if mode==1:
         sArray = [list() for x in range(10)]
     if mode==2:
-        sArray = [list() for x in range(3)]
+        sArray = [list() for x in range(4)]
     for i in range(0,len(array)):
         for j in range(0,len(sArray)):
             if j < 8:
@@ -308,6 +400,8 @@ def main():
                 resultcnt = 2 #parse Litmus
             elif(rawdata and resultcnt == 1 and line.find("Iterations") < 0): 
                 for field in rawdata:
+               #     print(field)
+                #    print(latest_file)
                     field = dataline.append(float(field))
                 perple.append(dataline)
             elif(rawdata and resultcnt == 2 and line.find("Iterations") < 0):
@@ -317,7 +411,9 @@ def main():
         perple_data.append(perple)
         litmus_data.append(litmus)
         folderCnt += 1
+        #print(latest_file,len(perple),len(litmus))
     retstr =""
+    
 # runtimes with 10000 iterations, start from 100
     f = open("runtimes-10k.csv","w+")
     retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
@@ -326,7 +422,7 @@ def main():
     perple_perf.append(litmus_perf[1])
     perple_perf.append(litmus_perf[2])
     perple_perf.append(testnames)
-    plot_data = returnSorted(perple_perf,8)
+    plot_data = returnSorted(perple_perf,12)
     for i in range(0,len(plot_data[12])):
         retstr += plot_data[12][i]
         retstr += "\t"
@@ -388,7 +484,7 @@ def main():
     perple_perf.append(litmus_perf[1])
     perple_perf.append(litmus_perf[2])
     perple_perf.append(testnames)
-    plot_data = returnSorted(perple_perf,8)
+    plot_data = returnSorted(perple_perf,12)
     for i in range(0,len(plot_data[12])):
         retstr += plot_data[12][i]
         retstr += "\t"
@@ -440,6 +536,8 @@ def main():
     retstr += "\n"
     f.write(retstr)
     f.close()
+    perple_perf = returnSummary(perple_data,2,1)
+    litmus_perf = returnSummary(litmus_data,2,2)
     means_str = generate_means(perple_data,litmus_data,testnames)
     f = open("averages-scaling.csv","w+")
     f.write(means_str)
@@ -452,6 +550,15 @@ def main():
     f = open("single-outcomes.csv","w+")
     f.write(sing_outcomes)
     f.close()
+    rate1 = rates(perple_data,litmus_data,testnames)
+    f = open("rates.csv","w+")
+    f.write(rate1)
+    f.close()
+    rate2 = georates(perple_data,litmus_data,testnames)
+    f = open("georates.csv","w+")
+    f.write(rate2)
+    f.close()
+
 
 if __name__=="__main__":
     main()

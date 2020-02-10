@@ -156,5 +156,5 @@ print(ratesL)
 
 ## Clean up
 shcall = "rm -r " + workingPath
-subprocess.call(shcall,shell = True )
-subprocess.call("rm checker.c checker-heuristic.c num_reads.perple", shell = True)
+#subprocess.call(shcall,shell = True )
+#subprocess.call("rm checker.c checker-heuristic.c num_reads.perple", shell = True)

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+#from TKinter import *
 import glob
 import statistics
 import os
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import argparse
 
 AXIS_FONTSIZE = 44
@@ -371,49 +372,62 @@ def main():
     fields_perple = {"CheckerCycles":1,"HeurCycles":2,"HarnessT":3,"CheckerT":4,"HeurT":5,"CheckerR":6,"HeurR":7}
     fields_litmus = {"LitmusCycles":1,"LitmusT":2,"LitmusR":3}
     
-
-    list_of_folders = glob.glob('../x86tso/*')
-    testnames = list()
-    folderCnt = 0
+    # Currently perple is evaluated together with Litmus with -barrier timebase
+    folderNames = ["x86tso-2fence-timebase-100M","x86tso-2fence-user-100M","x86tso-2fence-userfence-100M","x86tso-2fence-none-100M","x86tso-2fence-pthread-1M"]
+    litmusCnt = 0
+    litmuses = []
     perple_data = []
-    litmus_data = []
-    for folder in list_of_folders:
-        name = folder.replace('../x86tso/','')
-        testnames.append(name)
-        subdirectory = folder + "/*"
-        list_of_files = glob.glob(subdirectory)
-        latest_file = max(list_of_files, key=os.path.getctime)
-        f = open(latest_file, 'r')
-        resultcnt = 0 
-        perple = []
-        litmus = []
-        for line in f:
-            if(line == '\n' or line.find("Summary")>=0):
-                continue
-            line = line.replace(" ","")
-            line = line.replace('\n',"")
-            rawdata = line.split('|')
-            dataline = []
-            if(rawdata and resultcnt == 0 and line.find("Iterations") >= 0):
-                resultcnt = 1 #parse perpLE
-            elif(rawdata and resultcnt == 1 and line.find("Iterations") >= 0):
-                resultcnt = 2 #parse Litmus
-            elif(rawdata and resultcnt == 1 and line.find("Iterations") < 0): 
-                for field in rawdata:
+    for folderNum in range(0,len(folderNames)): 
+        folderString = "../" + folderNames[folderNum] + "/*"
+    #	list_of_folders = glob.glob('../x86tso-2fence-timebase-100M/*')
+        list_of_folders = glob.glob(folderString)     
+        testnames = list()
+        folderCnt = 0
+        litmus_data = []
+        for folder in list_of_folders:
+            name = folder.replace(folderString,'')
+            testnames.append(name)
+            subdirectory = folder + "/*"
+            list_of_files = glob.glob(subdirectory)
+            latest_file = max(list_of_files, key=os.path.getctime)
+            f = open(latest_file, 'r')
+            resultcnt = 0 
+            perple = []
+            litmus = []
+            for line in f:
+                if(line == '\n' or line.find("Summary")>=0):
+                    continue
+                line = line.replace(" ","")
+                line = line.replace('\n',"")
+                rawdata = line.split('|')
+                dataline = []
+                if(rawdata and resultcnt == 0 and litmusCnt < 1 and line.find("Iterations") >= 0):
+                    resultcnt = 1 #parse perpLE
+                elif(rawdata and resultcnt == 1 and line.find("Iterations") >= 0):
+                    resultcnt = 2 #parse Litmus
+                elif(rawdata and resultcnt == 1 and line.find("Iterations") < 0): 
+                    for field in rawdata:
                #     print(field)
                 #    print(latest_file)
-                    field = dataline.append(float(field))
-                perple.append(dataline)
-            elif(rawdata and resultcnt == 2 and line.find("Iterations") < 0):
-                for field in rawdata:
-                    field = dataline.append(float(field))
-                litmus.append(dataline)
-        perple_data.append(perple)
-        litmus_data.append(litmus)
-        folderCnt += 1
+                        field = dataline.append(float(field))
+                    perple.append(dataline)
+                elif(rawdata and resultcnt == 2 and line.find("Iterations") < 0):
+                    for field in rawdata:
+                        field = dataline.append(float(field))
+                    litmus.append(dataline)
+            perple_data.append(perple)
+            litmus_data.append(litmus)
+            folderCnt += 1
         #print(latest_file,len(perple),len(litmus))
-    retstr =""
-    
+        retstr =""
+        litmusCnt += 1
+        litmuses.append(litmus_data)
+    print(litmuses[0])
+    print("\n")
+    print(litmuses[1])
+    print("\n") 
+    print(litmuses[4])
+    #print(perple_data)
 # runtimes with 10000 iterations, start from 100
     f = open("runtimes-10k.csv","w+")
     retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"

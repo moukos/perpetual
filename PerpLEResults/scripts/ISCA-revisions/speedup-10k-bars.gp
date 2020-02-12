@@ -22,7 +22,9 @@ set yrange [ 0.001 : 50 ] noreverse nowriteback
 set ylabel "Runtime speedup" offset 3
 x = 0.0
 i = 22
-plot 'speedup-10k.csv' using 3:xtic(1) ti col lt rgb "#4b03a1"
+plot 'speedup-10k.csv' using 3:xtic(1) ti col lt rgb "#4b03a1",\
+     '' u 5 ti col lt rgb "brown",\
+     '' u 8 ti col lt rgb "gray"
 set lmargin 3
 set boxwidth 0.95 absolute
 set style fill   solid border lt -1
@@ -42,5 +44,7 @@ set ylabel "Runtime speedup" offset 0.75
 set arrow 1 from -1,1 to 34,1 nohead ls 0 lw 3 front
 x = 0.0
 i = 22
-plot 'speedup-10k.csv' using 4:xtic(1) ti col lt rgb "#049F75"
+plot 'speedup-10k.csv' using 4:xtic(1) ti col lt rgb "#049F75", \
+     '' u 6 ti col lt rgb "#e56b5d",\
+     '' u 7 ti col lt rgb "black"
 unset multiplot

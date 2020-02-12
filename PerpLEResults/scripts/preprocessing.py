@@ -351,21 +351,29 @@ def returnSorted(array,sorter):
     return sortArray
 
 def returnSummary(array,size,mode):
-    
     sArray = list()
     if mode==1:
         sArray = [list() for x in range(10)]
     if mode==2:
-        sArray = [list() for x in range(4)]
-    for i in range(0,len(array)):
-        for j in range(0,len(sArray)):
-            if j < 8:
-                sArray[j].append(array[i][size][j])
-            elif j == 8:
-                sArray[j].append(sArray[3][i]+sArray[4][i])
-            elif j == 9:
-                sArray[j].append(sArray[3][i]+sArray[5][i])
-    #print(sArray)
+        sArray = [list() for x in range(20)]  # For all litmus sync options
+    if mode == 1: 
+        #print(array[0])
+        
+        for i in range(0,len(array[0])):
+            for j in range(0,len(sArray)):
+                if j < 8:
+                    sArray[j].append(array[0][i][size][j])
+                elif j == 8 and mode == 1:
+                    sArray[j].append(sArray[3][i]+sArray[4][i])
+                elif j == 9 and mode == 1:
+                    sArray[j].append(sArray[3][i]+sArray[5][i])
+    else:
+        for i in range(0,len(array[0])):
+            for j in range(0,len(sArray)):
+                colIndex = j/4
+                sArray[j].append(array[colIndex][i][size][j%4])
+                    #sArray[j].append(array[0][i][size][j])
+        #print(sArray)
     return sArray
 
 def main():
@@ -376,16 +384,18 @@ def main():
     folderNames = ["x86tso-2fence-timebase-100M","x86tso-2fence-user-100M","x86tso-2fence-userfence-100M","x86tso-2fence-none-100M","x86tso-2fence-pthread-1M"]
     litmusCnt = 0
     litmuses = []
+    perples = []
     perple_data = []
     for folderNum in range(0,len(folderNames)): 
         folderString = "../" + folderNames[folderNum] + "/*"
+        folderRPL = "../" + folderNames[folderNum] + "/"
     #	list_of_folders = glob.glob('../x86tso-2fence-timebase-100M/*')
         list_of_folders = glob.glob(folderString)     
         testnames = list()
-        folderCnt = 0
         litmus_data = []
+        perple_data = []
         for folder in list_of_folders:
-            name = folder.replace(folderString,'')
+            name = folder.replace(folderRPL,"")
             testnames.append(name)
             subdirectory = folder + "/*"
             list_of_files = glob.glob(subdirectory)
@@ -395,6 +405,8 @@ def main():
             perple = []
             litmus = []
             for line in f:
+                if litmusCnt >= 1:
+                    resultcnt = 2
                 if(line == '\n' or line.find("Summary")>=0):
                     continue
                 line = line.replace(" ","")
@@ -415,138 +427,191 @@ def main():
                     for field in rawdata:
                         field = dataline.append(float(field))
                     litmus.append(dataline)
-            perple_data.append(perple)
+            if litmusCnt < 1:
+                perple_data.append(perple)
             litmus_data.append(litmus)
-            folderCnt += 1
         #print(latest_file,len(perple),len(litmus))
         retstr =""
-        litmusCnt += 1
         litmuses.append(litmus_data)
-    print(litmuses[0])
-    print("\n")
-    print(litmuses[1])
-    print("\n") 
-    print(litmuses[4])
-    #print(perple_data)
+        if litmusCnt < 1:
+            #print(perple_data)
+            perples.append(perple_data)
+        litmusCnt += 1
 # runtimes with 10000 iterations, start from 100
-    f = open("runtimes-10k.csv","w+")
-    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
-    perple_perf = returnSummary(perple_data,2,1)
-    litmus_perf = returnSummary(litmus_data,2,2)
-    perple_perf.append(litmus_perf[1])
-    perple_perf.append(litmus_perf[2])
-    perple_perf.append(testnames)
-    plot_data = returnSorted(perple_perf,12)
-    for i in range(0,len(plot_data[12])):
-        retstr += plot_data[12][i]
-        retstr += "\t"
-        retstr += str(plot_data[11][i]) # select 100000 + runtime
-        retstr += "\t"
-        retstr += str(plot_data[8][i])
-        retstr += "\t"
-        retstr += str(plot_data[9][i])
-        retstr += "\n"
-    retstr += "Geomean\t"
-    geolitmus = geo_mean(plot_data[11])
-    geoChecker = geo_mean(plot_data[8])
-    geoHeuristic = geo_mean(plot_data[9])
-    retstr += str(geolitmus)
-    retstr += "\t"
-    retstr += str(geoChecker)
-    retstr += "\t"
-    retstr += str(geoHeuristic)
-    retstr += "\n"
-    f.write(retstr)
-    f.close()
-    retstr = ""
+#    f = open("runtimes-10k.csv","w+")
+#    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
+    #print(perples[0])
+#    perple_perf = returnSummary(perples,2,1)
+#    litmus_perf = returnSummary(litmuses,2,2)
+#    perple_perf.append(litmus_perf[1])
+#    perple_perf.append(litmus_perf[2])
+#    perple_perf.append(testnames)
+#    plot_data = returnSorted(perple_perf,12)
+#    for i in range(0,len(plot_data[12])):
+#        retstr += plot_data[12][i]
+#        retstr += "\t"
+#        retstr += str(plot_data[11][i]) # select 100000 + runtime
+#        retstr += "\t"
+#        retstr += str(plot_data[8][i])
+#        retstr += "\t"
+#        retstr += str(plot_data[9][i])
+#        retstr += "\n"
+#    retstr += "Geomean\t"
+#    geolitmus = geo_mean(plot_data[11])
+#    geoChecker = geo_mean(plot_data[8])
+#    geoHeuristic = geo_mean(plot_data[9])
+#    retstr += str(geolitmus)
+#    retstr += "\t"
+#    retstr += str(geoChecker)
+#    retstr += "\t"
+#    retstr += str(geoHeuristic)
+#    retstr += "\n"
+#    f.write(retstr)
+#    f.close()
+#    retstr = ""
     # speedup for 10k 
     # switch sorting below 
     #plot_data = returnSorted(perple_perf,9)
-    f = open("speedup-10k.csv","w+")
-    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
-    for i in range(0,len(plot_data[12])):
-        retstr += plot_data[12][i]
-        retstr += "\t"
-        retstr += str(1.0)
+#    f = open("speedup-10k.csv","w+")
+#    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
+#    for i in range(0,len(plot_data[12])):
+#        retstr += plot_data[12][i]
+#        retstr += "\t"
+#        retstr += str(1.0)
         #retstr += str(plot_data[11][i]) # select 100000 + runtime
-        retstr += "\t"
-        checkerTime = float(plot_data[11][i])/float(plot_data[8][i])
-        retstr += str(checkerTime)
-        retstr += "\t"
-        heuristicTime = float(plot_data[11][i])/float(plot_data[9][i])
-        retstr += str(heuristicTime)
-        retstr += "\n"
-    retstr += "Geomean\t"
-    geolitmus = geo_mean(plot_data[11])
-    geoChecker = geo_mean(plot_data[8])
-    geoHeuristic = geo_mean(plot_data[9])
-    retstr += str(1.0)
-    retstr += "\t"
-    retstr += str(geolitmus/geoChecker)
-    retstr += "\t"
-    retstr += str(geolitmus/geoHeuristic)
-    retstr += "\n"
-    f.write(retstr)
-    f.close()
-    retstr = ""
+#        retstr += "\t"
+#        checkerTime = float(plot_data[11][i])/float(plot_data[8][i])
+#        retstr += str(checkerTime)
+#        retstr += "\t"
+#        heuristicTime = float(plot_data[11][i])/float(plot_data[9][i])
+#        retstr += str(heuristicTime)
+#        retstr += "\n"
+#    retstr += "Geomean\t"
+#    geolitmus = geo_mean(plot_data[11])
+#    geoChecker = geo_mean(plot_data[8])
+#    geoHeuristic = geo_mean(plot_data[9])
+#    retstr += str(1.0)
+#    retstr += "\t"
+#    retstr += str(geolitmus/geoChecker)
+#    retstr += "\t"
+#    retstr += str(geolitmus/geoHeuristic)
+#    retstr += "\n"
+#    f.write(retstr)
+#    f.close()
+#    retstr = ""
 
 # runtimes with 100000 iterations, start from 100
-    f = open("runtimes-100k.csv","w+")
-    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
-    perple_perf = returnSummary(perple_data,3,1)
-    litmus_perf = returnSummary(litmus_data,3,2)
+#    f = open("runtimes-100k.csv","w+")
+#    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
+    perple_perf = returnSummary(perples,2,1)
+    litmus_perf = returnSummary(litmuses,2,2)
+    #print(litmus_perf)
     perple_perf.append(litmus_perf[1])
     perple_perf.append(litmus_perf[2])
+    perple_perf.append(litmus_perf[5])
+    perple_perf.append(litmus_perf[6])
+    perple_perf.append(litmus_perf[9])
+    perple_perf.append(litmus_perf[10])
+    perple_perf.append(litmus_perf[13])
+    perple_perf.append(litmus_perf[14])
+    perple_perf.append(litmus_perf[17])
+    perple_perf.append(litmus_perf[18])
     perple_perf.append(testnames)
-    plot_data = returnSorted(perple_perf,12)
-    for i in range(0,len(plot_data[12])):
-        retstr += plot_data[12][i]
-        retstr += "\t"
-        retstr += str(plot_data[11][i]) # select 100000 + runtime
-        retstr += "\t"
-        retstr += str(plot_data[8][i])
-        retstr += "\t"
-        retstr += str(plot_data[9][i])
-        retstr += "\n"
-    retstr += "Geomean\t"
-    geolitmus = geo_mean(plot_data[11])
-    geoChecker = geo_mean(plot_data[8])
-    geoHeuristic = geo_mean(plot_data[9])
-    retstr += str(geolitmus)
-    retstr += "\t"
-    retstr += str(geoChecker)
-    retstr += "\t"
-    retstr += str(geoHeuristic)
-    retstr += "\n"
-    f.write(retstr)
-    f.close()
-    retstr = ""
+
+    plot_data = returnSorted(perple_perf,20)
+#    for i in range(0,len(plot_data[20])):
+#        retstr += plot_data[20][i]
+#        retstr += "\t"
+#        retstr += str(plot_data[11][i]) # select 100000 + runtime
+#        retstr += "\t"
+#        retstr += str(plot_data[8][i])
+#        retstr += "\t"
+#        retstr += str(plot_data[9][i])
+#        retstr += "\n"
+#    retstr += "Geomean\t"
+#    geolitmus = geo_mean(plot_data[11])
+#    geoChecker = geo_mean(plot_data[8])
+#    geoHeuristic = geo_mean(plot_data[9])
+#    retstr += str(geolitmus)
+#    retstr += "\t"
+#    retstr += str(geoChecker)
+#    retstr += "\t"
+#    retstr += str(geoHeuristic)
+#    retstr += "\n"
+#    f.write(retstr)
+#    f.close()
+#    retstr = ""
     # Speedup plots
     # if necessary switch sorting below
     #plot_data = returnSorted(perple_perf,9)
-    f = open("speedup-100k.csv","w+")
-    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"
-    for i in range(0,len(plot_data[12])):
-        retstr += plot_data[12][i]
+    f = open("speedup-10k.csv","w+")
+    retstr += "\tlitmus7 user\tPerpLE (Checker)\tPerpLE (Heuristic)\tlitmus7 Timebase\tlitmus7 Userfence \tlitmus7 None \tlitmus7 Pthread\n"
+    for i in range(0,len(plot_data[20])):
+        retstr += plot_data[20][i]
         retstr += "\t"
         retstr += str(1.0)
         #retstr += str(plot_data[11][i]) # select 100000 + runtime
         retstr += "\t"
-        checkerTime = float(plot_data[11][i])/float(plot_data[8][i])
-        retstr += str(checkerTime)
+        checkerTime = 0.0
+        if float(plot_data[8][i]) > 0.0:
+            checkerTime = float(plot_data[13][i])/float(plot_data[8][i]) # Comparison against user sync
+        retstr += str(checkerTime) 
         retstr += "\t"
-        heuristicTime = float(plot_data[11][i])/float(plot_data[9][i])
+        heuristicTime = 0.0
+        if float(plot_data[9][i]) > 0.0:
+            heuristicTime = float(plot_data[13][i])/float(plot_data[9][i]) # Comparison against user sync
         retstr += str(heuristicTime)
+        retstr += "\t"
+        timebaseTime = float(plot_data[13][i])/float(plot_data[11][i]) # Comparison against user sync
+        retstr += str(timebaseTime)
+        retstr += "\t"
+        userfenceTime = float(plot_data[13][i])/float(plot_data[15][i]) # Comparison against user sync
+        retstr += str(userfenceTime)
+        retstr += "\t"
+#        print("none ")
+#        print(plot_data[17][i])
+#        print(plot_data[15][i])
+#        print(" pthread ")
+#        print(plot_data[19][i])
+        noneTime = 0.0
+        if float(plot_data[17][i]) == 0.0:
+            noneTime = float(plot_data[13][i])/float(0.002) # Comparison against user sync
+        else:
+            noneTime = float(plot_data[13][i])/float(plot_data[17][i]) # Comparison against user sync
+        retstr += str(noneTime)
+        retstr += "\t"
+        pthreadTime = 0.0
+        if float(plot_data[19][i]) > 0.0:
+            pthreadTime = float(plot_data[13][i])/float(plot_data[19][i]) # Comparison against user sync
+        retstr += str(pthreadTime)
         retstr += "\n"
     retstr += "Geomean\t"
-    geolitmus = geo_mean(plot_data[11])
+    # fix these TODO
+    geolitmusTimebase = geo_mean(plot_data[11])
+    geolitmusUser = geo_mean(plot_data[13])
+    geolitmusUserfence = geo_mean(plot_data[15])
+    geolitmusNone = geo_mean(plot_data[17])
+    if geolitmusNone == 0.0:
+        geolitmusNone = 0.002
+    geolitmusPthread = geo_mean(plot_data[19])
     geoChecker = geo_mean(plot_data[8])
     geoHeuristic = geo_mean(plot_data[9])
     retstr += str(1.0)
     retstr += "\t"
-    retstr += str(geolitmus/geoChecker)
+    retstr += str(float(geolitmusUser)/float(geoChecker))
     retstr += "\t"
-    retstr += str(geolitmus/geoHeuristic)
+    retstr += str(float(geolitmusUser)/float(geoHeuristic))
+    retstr += "\t"
+    retstr += str(float(geolitmusUser)/float(geolitmusTimebase))
+    retstr += "\t"
+    retstr += str(float(geolitmusUser)/float(geolitmusUserfence))
+    retstr += "\t"
+    retstr += str(float(geolitmusUser)/float(geolitmusNone))
+    retstr += "\t"
+    if geolitmusPthread == 0.0:
+        retstr += str(0.0)
+    else:
+        retstr += str(float(geolitmusUser)/float(geolitmusPthread))
     retstr += "\n"
     f.write(retstr)
     f.close()

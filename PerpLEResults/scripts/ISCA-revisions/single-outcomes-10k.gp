@@ -1,8 +1,8 @@
-set terminal posts eps enhanced color font "Garamond-Bold,18pt" size 7in,2in
+set terminal posts eps enhanced color font "Garamond-Bold,18pt" size 7in,2.2in
 set output 'single-outcomes-10k.eps'
 set boxwidth 0.9 absolute
 set style fill   solid border lt -1
-set key inside left top vertical Right noreverse noenhanced autotitle nobox maxrows 2
+set key inside left top vertical Right noreverse noenhanced autotitle nobox maxrows 3
 set tics font "Garamond-Bold,13"
 set style histogram clustered gap 2 title textcolor lt -1
 set datafile missing '?'

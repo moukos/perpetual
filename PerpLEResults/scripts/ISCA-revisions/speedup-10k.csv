@@ -1,4 +1,4 @@
-	litmus7 user	PerpLE (Checker)	PerpLE (Heuristic)	litmus7 Timebase	litmus7 Userfence 	litmus7 None 	litmus7 Pthread
+	litmus7 user	PerpLE (Counter)	PerpLE (Heuristic)	litmus7 Timebase	litmus7 Userfence 	litmus7 None 	litmus7 Pthread
 amd10	1.0	0.0198926765565	3.5904300677	0.6	1.0	3.0	0.0882352941176
 amd3	1.0	0.012535891511	3.54043396869	0.5	1.0	2.0	0.0512820512821
 amd5	1.0	0.0187139554014	3.28728756589	0.6	1.0	3.0	0.0833333333333

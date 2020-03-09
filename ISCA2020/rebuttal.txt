@@ -1,0 +1,81 @@
+We thank all reviewers for their insightful reviews. We view all the comments as constructive, and we have used them to improve the paper before publication.
+
+Comments by multiple reviewers
+
+Why reducing litmus test execution time matters (ABD)
+
+Two reasons (See also end of paragraph 4, section I):
+
+Embedded processors can demonstrate orders of magnitude lower performance compared to server processors [36]. So empirical testing is likewise slow. In addition, smaller core-counts in embedded scenarios limits their ability to launch litmus test scenarios in parallel.
+
+With litmus tests increasingly automatically generated, litmus test suites increasingly contain large numbers of litmus tests: Often in the order of thousands of tests (10930 generated GPU litmus tests, 8000+ generated PPC litmus tests, etc.). Thus speed matters. For example, for 100k iterations on a single Fermi GPU, a conservative average execution time estimation is 20 seconds. For or a total of 10k distinct litmus tests, this amounts to a total of 20x10k=200k seconds ~ 56 hr [9].
+
+Relevance to ISCA (CE)
+
+Litmus tests and memory consistency are central to architectures and hardware design. Our paper is concerned with an improved technique for ensuring that the software developer is in agreement with the hardware designer about a system’s memory behavior. Thus, we believe that ISCA is an appropriate venue for our work.
+
+Feasibility of perpetual litmus tests in litmus7? (BD)
+
+We clarified this in the 2nd to last paragraph of Section VIII. In particular:
+
+A key difference between PerpLE and Litmus7 pertains to frames. Namely, PerpLE not only allows longer-term cross-iteration interleaving of events, which enriches the event orderings considered, but it also implements the logging needed to properly see these interactions from the results. Litmus7’s different synchronization modes may allow for some of the same orderings, but that tool does not have the logging to see cross-iteration interleavings.
+
+Furthermore, litmus7 cannot automatically generate perpetual litmus tests from original tests, and its synchronization modes cannot provide the same functionality. PerpLE includes automatic test generation from original tests.
+
+PerpLE/litmus7 scalability and multiple concurrent instances (AB)
+
+As the number of test threads increases in litmus7, performance is affected by increased thread synchronization overhead in all synchronization modes except no synchronization. For example, using litmus7 in user mode, execution time of a 6 thread Store buffering test (6SB.litmus) is 2.75x increased compared to the 2 thread Store buffering test (SB.litmus) due to thread synchronization overhead. PerpLE does not implement thread synchronization and is therefore not affected as the number of test threads in a litmus test scales. Both Litmus7 and PerpLE have the feature to enable multiple concurrent instances of a test to scale performance with availability of a higher number of cores in the system. In our evaluation we always evaluate a single instance of a litmus test running on PerpLE against a single instance of a litmus test running on litmus7.
+
+How do you determine a desired outcome from the original test based on thread skewed results (CD)
+
+We explain in detail our approach for determining orderings in the presence of thread skew in section IV. The key insights here are that, a) by rewriting each outcome through the algorithm described in section IV.A.1, the values read in an arbitrary frame can be mapped back to the outcomes of the original test, and b) we can use the values loaded to determine which frames include iterations that happened concurrently (paragraph 2, section IV.B). So, combining these two facts, we can map the outcome of a frame including concurrently executed iterations back to an outcome of the original test.
+
+Addressing related work (BCD)
+
+We thank the reviewers for bringing additional related work to our attention. We have updated sections I and VIII accordingly.
+
+Reviewer A
+
+Perpetual litmus test limitations and coverage We also clarified this question in the last paragraph of Section V. In particular:
+
+The litmus test suite in [34] includes 88 x86 TSO litmus tests, out of which 34 were evaluated using PerpLE. The tests that were not converted to their perpetual form require inspection of a shared memory value at the end of every iteration. Since perpetual litmus tests lack per-iteration thread synchronization, shared memory locations are therefore altered in an unpredictable pattern until the perpetual test run terminates. PerpLE can only stop to inspect shared memory locations only after the end of the entire run.
+
+Missing explanation in Figure 10 The caption of Figure 10 has been updated to comment on the litmus tests that do not observe the target outcome.
+
+Reviewer B
+
+PerpLE vs litmus7: synchronization modes and size parameter
+
+We thank reviewer B for their suggestion. We have updated our evaluation section to reflect results for different synchronization modes of litmus7. Our original results were using the default (user) synchronization mode. Note that although PerpLE is comparable to some of these modes for some metrics (e.g. comparable to “none” in terms of runtime alone), our tool remains dominant in the composite metric of target outcome detection rate, which a tester would be interested in maximizing in practice. For PerpLE’s evaluation we vary the test size parameter from 100 to 100 million iterations in increments of 10x. Figure 14 demonstrates how target outcome detection rate varies according to the size parameter across both PerpLE and all litmus7 synchronization modes. For figures 9-13, we have used a fixed size of 10000 iterations for spacing purposes. However, our evaluation actually presents better results as the test size increases (see figure 14 and subsection F in section VII).
+
+PerpLE Synchronization implementation
+
+We clarified this in subsection A of Section III and subsection A in Section VI. In particular:
+
+PerpLE does not implement any thread based synchronization, similar to the no synchronization mode of litmus7. PerpLE launches test threads, which start executing and join after a specified number of test iterations execute consecutively on each thread. During the duration of each thread’s execution there is no thread synchronization. Since synchronization no longer keeps the test threads in lockstep across iterations, each test thread can run behind or ahead of the others.
+
+Reviewer C
+
+Figure 3: Clarification regarding execution and preprocessing stages
+
+Figure 3 and first two paragraphs in section III were updated for clarification. In particular:
+
+Our proposed approach consists of two steps, each performed by a separate tool. First, the Converter tool i) turns a litmus test into a perpetual litmus test and ii) generates an outcome counter and a heuristic outcome counter execute. The Converter tool can execute offline. The generated test is then executed by the Harness tool, which keeps the test run results in memory. This step completes before any outcome counting commences. Both the outcome counter and heuristic outcome counter functions can then be applied to the results in memory,. The execution time of the Harness accounts for both the test execution and outcome counting.
+
+Origin of litmus tests from Table 2
+
+The tests are from the paper “A Better x86 Memory Model: x86-TSO” by Scott Owens, Susmit Sarkar and Peter Sewell [34] and are publicly maintained in this repository: https://github.com/ymanerka/ccicheck/tree/master/tests/x86tso
+
+Reviewer D
+
+Memory usage of PerpLE
+
+PerpLE uses the same amount of memory as litmus7. This is because litmus7 also employs “buf” arrays to record all results during a test run, and only creates a “histogram” of outcomes as post-processing.
+
+Explain results in the same way that Figure 4 explains tests
+
+Since the process of going from outcomes to the corresponding perpetual outcomes involves several steps, we have done this in Figure 6 and Figure 8. Each of the 4 panels in these figures starts with an outcome of the original sb test (left in figure 4) and ends with its perpetual version for the perpetual sb test (right in figure 4). We believe this has the added benefit of aiding the reader while reading section IV, while it also introduces the notation used by algorithms 1 and 2.
+
+Other
+
+Between the original paper submission and the rebuttal deadline, a few implementation errors were fixed and one more litmus test (safe007) was run, which we included in the evaluation.

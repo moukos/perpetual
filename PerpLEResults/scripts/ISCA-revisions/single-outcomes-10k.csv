@@ -1,6 +1,6 @@
-	PerpLE (Checker)	PerpLE (Heuristic)	litmus7 Timebase 	litmus7 User 	litmus7 Userfence 	litmus7 Pthread 	litmus7 None
+	PerpLE (Counter)	PerpLE (Heuristic)	litmus7 Timebase 	litmus7 User 	litmus7 Userfence 	litmus7 Pthread 	litmus7 None
 amd10	0.0	0.0	0.0	0.0	0.0	0.0	0.0
-amd3	2425.4	2.6	0.0	0.0	0.0	0.0	0.0
+amd3	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 amd5	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 amd5+staleld	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 co-iriw	0.0	0.0	0.0	0.0	0.0	0.0	0.0

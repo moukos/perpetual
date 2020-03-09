@@ -252,11 +252,11 @@ def georates(perple_data, litmus_data, testnames):
         retstr += str(geolitmusP)
         retstr += "\t"
         retstr += str(geolitmusN)
-        retstr += "\t"
-        if geolitmus>0:
-            retstr += str(geoHeuristic/geolitmus)
-        else:
-            retstr += str(0)
+        #retstr += "\t"
+        #if geolitmus>0:
+        #    retstr += str(geoHeuristic/geolitmus)
+        #else:
+        #    retstr += str(0)
         retstr += "\n"
     return retstr
 

@@ -1,0 +1,7 @@
+Test: safe007
+Date: 2020-02-12 21:15:37
+
+Summary of PerpLE results (start = 10000000, steps = 2, tries = 5)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+10000000      |0.000         |0.000         |4.981525788   |0.000000000   |0.285826029   |0.000         |0.000         
+

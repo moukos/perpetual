@@ -14,7 +14,7 @@ start = numpy.int64(sys.argv[2])
 steps = numpy.int64(sys.argv[3])
 multi = numpy.int64(sys.argv[4])
 tries = numpy.int64(sys.argv[5])
-barrierType = sys.argv[6]
+
 # create working folder
 workingPath = "./workingFolder_" + testname
 access_rights = 0o755
@@ -42,14 +42,14 @@ outfilename = workingPath + "/output_" + testname + "_" + now.strftime("%Y-%m-%d
 f = open(outfilename, 'w+')
 
 # create folder
-pathname = "./PerpLEResults/x86tso-nofence-" + barrierType + "/" + testname
+pathname = "./PerpLEResults/x86tso-nofence-perple/" + testname
 print(pathname)
 try:
     os.mkdir(pathname, access_rights)
 except OSError:
     print("Could not create directory.")
 # Open summary file
-summfilename = "./PerpLEResults/x86tso-nofence-" + barrierType + "/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
+summfilename = "./PerpLEResults/x86tso-nofence-perple/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 s = open(summfilename, 'w+')
 
 ## Run tests with PerpLE and write file
@@ -106,10 +106,10 @@ now = datetime.datetime.now()
 outfilename = workingPath +  "/output_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 f = open(outfilename, 'w+')
 
-## Run tests with litmus and write file and barrier type
+## Run tests with litmus and write file
 n = start
 for j in range(steps):
-    subprocess.call(["litmus", "./LitmusTestSuites/x86tso/" + testname + ".litmus", "-r", str(tries), "-s", str(n),"-barrier", barrierType], stdout=f)
+    subprocess.call(["litmus", "./LitmusTestSuites/x86tso/" + testname + ".litmus", "-r", str(tries), "-s", str(n)], stdout=f)
     n = multi * n
 f.close()
 
@@ -156,5 +156,5 @@ print(ratesL)
 
 ## Clean up
 shcall = "rm -r " + workingPath
-subprocess.call(shcall,shell = True )
-subprocess.call("rm checker.c checker-heuristic.c num_reads.perple", shell = True)
+#subprocess.call(shcall,shell = True )
+#subprocess.call("rm checker.c checker-heuristic.c num_reads.perple", shell = True)

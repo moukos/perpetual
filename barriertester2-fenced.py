@@ -25,16 +25,16 @@ except OSError:
 
 ## Set up files
 # Copy files to working folder
-perpleFile = "PerpLETestSuitesChecked/x86unfenced/" + testname + "/num_reads.perple"
-checkerFile = "PerpLETestSuitesChecked/x86unfenced/" + testname + "/checker.c"
-checkerHeuristicFile = "PerpLETestSuitesChecked/x86unfenced/" + testname + "/checker-heuristic.c"
+perpleFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/num_reads.perple"
+checkerFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/checker.c"
+checkerHeuristicFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/checker-heuristic.c"
 dest = shutil.copyfile(perpleFile,"num_reads.perple")
 dest = shutil.copyfile(checkerFile,"checker.c")
 dest = shutil.copyfile(checkerHeuristicFile,"checker-heuristic.c")
 
 # Compile executable
 execfilename = "integratedHarness_" + testname
-threadfilenames = "./PerpLETestSuitesChecked/x86unfenced/" + testname + "/" + testname + "_thread_*"
+threadfilenames = "./PerpLETestSuitesChecked/x86tso/" + testname + "/" + testname + "_thread_*"
 subprocess.call("gcc -fopenmp -o " + execfilename + " integratedHarness.c " + threadfilenames, shell=True)
 # Open output file
 now = datetime.datetime.now()
@@ -42,14 +42,14 @@ outfilename = workingPath + "/output_" + testname + "_" + now.strftime("%Y-%m-%d
 f = open(outfilename, 'w+')
 
 # create folder
-pathname = "./PerpLEResults/x86tso-nofence-" + barrierType + "/" + testname
+pathname = "./PerpLEResults/x86tso-2fence-" + barrierType + "/" + testname
 print(pathname)
 try:
     os.mkdir(pathname, access_rights)
 except OSError:
     print("Could not create directory.")
 # Open summary file
-summfilename = "./PerpLEResults/x86tso-nofence-" + barrierType + "/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
+summfilename = "./PerpLEResults/x86tso-2fence-" + barrierType + "/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 s = open(summfilename, 'w+')
 
 ## Run tests with PerpLE and write file

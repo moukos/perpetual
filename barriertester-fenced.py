@@ -25,16 +25,16 @@ except OSError:
 
 ## Set up files
 # Copy files to working folder
-perpleFile = "PerpLETestSuitesChecked/x86unfenced/" + testname + "/num_reads.perple"
-checkerFile = "PerpLETestSuitesChecked/x86unfenced/" + testname + "/checker.c"
-checkerHeuristicFile = "PerpLETestSuitesChecked/x86unfenced/" + testname + "/checker-heuristic.c"
+perpleFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/num_reads.perple"
+checkerFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/checker.c"
+checkerHeuristicFile = "PerpLETestSuitesChecked/x86tso/" + testname + "/checker-heuristic.c"
 dest = shutil.copyfile(perpleFile,"num_reads.perple")
 dest = shutil.copyfile(checkerFile,"checker.c")
 dest = shutil.copyfile(checkerHeuristicFile,"checker-heuristic.c")
 
 # Compile executable
 execfilename = "integratedHarness_" + testname
-threadfilenames = "./PerpLETestSuitesChecked/x86unfenced/" + testname + "/" + testname + "_thread_*"
+threadfilenames = "./PerpLETestSuitesChecked/x86tso/" + testname + "/" + testname + "_thread_*"
 subprocess.call("gcc -fopenmp -o " + execfilename + " integratedHarness.c " + threadfilenames, shell=True)
 # Open output file
 now = datetime.datetime.now()
@@ -42,17 +42,17 @@ outfilename = workingPath + "/output_" + testname + "_" + now.strftime("%Y-%m-%d
 f = open(outfilename, 'w+')
 
 # create folder
-pathname = "./PerpLEResults/x86tso-nofence-" + barrierType + "/" + testname
+pathname = "./PerpLEResults/x86tso-2fence-" + barrierType + "/" + testname
 print(pathname)
 try:
     os.mkdir(pathname, access_rights)
 except OSError:
     print("Could not create directory.")
 # Open summary file
-summfilename = "./PerpLEResults/x86tso-nofence-" + barrierType + "/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
+summfilename = "./PerpLEResults/x86tso-2fence-" + barrierType + "/" + testname + "/" + "summary_" + testname + "_" + now.strftime("%Y-%m-%d_%H:%M:%S")
 s = open(summfilename, 'w+')
 
-## Run tests with PerpLE and write file
+# Run tests with PerpLE and write file
 n = start
 for j in range(steps):
     for i in range(tries):
@@ -107,51 +107,51 @@ outfilename = workingPath +  "/output_" + testname + "_" + now.strftime("%Y-%m-%
 f = open(outfilename, 'w+')
 
 ## Run tests with litmus and write file and barrier type
-n = start
-for j in range(steps):
-    subprocess.call(["litmus", "./LitmusTestSuites/x86tso/" + testname + ".litmus", "-r", str(tries), "-s", str(n),"-barrier", barrierType], stdout=f)
-    n = multi * n
-f.close()
+#n = start
+#for j in range(steps):
+#    subprocess.call(["litmus", "./LitmusTestSuites/x86tso/" + testname + ".litmus", "-r", str(tries), "-s", str(n),"-barrier", barrierType], stdout=f)
+#    n = multi * n
+#f.close()
 
 ## Analyze file and print stats
-s.write("\nSummary of litmus results (start = %d, steps = %d, tries = %d)\n" % (start, steps, tries))
-s.write("Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)\n")
-g = open(outfilename, 'r')
-ratesL = list()
-pointer = 0
-weak = 0
-time = 0
-m = start
-formatstring = "%-14d|%-14.3f|%-14.9f|%-14.3f\n"             
-for line in g:
-    if(line.find("Observation ") != -1):
-        weakstart = line.find(" ", line.find(" ", line.find(" ") + 1 ) + 1) + 1
-        weakend = line.find(" ", weakstart)
-        weak = numpy.int64(line[weakstart:weakend])
-    if(line.find("Time ") != -1):
-        timestart = line.find(" ", line.find(" ") + 1) + 1
-        timeend = line.find(" ", timestart)
-        time = numpy.float64(line[timestart:timeend])
+#s.write("\nSummary of litmus results (start = %d, steps = %d, tries = %d)\n" % (start, steps, tries))
+#s.write("Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)\n")
+#g = open(outfilename, 'r')
+#ratesL = list()
+#pointer = 0
+#weak = 0
+#time = 0
+#m = start
+#formatstring = "%-14d|%-14.3f|%-14.9f|%-14.3f\n"             
+#for line in g:
+#    if(line.find("Observation ") != -1):
+#        weakstart = line.find(" ", line.find(" ", line.find(" ") + 1 ) + 1) + 1
+#        weakend = line.find(" ", weakstart)
+#        weak = numpy.int64(line[weakstart:weakend])
+#    if(line.find("Time ") != -1):
+#        timestart = line.find(" ", line.find(" ") + 1) + 1
+#        timeend = line.find(" ", timestart)
+#        time = numpy.float64(line[timestart:timeend])
 	# TODO: we need higher precision timing for litmus
-	if time == 0:
-	    s.write(formatstring % (m, weak/tries, time/tries, 0))
-	    ratesL.append(0)
-	else:
-	    s.write(formatstring % (m, weak/tries, time/tries, weak/time))
-            ratesL.append(weak/time)
-        m = multi * m
-        weak = 0
-        time = 0
+#	if time == 0:
+#	    s.write(formatstring % (m, weak/tries, time/tries, 0))
+#	    ratesL.append(0)
+#	else:
+#	    s.write(formatstring % (m, weak/tries, time/tries, weak/time))
+#            ratesL.append(weak/time)
+#        m = multi * m
+#        weak = 0
+#        time = 0
    
-s.write("\n")
-g.close()
+#s.write("\n")
+#g.close()
 s.close()
 
 
 ## Plot
-print(ratesPF)
-print(ratesPH)
-print(ratesL)
+#print(ratesPF)
+#print(ratesPH)
+#print(ratesL)
 
 
 ## Clean up

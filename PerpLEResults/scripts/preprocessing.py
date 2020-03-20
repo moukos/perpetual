@@ -434,7 +434,7 @@ def main():
     fields_litmus = {"LitmusCycles":1,"LitmusT":2,"LitmusR":3}
     
     # Currently perple is evaluated together with Litmus with -barrier timebase
-    folderNames = ["x86tso-2fence-timebase-100M","x86tso-2fence-user-100M","x86tso-2fence-userfence-100M","x86tso-2fence-none-100M","x86tso-2fence-pthread-100M"]
+    folderNames = ["x86tso-nofence-timebase","x86tso-nofence-user","x86tso-nofence-userfence","x86tso-nofence-none","x86tso-nofence-pthread"]
     litmusCnt = 0
     litmuses = []
     perples = []

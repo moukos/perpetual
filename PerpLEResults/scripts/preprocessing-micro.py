@@ -169,6 +169,7 @@ def georates(perple_data, litmus_data, testnames):
     retstr += "\tPerpLE (Checker)\tPerpLE (Heuristic)\tlitmus7 Timebase \tlitmus7 User \tlitmus7 Userfence \tlitmus7 Pthread \tlitmus7 None\n" 
     for i in range(0,7):
         perple_perf = returnSummary(perple_data,i,1)
+        print("PAST THIS")
         # print(perple_perf)
         litmus_perf = returnSummary(litmus_data,i,2)
         perple_perf.append(litmus_perf[1])
@@ -411,10 +412,13 @@ def returnSummary(array,size,mode):
     if mode==2:
         sArray = [list() for x in range(20)]  # For all litmus sync options
     if mode == 1: 
+        #print("array [0]")
+        #print(array[0][6][size])
         #print(array[0][3][5])
         for i in range(0,len(array[0])):
             for j in range(0,len(sArray)):
                 if j < 8:
+                    print(i,j,size)
                     sArray[j].append(array[0][i][size][j])
                 elif j == 8:
                     sArray[j].append(sArray[3][i]+sArray[4][i])
@@ -434,7 +438,9 @@ def main():
     fields_litmus = {"LitmusCycles":1,"LitmusT":2,"LitmusR":3}
     
     # Currently perple is evaluated together with Litmus with -barrier timebase
+    #folderNames = ["x86tso-nofence-timebase","x86tso-2fence-user-100M",    "x86tso-2fence-userfence-100M","x86tso-2fence-none-100M","x86tso-2fence-pthread-100M"]
     folderNames = ["x86tso-nofence-timebase","x86tso-nofence-user","x86tso-nofence-userfence","x86tso-nofence-none","x86tso-nofence-pthread"]
+    #folderNames = ["x86tso-nofence-timebase"]
     litmusCnt = 0
     litmuses = []
     perples = []
@@ -478,8 +484,8 @@ def main():
                     perple.append(dataline)
                 elif(rawdata and resultcnt == 2 and line.find("Iterations") < 0):
                     for field in rawdata:
-                        print(field)
-                        print(latest_file)
+    #                    print(field)
+    #                    print(latest_file)
                         field = dataline.append(float(field))
                     litmus.append(dataline)
             if litmusCnt < 1:
@@ -554,7 +560,7 @@ def main():
 #    f.write(retstr)
 #    f.close()
 #    retstr = ""
-
+    print(testnames[3])
 # runtimes with 100000 iterations, start from 100
 #    f = open("runtimes-100k.csv","w+")
 #    retstr += "\tlitmus7\tPerpLE (Checker)\tPerpLE (Heuristic)\n"

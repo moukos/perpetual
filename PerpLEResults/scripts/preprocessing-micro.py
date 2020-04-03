@@ -699,6 +699,6 @@ def main():
     f.write(rate2)
     f.close()
 
-
+#
 if __name__=="__main__":
     main()

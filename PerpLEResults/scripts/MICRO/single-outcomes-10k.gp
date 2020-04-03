@@ -13,7 +13,7 @@ set datafile separator "\t"
 set xtics   ()
 set grid ytics lc rgb "#bbbbbb" lw 2 lt 0
 set logscale y
-set yrange [ 0.01 : 100000000 ] noreverse nowriteback
+set yrange [ 0.01 : 100000000000.0 ] noreverse nowriteback
 set ylabel "Outcome Occurrences"
 x = 0.0
 i = 22

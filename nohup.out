@@ -18815,3 +18815,1490 @@ safe007
 0.493632721
 0.0
 0.208241268
+amd10
+./PerpLEResults/x86tso-nofence-user/amd10
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/amd10/summary_amd10_2020-03-20_06:12:35'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/amd10
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/amd10/summary_amd10_2020-03-20_06:12:35'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/amd10
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/amd10/summary_amd10_2020-03-20_06:12:35'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/amd10
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/amd10/summary_amd10_2020-03-20_06:12:36'
+amd3
+./PerpLEResults/x86tso-nofence-user/amd3
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/amd3/summary_amd3_2020-03-20_06:12:36'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/amd3
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/amd3/summary_amd3_2020-03-20_06:12:37'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/amd3
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/amd3/summary_amd3_2020-03-20_06:12:37'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/amd3
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/amd3/summary_amd3_2020-03-20_06:12:37'
+amd5
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-user/amd5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/amd5/summary_amd5_2020-03-20_06:12:38'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/amd5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/amd5/summary_amd5_2020-03-20_06:12:38'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/amd5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/amd5/summary_amd5_2020-03-20_06:12:38'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/amd5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/amd5/summary_amd5_2020-03-20_06:12:38'
+amd5+staleld
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-user/amd5+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/amd5+staleld/summary_amd5+staleld_2020-03-20_06:12:39'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/amd5+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/amd5+staleld/summary_amd5+staleld_2020-03-20_06:12:39'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/amd5+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/amd5+staleld/summary_amd5+staleld_2020-03-20_06:12:39'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/amd5+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/amd5+staleld/summary_amd5+staleld_2020-03-20_06:12:40'
+co-iriw
+./PerpLEResults/x86tso-nofence-user/co-iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/co-iriw/summary_co-iriw_2020-03-20_06:12:40'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/co-iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/co-iriw/summary_co-iriw_2020-03-20_06:12:40'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/co-iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/co-iriw/summary_co-iriw_2020-03-20_06:12:41'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/co-iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/co-iriw/summary_co-iriw_2020-03-20_06:12:41'
+iriw
+./PerpLEResults/x86tso-nofence-user/iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/iriw/summary_iriw_2020-03-20_06:12:41'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/iriw/summary_iriw_2020-03-20_06:12:42'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/iriw/summary_iriw_2020-03-20_06:12:42'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/iriw
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/iriw/summary_iriw_2020-03-20_06:12:42'
+iwp23b
+./PerpLEResults/x86tso-nofence-user/iwp23b
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/iwp23b/summary_iwp23b_2020-03-20_06:12:43'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/iwp23b
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/iwp23b/summary_iwp23b_2020-03-20_06:12:43'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/iwp23b
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/iwp23b/summary_iwp23b_2020-03-20_06:12:43'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/iwp23b
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/iwp23b/summary_iwp23b_2020-03-20_06:12:44'
+iwp24
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-user/iwp24
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/iwp24/summary_iwp24_2020-03-20_06:12:44'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/iwp24
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/iwp24/summary_iwp24_2020-03-20_06:12:44'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/iwp24
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/iwp24/summary_iwp24_2020-03-20_06:12:45'
+In file included from integratedHarness.c:7:0:
+checker.c:16:1: error: expected identifier or ‘(’ before ‘}’ token
+ }
+ ^
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/iwp24
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/iwp24/summary_iwp24_2020-03-20_06:12:45'
+lb
+./PerpLEResults/x86tso-nofence-user/lb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/lb/summary_lb_2020-03-20_06:12:45'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/lb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/lb/summary_lb_2020-03-20_06:12:46'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/lb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/lb/summary_lb_2020-03-20_06:12:46'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/lb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/lb/summary_lb_2020-03-20_06:12:46'
+mp
+./PerpLEResults/x86tso-nofence-user/mp
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/mp/summary_mp_2020-03-20_06:12:47'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/mp
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/mp/summary_mp_2020-03-20_06:12:47'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/mp
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/mp/summary_mp_2020-03-20_06:12:47'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/mp
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/mp/summary_mp_2020-03-20_06:12:48'
+mp+fences
+./PerpLEResults/x86tso-nofence-user/mp+fences
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/mp+fences/summary_mp+fences_2020-03-20_06:12:48'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/mp+fences
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/mp+fences/summary_mp+fences_2020-03-20_06:12:48'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/mp+fences
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/mp+fences/summary_mp+fences_2020-03-20_06:12:49'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/mp+fences
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/mp+fences/summary_mp+fences_2020-03-20_06:12:49'
+mp+staleld
+./PerpLEResults/x86tso-nofence-user/mp+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/mp+staleld/summary_mp+staleld_2020-03-20_06:12:49'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/mp+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/mp+staleld/summary_mp+staleld_2020-03-20_06:12:50'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/mp+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/mp+staleld/summary_mp+staleld_2020-03-20_06:12:50'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/mp+staleld
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/mp+staleld/summary_mp+staleld_2020-03-20_06:12:50'
+n1
+./PerpLEResults/x86tso-nofence-user/n1
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/n1/summary_n1_2020-03-20_06:12:51'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/n1
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/n1/summary_n1_2020-03-20_06:12:51'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/n1
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/n1/summary_n1_2020-03-20_06:12:51'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/n1
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/n1/summary_n1_2020-03-20_06:12:52'
+n4
+./PerpLEResults/x86tso-nofence-user/n4
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/n4/summary_n4_2020-03-20_06:12:52'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/n4
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/n4/summary_n4_2020-03-20_06:12:52'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/n4
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/n4/summary_n4_2020-03-20_06:12:53'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/n4
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/n4/summary_n4_2020-03-20_06:12:53'
+n5
+./PerpLEResults/x86tso-nofence-user/n5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/n5/summary_n5_2020-03-20_06:12:53'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/n5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/n5/summary_n5_2020-03-20_06:12:54'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/n5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/n5/summary_n5_2020-03-20_06:12:54'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/n5
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/n5/summary_n5_2020-03-20_06:12:54'
+podwr000
+./PerpLEResults/x86tso-nofence-user/podwr000
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/podwr000/summary_podwr000_2020-03-20_06:12:55'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/podwr000
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/podwr000/summary_podwr000_2020-03-20_06:12:55'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/podwr000
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/podwr000/summary_podwr000_2020-03-20_06:12:55'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/podwr000
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/podwr000/summary_podwr000_2020-03-20_06:12:56'
+rfi009
+./PerpLEResults/x86tso-nofence-user/rfi009
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/rfi009/summary_rfi009_2020-03-20_06:12:56'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/rfi009
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/rfi009/summary_rfi009_2020-03-20_06:12:57'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/rfi009
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/rfi009/summary_rfi009_2020-03-20_06:12:57'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/rfi009
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/rfi009/summary_rfi009_2020-03-20_06:12:57'
+rfi013
+./PerpLEResults/x86tso-nofence-user/rfi013
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/rfi013/summary_rfi013_2020-03-20_06:12:58'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/rfi013
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/rfi013/summary_rfi013_2020-03-20_06:12:58'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/rfi013
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/rfi013/summary_rfi013_2020-03-20_06:12:58'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/rfi013
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/rfi013/summary_rfi013_2020-03-20_06:12:59'
+rfi015
+./PerpLEResults/x86tso-nofence-user/rfi015
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/rfi015/summary_rfi015_2020-03-20_06:12:59'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/rfi015
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/rfi015/summary_rfi015_2020-03-20_06:12:59'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/rfi015
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/rfi015/summary_rfi015_2020-03-20_06:13:00'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/rfi015
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/rfi015/summary_rfi015_2020-03-20_06:13:00'
+rfi017
+./PerpLEResults/x86tso-nofence-user/rfi017
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/rfi017/summary_rfi017_2020-03-20_06:13:00'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/rfi017
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/rfi017/summary_rfi017_2020-03-20_06:13:01'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/rfi017
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/rfi017/summary_rfi017_2020-03-20_06:13:01'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/rfi017
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/rfi017/summary_rfi017_2020-03-20_06:13:01'
+rwc-fenced
+./PerpLEResults/x86tso-nofence-user/rwc-fenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/rwc-fenced/summary_rwc-fenced_2020-03-20_06:13:01'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/rwc-fenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/rwc-fenced/summary_rwc-fenced_2020-03-20_06:13:02'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/rwc-fenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/rwc-fenced/summary_rwc-fenced_2020-03-20_06:13:02'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/rwc-fenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/rwc-fenced/summary_rwc-fenced_2020-03-20_06:13:02'
+rwc-unfenced
+./PerpLEResults/x86tso-nofence-user/rwc-unfenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/rwc-unfenced/summary_rwc-unfenced_2020-03-20_06:13:03'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/rwc-unfenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/rwc-unfenced/summary_rwc-unfenced_2020-03-20_06:13:03'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/rwc-unfenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/rwc-unfenced/summary_rwc-unfenced_2020-03-20_06:13:03'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/rwc-unfenced
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/rwc-unfenced/summary_rwc-unfenced_2020-03-20_06:13:04'
+safe006
+./PerpLEResults/x86tso-nofence-user/safe006
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe006/summary_safe006_2020-03-20_06:13:04'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe006
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe006/summary_safe006_2020-03-20_06:13:05'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe006
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe006/summary_safe006_2020-03-20_06:13:05'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe006
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe006/summary_safe006_2020-03-20_06:13:05'
+safe012
+./PerpLEResults/x86tso-nofence-user/safe012
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe012/summary_safe012_2020-03-20_06:13:06'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe012
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe012/summary_safe012_2020-03-20_06:13:06'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe012
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe012/summary_safe012_2020-03-20_06:13:06'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe012
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe012/summary_safe012_2020-03-20_06:13:07'
+safe018
+./PerpLEResults/x86tso-nofence-user/safe018
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe018/summary_safe018_2020-03-20_06:13:07'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe018
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe018/summary_safe018_2020-03-20_06:13:07'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe018
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe018/summary_safe018_2020-03-20_06:13:08'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe018
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe018/summary_safe018_2020-03-20_06:13:08'
+safe022
+./PerpLEResults/x86tso-nofence-user/safe022
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe022/summary_safe022_2020-03-20_06:13:08'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe022
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe022/summary_safe022_2020-03-20_06:13:09'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe022
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe022/summary_safe022_2020-03-20_06:13:09'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe022
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe022/summary_safe022_2020-03-20_06:13:09'
+safe024
+./PerpLEResults/x86tso-nofence-user/safe024
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe024/summary_safe024_2020-03-20_06:13:10'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe024
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe024/summary_safe024_2020-03-20_06:13:10'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe024
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe024/summary_safe024_2020-03-20_06:13:10'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe024
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe024/summary_safe024_2020-03-20_06:13:11'
+safe027
+./PerpLEResults/x86tso-nofence-user/safe027
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe027/summary_safe027_2020-03-20_06:13:11'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe027
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe027/summary_safe027_2020-03-20_06:13:11'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe027
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe027/summary_safe027_2020-03-20_06:13:12'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe027
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe027/summary_safe027_2020-03-20_06:13:12'
+safe028
+./PerpLEResults/x86tso-nofence-user/safe028
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe028/summary_safe028_2020-03-20_06:13:12'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe028
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe028/summary_safe028_2020-03-20_06:13:13'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe028
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe028/summary_safe028_2020-03-20_06:13:13'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe028
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe028/summary_safe028_2020-03-20_06:13:13'
+safe036
+./PerpLEResults/x86tso-nofence-user/safe036
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe036/summary_safe036_2020-03-20_06:13:14'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe036
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe036/summary_safe036_2020-03-20_06:13:14'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe036
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe036/summary_safe036_2020-03-20_06:13:14'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe036
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe036/summary_safe036_2020-03-20_06:13:15'
+sb
+./PerpLEResults/x86tso-nofence-user/sb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/sb/summary_sb_2020-03-20_06:13:15'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/sb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/sb/summary_sb_2020-03-20_06:13:15'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/sb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/sb/summary_sb_2020-03-20_06:13:16'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/sb
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/sb/summary_sb_2020-03-20_06:13:16'
+wrc
+./PerpLEResults/x86tso-nofence-user/wrc
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/wrc/summary_wrc_2020-03-20_06:13:16'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/wrc
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/wrc/summary_wrc_2020-03-20_06:13:17'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/wrc
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/wrc/summary_wrc_2020-03-20_06:13:17'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/wrc
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/wrc/summary_wrc_2020-03-20_06:13:18'
+podwr001
+./PerpLEResults/x86tso-nofence-user/podwr001
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/podwr001/summary_podwr001_2020-03-20_06:13:18'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/podwr001
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/podwr001/summary_podwr001_2020-03-20_06:13:18'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/podwr001
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/podwr001/summary_podwr001_2020-03-20_06:13:19'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/podwr001
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/podwr001/summary_podwr001_2020-03-20_06:13:19'
+safe007
+./PerpLEResults/x86tso-nofence-user/safe007
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-user/safe007/summary_safe007_2020-03-20_06:13:19'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-userfence/safe007
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-userfence/safe007/summary_safe007_2020-03-20_06:13:19'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-none/safe007
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-none/safe007/summary_safe007_2020-03-20_06:13:20'
+Could not create working directory.
+./PerpLEResults/x86tso-nofence-pthread/safe007
+Could not create directory.
+Traceback (most recent call last):
+  File "barriertester.py", line 53, in <module>
+    s = open(summfilename, 'w+')
+IOError: [Errno 2] No such file or directory: './PerpLEResults/x86tso-nofence-pthread/safe007/summary_safe007_2020-03-20_06:13:20'
+amd10
+./PerpLEResults/x86tso-nofence-user/amd10
+./PerpLEResults/x86tso-nofence-userfence/amd10
+./PerpLEResults/x86tso-nofence-none/amd10
+./PerpLEResults/x86tso-nofence-pthread/amd10
+amd3
+./PerpLEResults/x86tso-nofence-user/amd3
+./PerpLEResults/x86tso-nofence-userfence/amd3
+./PerpLEResults/x86tso-nofence-none/amd3
+./PerpLEResults/x86tso-nofence-pthread/amd3
+amd5
+./PerpLEResults/x86tso-nofence-user/amd5
+./PerpLEResults/x86tso-nofence-userfence/amd5
+./PerpLEResults/x86tso-nofence-none/amd5
+./PerpLEResults/x86tso-nofence-pthread/amd5
+amd5+staleld
+./PerpLEResults/x86tso-nofence-user/amd5+staleld
+./PerpLEResults/x86tso-nofence-userfence/amd5+staleld
+./PerpLEResults/x86tso-nofence-none/amd5+staleld
+./PerpLEResults/x86tso-nofence-pthread/amd5+staleld
+co-iriw
+./PerpLEResults/x86tso-nofence-user/co-iriw
+./PerpLEResults/x86tso-nofence-userfence/co-iriw
+./PerpLEResults/x86tso-nofence-none/co-iriw
+./PerpLEResults/x86tso-nofence-pthread/co-iriw
+iriw
+./PerpLEResults/x86tso-nofence-user/iriw
+./PerpLEResults/x86tso-nofence-userfence/iriw
+./PerpLEResults/x86tso-nofence-none/iriw
+./PerpLEResults/x86tso-nofence-pthread/iriw
+iwp23b
+./PerpLEResults/x86tso-nofence-user/iwp23b
+./PerpLEResults/x86tso-nofence-userfence/iwp23b
+./PerpLEResults/x86tso-nofence-none/iwp23b
+./PerpLEResults/x86tso-nofence-pthread/iwp23b
+iwp24
+./PerpLEResults/x86tso-nofence-user/iwp24
+./PerpLEResults/x86tso-nofence-userfence/iwp24
+./PerpLEResults/x86tso-nofence-none/iwp24
+./PerpLEResults/x86tso-nofence-pthread/iwp24
+lb
+./PerpLEResults/x86tso-nofence-user/lb
+./PerpLEResults/x86tso-nofence-userfence/lb
+./PerpLEResults/x86tso-nofence-none/lb
+./PerpLEResults/x86tso-nofence-pthread/lb
+mp
+./PerpLEResults/x86tso-nofence-user/mp
+./PerpLEResults/x86tso-nofence-userfence/mp
+./PerpLEResults/x86tso-nofence-none/mp
+./PerpLEResults/x86tso-nofence-pthread/mp
+mp+fences
+./PerpLEResults/x86tso-nofence-user/mp+fences
+./PerpLEResults/x86tso-nofence-userfence/mp+fences
+./PerpLEResults/x86tso-nofence-none/mp+fences
+./PerpLEResults/x86tso-nofence-pthread/mp+fences
+mp+staleld
+./PerpLEResults/x86tso-nofence-user/mp+staleld
+./PerpLEResults/x86tso-nofence-userfence/mp+staleld
+./PerpLEResults/x86tso-nofence-none/mp+staleld
+./PerpLEResults/x86tso-nofence-pthread/mp+staleld
+n1
+./PerpLEResults/x86tso-nofence-user/n1
+./PerpLEResults/x86tso-nofence-userfence/n1
+./PerpLEResults/x86tso-nofence-none/n1
+./PerpLEResults/x86tso-nofence-pthread/n1
+n4
+./PerpLEResults/x86tso-nofence-user/n4
+./PerpLEResults/x86tso-nofence-userfence/n4
+./PerpLEResults/x86tso-nofence-none/n4
+./PerpLEResults/x86tso-nofence-pthread/n4
+n5
+./PerpLEResults/x86tso-nofence-user/n5
+./PerpLEResults/x86tso-nofence-userfence/n5
+./PerpLEResults/x86tso-nofence-none/n5
+./PerpLEResults/x86tso-nofence-pthread/n5
+podwr000
+./PerpLEResults/x86tso-nofence-user/podwr000
+./PerpLEResults/x86tso-nofence-userfence/podwr000
+./PerpLEResults/x86tso-nofence-none/podwr000
+./PerpLEResults/x86tso-nofence-pthread/podwr000
+rfi009
+./PerpLEResults/x86tso-nofence-user/rfi009
+./PerpLEResults/x86tso-nofence-userfence/rfi009
+./PerpLEResults/x86tso-nofence-none/rfi009
+./PerpLEResults/x86tso-nofence-pthread/rfi009
+rfi013
+./PerpLEResults/x86tso-nofence-user/rfi013
+./PerpLEResults/x86tso-nofence-userfence/rfi013
+./PerpLEResults/x86tso-nofence-none/rfi013
+./PerpLEResults/x86tso-nofence-pthread/rfi013
+rfi015
+./PerpLEResults/x86tso-nofence-user/rfi015
+./PerpLEResults/x86tso-nofence-userfence/rfi015
+./PerpLEResults/x86tso-nofence-none/rfi015
+./PerpLEResults/x86tso-nofence-pthread/rfi015
+rfi017
+./PerpLEResults/x86tso-nofence-user/rfi017
+./PerpLEResults/x86tso-nofence-userfence/rfi017
+./PerpLEResults/x86tso-nofence-none/rfi017
+./PerpLEResults/x86tso-nofence-pthread/rfi017
+rwc-fenced
+./PerpLEResults/x86tso-nofence-user/rwc-fenced
+./PerpLEResults/x86tso-nofence-userfence/rwc-fenced
+./PerpLEResults/x86tso-nofence-none/rwc-fenced
+./PerpLEResults/x86tso-nofence-pthread/rwc-fenced
+rwc-unfenced
+./PerpLEResults/x86tso-nofence-user/rwc-unfenced
+./PerpLEResults/x86tso-nofence-userfence/rwc-unfenced
+./PerpLEResults/x86tso-nofence-none/rwc-unfenced
+./PerpLEResults/x86tso-nofence-pthread/rwc-unfenced
+safe006
+./PerpLEResults/x86tso-nofence-user/safe006
+./PerpLEResults/x86tso-nofence-userfence/safe006
+./PerpLEResults/x86tso-nofence-none/safe006
+./PerpLEResults/x86tso-nofence-pthread/safe006
+safe012
+./PerpLEResults/x86tso-nofence-user/safe012
+./PerpLEResults/x86tso-nofence-userfence/safe012
+./PerpLEResults/x86tso-nofence-none/safe012
+./PerpLEResults/x86tso-nofence-pthread/safe012
+safe018
+./PerpLEResults/x86tso-nofence-user/safe018
+./PerpLEResults/x86tso-nofence-userfence/safe018
+./PerpLEResults/x86tso-nofence-none/safe018
+./PerpLEResults/x86tso-nofence-pthread/safe018
+safe022
+./PerpLEResults/x86tso-nofence-user/safe022
+./PerpLEResults/x86tso-nofence-userfence/safe022
+./PerpLEResults/x86tso-nofence-none/safe022
+./PerpLEResults/x86tso-nofence-pthread/safe022
+safe024
+./PerpLEResults/x86tso-nofence-user/safe024
+./PerpLEResults/x86tso-nofence-userfence/safe024
+./PerpLEResults/x86tso-nofence-none/safe024
+./PerpLEResults/x86tso-nofence-pthread/safe024
+safe027
+./PerpLEResults/x86tso-nofence-user/safe027
+./PerpLEResults/x86tso-nofence-userfence/safe027
+./PerpLEResults/x86tso-nofence-none/safe027
+./PerpLEResults/x86tso-nofence-pthread/safe027
+safe028
+./PerpLEResults/x86tso-nofence-user/safe028
+./PerpLEResults/x86tso-nofence-userfence/safe028
+./PerpLEResults/x86tso-nofence-none/safe028
+./PerpLEResults/x86tso-nofence-pthread/safe028
+safe036
+./PerpLEResults/x86tso-nofence-user/safe036
+./PerpLEResults/x86tso-nofence-userfence/safe036
+./PerpLEResults/x86tso-nofence-none/safe036
+./PerpLEResults/x86tso-nofence-pthread/safe036
+sb
+./PerpLEResults/x86tso-nofence-user/sb
+./PerpLEResults/x86tso-nofence-userfence/sb
+./PerpLEResults/x86tso-nofence-none/sb
+./PerpLEResults/x86tso-nofence-pthread/sb
+wrc
+./PerpLEResults/x86tso-nofence-user/wrc
+./PerpLEResults/x86tso-nofence-userfence/wrc
+./PerpLEResults/x86tso-nofence-none/wrc
+./PerpLEResults/x86tso-nofence-pthread/wrc
+podwr001
+./PerpLEResults/x86tso-nofence-user/podwr001
+./PerpLEResults/x86tso-nofence-userfence/podwr001
+./PerpLEResults/x86tso-nofence-none/podwr001
+./PerpLEResults/x86tso-nofence-pthread/podwr001
+safe007
+./PerpLEResults/x86tso-nofence-user/safe007
+./PerpLEResults/x86tso-nofence-userfence/safe007
+./PerpLEResults/x86tso-nofence-none/safe007
+./PerpLEResults/x86tso-nofence-pthread/safe007
+amd5
+100 0 0 0.000226280 0.000001970 0.000001982
+100 0 0 0.000167518 0.000001453 0.000001681
+100 0 0 0.000190825 0.000001686 0.000002147
+100 0 0 0.000203248 0.000001853 0.000002447
+100 0 0 0.000223562 0.000001578 0.000002520
+100 0 0 0.000182852 0.000001443 0.000001670
+100 0 0 0.000203273 0.000001905 0.000002286
+100 0 0 0.000184063 0.000001722 0.000001941
+100 0 0 0.000182508 0.000001686 0.000001790
+100 0 0 0.000205620 0.000001633 0.000001691
+1000 0 0 0.000398671 0.000006454 0.000006834
+1000 0 0 0.000375784 0.000006447 0.000007006
+1000 0 0 0.000406592 0.000006220 0.000008722
+1000 0 0 0.000403869 0.000007079 0.000010419
+1000 0 0 0.000295969 0.000006825 0.000008004
+1000 0 0 0.000301288 0.000007186 0.000008241
+1000 0 0 0.000405182 0.000006603 0.000007383
+1000 0 0 0.000288179 0.000006692 0.000007466
+1000 0 0 0.000380210 0.000006042 0.000006593
+1000 0 0 0.000316131 0.000007241 0.000007500
+10000 0 0 0.002209803 0.000056436 0.000054100
+10000 0 0 0.001150261 0.000051461 0.000056171
+10000 0 0 0.002314793 0.000062902 0.000067353
+10000 0 0 0.001237990 0.000058676 0.000064171
+10000 0 0 0.001419930 0.000068562 0.000074994
+10000 0 0 0.002353772 0.000070608 0.000085857
+10000 0 0 0.001295421 0.000063369 0.000073362
+10000 0 0 0.001224305 0.000058540 0.000064576
+10000 0 0 0.001321579 0.000063172 0.000068854
+10000 0 0 0.001252091 0.000058568 0.000064548
+100000 0 0 0.019217562 0.000000000 0.000454532
+100000 0 0 0.019043831 0.000000000 0.000483613
+100000 0 0 0.017703460 0.000000000 0.000380069
+100000 0 0 0.017569885 0.000000000 0.000342822
+100000 0 0 0.017797165 0.000000000 0.000447451
+100000 0 0 0.016846309 0.000000000 0.000433324
+100000 0 0 0.022087358 0.000000000 0.000618825
+100000 0 0 0.019288842 0.000000000 0.000477368
+100000 0 0 0.017879978 0.000000000 0.000440403
+100000 0 0 0.011177074 0.000000000 0.000629111
+1000000 0 0 0.084008671 0.000000000 0.003072110
+1000000 0 0 0.176293656 0.000000000 0.002693110
+1000000 0 0 0.101365791 0.000000000 0.004047884
+1000000 0 0 0.075430948 0.000000000 0.003074613
+1000000 0 0 0.197741744 0.000000000 0.002901537
+1000000 0 0 0.077790358 0.000000000 0.003059538
+1000000 0 0 0.101692403 0.000000000 0.004041908
+1000000 0 0 0.078128406 0.000000000 0.003039535
+1000000 0 0 0.097680809 0.000000000 0.003731138
+1000000 0 0 0.184487368 0.000000000 0.002905660
+10000000 0 0 0.692207137 0.000000000 0.027922125
+10000000 0 0 1.551637843 0.000000000 0.029059347
+10000000 0 0 0.662280960 0.000000000 0.029891017
+10000000 0 0 1.533933690 0.000000000 0.060972773
+10000000 0 0 1.523232743 0.000000000 0.028303608
+10000000 0 0 0.697121001 0.000000000 0.027951351
+10000000 0 0 0.671108244 0.000000000 0.032446942
+10000000 0 0 1.468781014 0.000000000 0.062887705
+10000000 0 0 1.407666482 0.000000000 0.078473189
+10000000 0 0 1.627124594 0.000000000 0.059198654
+100000000 0 0 12.433043486 0.000000000 0.421488898
+100000000 0 0 15.096840402 0.000000000 0.356254617
+100000000 0 0 14.224125007 0.000000000 0.326255437
+100000000 0 0 13.434827211 0.000000000 0.510408253
+100000000 0 0 12.331042499 0.000000000 0.460450804
+100000000 0 0 14.579469401 0.000000000 0.324898124
+100000000 0 0 15.036417204 0.000000000 0.392621741
+100000000 0 0 15.742216316 0.000000000 0.358122094
+100000000 0 0 14.783003358 0.000000000 0.386592671
+100000000 0 0 15.684879860 0.000000000 0.398713567
+./PerpLEResults/x86tso-nofence-timebase/amd5
+Could not create directory.
+0.001969749
+1.6929e-05
+2.0155e-05
+0.003571875
+6.6789e-05
+7.8168e-05
+0.015779945
+0.000612294
+0.000673986
+0.178611464
+0.0
+0.004707518
+1.174620154
+0.0
+0.032567033
+11.835093708
+0.0
+0.437106711
+143.345864744
+0.0
+3.935806206
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+[0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+amd5+staleld
+100 0 0 0.000613921 0.000002271 0.000002543
+100 0 0 0.000175460 0.000001843 0.000001968
+100 0 0 0.000193791 0.000001954 0.000002125
+100 0 0 0.000188787 0.000001812 0.000002011
+100 0 0 0.000199886 0.000001683 0.000002030
+100 0 0 0.000166995 0.000001788 0.000001852
+100 0 0 0.000184981 0.000001776 0.000001970
+100 0 0 0.000186426 0.000001673 0.000002081
+100 0 0 0.000196337 0.000001650 0.000001864
+100 0 0 0.000182683 0.000001796 0.000002366
+1000 0 0 0.000280378 0.000006693 0.000008374
+1000 0 0 0.000304360 0.000005730 0.000006277
+1000 0 0 0.000304902 0.000006812 0.000007813
+1000 0 0 0.000282236 0.000006977 0.000008275
+1000 0 0 0.000340036 0.000004992 0.000008892
+1000 0 0 0.000349212 0.000006265 0.000008447
+1000 0 0 0.000388491 0.000007065 0.000007977
+1000 0 0 0.000334242 0.000005291 0.000006632
+1000 0 0 0.000396420 0.000006163 0.000008368
+1000 0 0 0.000281328 0.000006680 0.000007899
+10000 0 0 0.001918400 0.000048242 0.000052664
+10000 0 0 0.001141518 0.000055311 0.000059897
+10000 0 0 0.001291840 0.000059372 0.000062640
+10000 0 0 0.001864706 0.000048447 0.000048639
+10000 0 0 0.001864939 0.000050552 0.000063790
+10000 0 0 0.001210225 0.000059335 0.000064489
+10000 0 0 0.001986700 0.000056351 0.000066008
+10000 0 0 0.001878393 0.000043983 0.000050062
+10000 0 0 0.001868519 0.000045093 0.000057258
+10000 0 0 0.001211057 0.000053300 0.000058682
+100000 0 0 0.016451947 0.000000000 0.000422513
+100000 0 0 0.008271550 0.000000000 0.000438191
+100000 0 0 0.015733631 0.000000000 0.000397313
+100000 0 0 0.007879904 0.000000000 0.000420968
+100000 0 0 0.017607452 0.000000000 0.000491176
+100000 0 0 0.016075235 0.000000000 0.000337308
+100000 0 0 0.014054580 0.000000000 0.000311388
+100000 0 0 0.015021006 0.000000000 0.000386189
+100000 0 0 0.007472887 0.000000000 0.000414465
+100000 0 0 0.007225595 0.000000000 0.000386041
+1000000 0 0 0.095687990 0.000000000 0.004622189
+1000000 0 0 0.089463445 0.000000000 0.004618872
+1000000 0 0 0.165193227 0.000000000 0.003111414
+1000000 0 0 0.097307149 0.000000000 0.004399179
+1000000 0 0 0.160492643 0.000000000 0.003091126
+1000000 0 0 0.165213411 0.000000000 0.003811688
+1000000 0 0 0.097496301 0.000000000 0.005120744
+1000000 0 0 0.168178860 0.000000000 0.003372675
+1000000 0 0 0.162781532 0.000000000 0.003622973
+1000000 0 0 0.161797134 0.000000000 0.003507124
+10000000 0 0 0.655818180 0.000000000 0.053785099
+10000000 0 0 1.247280012 0.000000000 0.118941193
+10000000 0 0 1.347708855 0.000000000 0.117118479
+10000000 0 0 1.124751747 0.000000000 0.115340810
+10000000 0 0 0.653827845 0.000000000 0.049214444
+10000000 0 0 0.662572659 0.000000000 0.053589422
+10000000 0 0 1.013357355 0.000000000 0.133414274
+10000000 0 0 0.657479972 0.000000000 0.054016861
+10000000 0 0 1.557000288 0.000000000 0.033247286
+10000000 0 0 1.382386407 0.000000000 0.116451219
+100000000 0 0 13.340085816 0.000000000 0.518661596
+100000000 0 0 14.925691654 0.000000000 0.410731063
+100000000 0 0 12.825378981 0.000000000 0.597041445
+100000000 0 0 12.674416050 0.000000000 0.582722167
+100000000 0 0 14.935895762 0.000000000 0.410988027
+100000000 0 0 10.330349974 0.000000000 0.526384403
+100000000 0 0 5.900959789 0.000000000 0.675318057
+100000000 0 0 13.331639583 0.000000000 0.586485147
+100000000 0 0 13.660254479 0.000000000 0.571134495
+100000000 0 0 13.499271750 0.000000000 0.499277299
+./PerpLEResults/x86tso-nofence-timebase/amd5+staleld
+Could not create directory.
+0.002289267
+1.8246e-05
+2.081e-05
+0.003261605
+6.2668e-05
+7.8954e-05
+0.016236297
+0.000519986
+0.000584129
+0.125793787
+0.0
+0.004005552
+1.363611692
+0.0
+0.039277984
+10.30218332
+0.0
+0.845119087
+125.423943838
+0.0
+5.378743699
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+[0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+iwp24
+100 134 16 0.000204769 0.000071737 0.000001838
+100 1879 100 0.000181555 0.000079049 0.000001757
+100 1165 90 0.000129905 0.000046985 0.000001076
+100 324 44 0.000183100 0.000068655 0.000001941
+100 540 44 0.000147726 0.000060693 0.000001312
+100 0 0 0.000182117 0.000066582 0.000001536
+100 1787 98 0.000191621 0.000074047 0.000001801
+100 128 29 0.000190407 0.000062621 0.000001604
+100 1392 76 0.000177829 0.000072384 0.000001674
+100 0 0 0.000166027 0.000066782 0.000001593
+1000 3795 242 0.000218597 0.005821573 0.000007787
+1000 1250 158 0.000198535 0.005812192 0.000007546
+1000 16781 950 0.000164528 0.004136467 0.000005636
+1000 1984 193 0.000197279 0.005433310 0.000007098
+1000 966 134 0.000196945 0.005118413 0.000006689
+1000 17063 549 0.000165154 0.005472821 0.000007161
+1000 864 103 0.000196153 0.005423176 0.000007648
+1000 8327 600 0.000146077 0.002929407 0.000004377
+1000 11623 766 0.000164916 0.002956161 0.000004553
+1000 1086 152 0.000162364 0.004408955 0.000005615
+10000 28174 2150 0.000330701 0.310407519 0.000030663
+10000 20166 1849 0.000252888 0.268255797 0.000030392
+10000 34133 2282 0.000386125 0.334017228 0.000030995
+10000 24020 1845 0.000245062 0.264916150 0.000029460
+10000 14017 492 0.000408698 0.325111303 0.000031241
+10000 31996 2064 0.000380620 0.325256971 0.000030101
+10000 6680 335 0.000383026 0.330512445 0.000031147
+10000 43699 2864 0.000359481 0.333762549 0.000031302
+10000 5742 407 0.000388546 0.326082187 0.000029901
+10000 18246 1996 0.000321423 0.258865276 0.000031239
+100000 0 16846 0.002010776 0.000000000 0.000830346
+100000 0 10393 0.001736732 0.000000000 0.000749259
+100000 0 30077 0.001908538 0.000000000 0.000756963
+100000 0 2650 0.001744402 0.000000000 0.000741191
+100000 0 12105 0.001812147 0.000000000 0.000431417
+100000 0 23657 0.001731007 0.000000000 0.000656893
+100000 0 12783 0.001519755 0.000000000 0.000664416
+100000 0 21520 0.002002431 0.000000000 0.000836786
+100000 0 3083 0.001951236 0.000000000 0.000845380
+100000 0 18729 0.001774071 0.000000000 0.000770869
+1000000 0 19426 0.021609035 0.000000000 0.007005302
+1000000 0 156454 0.012569003 0.000000000 0.005829131
+1000000 0 129821 0.016091830 0.000000000 0.007141854
+1000000 0 92981 0.014474207 0.000000000 0.005948818
+1000000 0 156067 0.017974444 0.000000000 0.006545736
+1000000 0 97796 0.016930785 0.000000000 0.008477714
+1000000 0 97201 0.030924648 0.000000000 0.008080907
+1000000 0 64975 0.028311888 0.000000000 0.008094958
+1000000 0 119344 0.017543125 0.000000000 0.007456606
+1000000 0 172107 0.017576131 0.000000000 0.006732283
+10000000 0 1430419 0.142407412 0.000000000 0.042728632
+10000000 0 1024952 0.202626458 0.000000000 0.056252014
+10000000 0 1643002 0.136229017 0.000000000 0.057406469
+10000000 0 567604 0.216118334 0.000000000 0.047377262
+10000000 0 3558695 0.148431727 0.000000000 0.046360282
+10000000 0 1662535 0.133240808 0.000000000 0.052986699
+10000000 0 3400209 0.150581046 0.000000000 0.046337464
+10000000 0 1666901 0.133032296 0.000000000 0.053817945
+10000000 0 1763708 0.138578804 0.000000000 0.052902520
+10000000 0 822530 0.155293211 0.000000000 0.076455133
+100000000 0 13075020 1.171955587 0.000000000 0.393968569
+100000000 0 14992936 1.057562427 0.000000000 0.378639114
+100000000 0 19024139 1.361441990 0.000000000 0.446379244
+100000000 0 16352940 1.037498843 0.000000000 0.501386145
+100000000 0 12629158 1.187991776 0.000000000 0.420645131
+100000000 0 21484633 1.266107539 0.000000000 0.407012269
+100000000 0 27111646 1.137236122 0.000000000 0.399694781
+100000000 0 19114161 1.110503624 0.000000000 0.583501029
+100000000 0 15706729 1.044429494 0.000000000 0.458954773
+100000000 0 24354641 1.186835409 0.000000000 0.400013121
+./PerpLEResults/x86tso-nofence-timebase/iwp24
+Could not create directory.
+0.001755056
+0.000669535
+1.6132e-05
+0.001810548
+0.047512475
+6.411e-05
+0.00345657
+3.077187425
+0.000306441
+0.018191095
+0.0
+0.00728352
+0.194005096
+0.0
+0.071313309
+1.556539113
+0.0
+0.53262442
+11.561562811
+0.0
+4.390194176
+[3031026.6762517882, 1292276.833883438, 73644.666624323785, 0.0, 0.0, 0.0, 0.0]
+[280602.62377568049, 2052107.6377664623, 4327385.7025663769, 5960561.1311495779, 4169224.5210052431, 8395970.3120090775, 11525125.611544022]
+[0, 203200.0, 303712.5, 143928.20512820513, 218189.06666666668, 231983.08483968858, 215955.38485056945]
+safe007
+1000000 0 0 0.017248795 0.000000000 0.007094931
+1000000 0 0 0.013356353 0.000000000 0.008062886
+1000000 0 0 0.012180440 0.000000000 0.006799298
+1000000 0 0 0.010018985 0.000000000 0.006050314
+1000000 0 0 0.011112707 0.000000000 0.007296394
+10000000 0 0 0.094369542 0.000000000 0.049413148
+10000000 0 0 0.089337611 0.000000000 0.035938910
+10000000 0 0 0.092916655 0.000000000 0.033758435
+10000000 0 0 0.093184618 0.000000000 0.033749521
+100000000 0 0 0.660550841 0.000000000 0.460327580
+100000000 0 0 0.648299836 0.000000000 0.381460300
+100000000 0 0 0.651187235 0.000000000 0.406014943
+100000000 0 0 0.611039694 0.000000000 0.326677264
+100000000 0 0 0.629677573 0.000000000 0.329399393
+./PerpLEResults/x86tso-nofence-timebase/safe007
+Could not create directory.
+1.094276547
+0.0
+0.648491417
+[0.0]
+[0.0]
+[0.0, 0.0, 0.0]

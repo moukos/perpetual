@@ -1,0 +1,12 @@
+Test: rfi017
+Date: 2020-04-10 13:27:39
+
+Summary of PerpLE results (start = 10000, steps = 1, tries = 10)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+10000         |930.000       |154.500       |706.800000000 |3.816817164   |0.000627875   |1.309         |0.219         
+
+
+Summary of litmus results (start = 10000, steps = 1, tries = 10)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+10000         |0.000         |0.006000000   |0.000         
+

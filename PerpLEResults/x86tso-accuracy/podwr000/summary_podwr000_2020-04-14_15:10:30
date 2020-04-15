@@ -1,0 +1,12 @@
+Test: podwr000
+Date: 2020-04-14 15:10:30
+
+Summary of PerpLE results (start = 10000, steps = 1, tries = 5)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+10000         |136317.200    |4092.000      |4092.000000000|1.000000000   |0.000274050   |33.305        |1.000         
+
+
+Summary of litmus results (start = 10000, steps = 1, tries = 5)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+10000         |4.400         |0.004000000   |1100.000      
+

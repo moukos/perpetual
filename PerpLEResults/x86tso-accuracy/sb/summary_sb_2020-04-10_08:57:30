@@ -1,0 +1,12 @@
+Test: sb
+Date: 2020-04-10 08:57:30
+
+Summary of PerpLE results (start = 10000, steps = 1, tries = 1)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+10000         |97321.000     |4772.000      |0.000267817   |0.318869277   |0.000027914   |304950.449    |16136286.017  
+
+
+Summary of litmus results (start = 10000, steps = 1, tries = 1)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+10000         |3.000         |0.010000000   |300.000       
+

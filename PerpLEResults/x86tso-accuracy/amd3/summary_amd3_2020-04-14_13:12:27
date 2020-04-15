@@ -1,0 +1,12 @@
+Test: amd3
+Date: 2020-04-14 13:12:27
+
+Summary of PerpLE results (start = 10000, steps = 1, tries = 1)
+Iterations    |F HB Cycles   |H HB Cycles   |Harness Time  |F Checker Time|H Checker Time|F Rate (cyc/s)|H Rate (cyc/s)
+10000         |47182.000     |3330.000      |861.000000000 |0.258558559   |0.000270159   |54.783        |3.868         
+
+
+Summary of litmus results (start = 10000, steps = 1, tries = 1)
+Iterations    |HB Cycles     |Litmus Time   |Rate (cycles/s)
+10000         |0.000         |0.010000000   |0.000         
+

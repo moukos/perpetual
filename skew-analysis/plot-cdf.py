@@ -7,7 +7,7 @@ import seaborn as sns
 
 
 skewdata = []
-f = open("skew-data-sorted3")
+f = open("skew-data-sorted-unfenced")
 for line in f:
     if line:
         line = line = line.replace(" ","")
@@ -20,7 +20,7 @@ plot = sns.distplot(skewdata)
 plot.set(xlabel='Thread skew (Iterations)')
 plot.set(ylabel='Probability density')
 fig = plot.get_figure()
-fig.savefig("skew.png")
+fig.savefig("skew-unfenced.png")
 #hist, bin_edges = np.histogram(skewdata)
 #for i in range(1,30):
 #    print(hist[i],bin_edges[i])        

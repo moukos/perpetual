@@ -1,10 +1,10 @@
 import numpy as np
 #import matplotlib.pyplot as plt
 
-data = np.loadtxt('skew-data2')
+data = np.loadtxt('skew-data')
 
 sorted_data = np.sort(data)
-f = open('skew-data-sorted2',"w+")
+f = open('skew-data-sorted-unfenced',"w+")
 for i in range(0,len(sorted_data)):
     f.write(str(int(sorted_data[i])))
     f.write('\n')
